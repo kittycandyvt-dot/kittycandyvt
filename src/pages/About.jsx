@@ -76,22 +76,22 @@ export default function About() {
           </div>
 
           {/* Character Stats */}
-          <div className="glass rounded-3xl p-6 hidden">
-            <h3 className="font-display text-xl font-bold text-plum-900 mb-4">📊 Character Stats</h3>
-            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
-              {about.stats.map((s) =>
-              <div key={s.label}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-plum-600 font-medium">{s.label}</span>
-                    <span className="text-pink-500 font-bold">{s.value}</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-pink-100 overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-pink-400 to-fuchsia-500 rounded-full" style={{ width: `${s.value}%` }} />
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
         </div>
       </div>
     </div>);
