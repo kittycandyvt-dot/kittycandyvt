@@ -187,7 +187,7 @@ export const socials = [
   { name: "X/Twitter", url: "https://twitter.com/", icon: "Twitter" },
   { name: "Bluesky", url: "https://bsky.app/", icon: "Cloud" },
   { name: "Discord", url: "https://discord.gg/Zndy24ErNr", icon: "MessageCircle" },
-  { name: "Ko-fi", url: "https://ko-fi.com/", icon: "Coffee" },
+  { name: "Ko-fi", url: "https://ko-fi.com/kittycandyvt", icon: "Coffee" },
   { name: "Throne", url: "https://throne.com/", icon: "Crown" },
 ];
 
