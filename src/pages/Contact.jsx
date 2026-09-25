@@ -35,12 +35,19 @@ export default function Contact() {
     <div className="max-w-5xl mx-auto px-4 md:px-6 py-12">
       <SectionHeading eyebrow="Contact" title="Let's Connect" subtitle="Business inquiries and voice acting commissions welcome." />
 
-      <div className="grid md:grid-cols-2 gap-6 mb-10">
+      <div className="grid md:grid-cols-3 gap-6 mb-10">
         <div className="glass rounded-3xl p-6">
           <h3 className="font-display text-xl font-bold text-plum-900 mb-2">💼 Business Inquiries</h3>
           <p className="text-sm text-plum-500 mb-3">For sponsorships, collaborations, and partnerships.</p>
           <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 text-pink-500 font-semibold hover:underline">
             <Mail size={16} /> {site.email}
+          </a>
+        </div>
+        <div className="glass rounded-3xl p-6">
+          <h3 className="font-display text-xl font-bold text-plum-900 mb-2">💳 PayPal</h3>
+          <p className="text-sm text-plum-500 mb-3">Prefer to pay directly? Send payment via PayPal.</p>
+          <a href="https://paypal.me/vennylovesyoucx" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-pink-500 font-semibold hover:underline">
+            paypal.me/vennylovesyoucx ↗
           </a>
         </div>
         <div className="glass rounded-3xl p-6">
