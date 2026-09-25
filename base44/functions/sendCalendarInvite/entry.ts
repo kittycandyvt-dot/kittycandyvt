@@ -12,7 +12,7 @@ export default async function(req) {
 
     const { accessToken } = await base44.asServiceRole.connectors.getConnection("googlecalendar");
 
-    // Build the event time: preferredDate at 10:00 PM, 1 hour duration.
+    // Build the event time: preferredDate at 10:00 PM, 2 hour duration.
     const start = new Date(preferredDate + "T22:00:00");
     const end = new Date(start.getTime() + 60 * 60 * 1000);
 
