@@ -56,11 +56,13 @@ export const vtuberModel = {
   riggingArtist: "Add rigging artist",
   modelVersion: "Add model version",
   outfits: [
-    { name: "Outfit 1", desc: "Description of this outfit.", img: "" },
-    { name: "Outfit 2", desc: "Description of this outfit.", img: "" },
-    { name: "Outfit 3", desc: "Description of this outfit.", img: "" },
-    { name: "Outfit 4", desc: "Description of this outfit.", img: "" },
-    { name: "Outfit 5", desc: "Description of this outfit.", img: "" },
+    { name: "A maid for your desires", desc: "Valentine Sweetheart Maid VTuber outfit.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/c10f72e3e_vts_2026-09-25_03-41-10.png", link: "https://www.etsy.com/ca/listing/4398575782/valentine-sweetheart-maid-vtuber-outfit?ref=yr_purchases" },
+    { name: "Comfy gaming", desc: "Bean Bag Gamer VTuber asset outfit.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/2bfa95fcf_vts_2026-09-25_03-41-32.png", link: "https://www.etsy.com/ca/listing/4487226218/bean-bag-gamer-vtuber-asset-outfit-and?ref=yr_purchases" },
+    { name: "Comfier gaming", desc: "Rigged comfy blanket & controller body asset.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/e4fe34c6d_vts_2026-09-25_03-42-07.png", link: "https://www.etsy.com/ca/listing/4470780018/rigged-comfy-blanket-and-controller-body?ref=yr_purchases" },
+    { name: "Spicy kitty lingerie", desc: "Live2D Neko cat VTuber outfit asset.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/3aafa4085_vts_2026-09-25_03-42-42.png", link: "https://www.etsy.com/ca/listing/4389255394/live2d-neko-cat-vtuber-outfit-asset?ref=yr_purchases" },
+    { name: "Coffee run", desc: "VTuber asset by xiaofaduo.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/aa249420a_vts_2026-09-25_03-43-01.png", link: "https://draw.market/xiaofaduo/shop" },
+    { name: "Meow!", desc: "VTuber asset by xiaofaduo.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/66d948507_vts_2026-09-25_03-43-29.png", link: "https://draw.market/xiaofaduo/shop" },
+    { name: "Fishcat", desc: "Cute pink skirt with adorable cat accessories.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/ffe547ddd_vts_2026-09-25_03-43-52.png", link: "https://www.etsy.com/ca/listing/4425293132/cute-pink-skirt-adorable-cat-accessories?ref=yr_purchases" },
   ],
   modelHistory: [
     { version: "Model v1", date: "Date", note: "Description" },

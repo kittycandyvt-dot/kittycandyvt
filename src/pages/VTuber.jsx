@@ -29,10 +29,13 @@ export default function VTuber() {
         <div className="flex gap-5 overflow-x-auto pb-4 snap-x">
           {vtuberModel.outfits.map((o) => (
             <div key={o.name} className="snap-start shrink-0 w-64 rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-[3/4] bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center text-4xl">👗</div>
+              <div className="aspect-[3/4] bg-black overflow-hidden">
+                <Image src={o.img} alt={o.name} className="w-full h-full" fittingType="fit" />
+              </div>
               <div className="p-4">
                 <h4 className="font-bold text-plum-900">{o.name}</h4>
                 <p className="text-xs text-plum-400 mt-1">{o.desc}</p>
+                <a href={o.link} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs font-semibold text-pink-500 hover:underline">View asset ↗</a>
               </div>
             </div>
           ))}
