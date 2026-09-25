@@ -68,103 +68,110 @@ export default function InterviewSignup() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setError("");
+  setError("");
 
-    if (!form.name.trim() || !form.email.trim()) {
-      setError("Please fill in your name and email.");
-      return;
-    }
+  if (!form.name.trim() || !form.email.trim()) {
+    setError("Please fill in your name and email.");
+    return;
+  }
 
-    if (!selectedSlot) {
-      setError("Please select a time slot.");
-      return;
-    }
+  if (!selectedSlot) {
+    setError("Please select a time slot.");
+    return;
+  }
 
-    setSubmitting(true);
+  setSubmitting(true);
 
-    try {
-      // Check the server one more time immediately before booking.
-      const availabilityResponse =
-        await base44.functions.invoke(
-          "getBookedSlots",
-          {}
-        );
+  try {
+    // Check availability immediately before booking.
+    const availabilityResponse =
+      await base44.functions.invoke("getBookedSlots", {});
 
-      const latestBookedSlots =
-        Array.isArray(availabilityResponse.data?.bookedSlots)
-          ? availabilityResponse.data.bookedSlots
-          : [];
+    const latestBookedSlots =
+      Array.isArray(availabilityResponse.data?.bookedSlots)
+        ? availabilityResponse.data.bookedSlots
+        : [];
 
-      // Make sure the exact slot isn't already booked.
-      if (latestBookedSlots.includes(selectedSlot)) {
-        setBookedSlots(latestBookedSlots);
+    if (latestBookedSlots.includes(selectedSlot)) {
+      setBookedSlots(latestBookedSlots);
 
-        setSelectedSlot("");
-        setForm((currentForm) => ({
-          ...currentForm,
-          preferredDate: "",
-        }));
+      setSelectedSlot("");
 
-        setError(
-          "Sorry, someone has already taken that slot. Please choose another time."
-        );
+      setForm((currentForm) => ({
+        ...currentForm,
+        preferredDate: "",
+      }));
 
-        setSubmitting(false);
-        return;
-      }
-
-      // Save the exact slot.
-      const bookingData = {
-        ...form,
-
-        // Date only.
-        preferredDate: selectedSlot.slice(0, 10),
-
-        // Exact date + time.
-        selectedSlot: selectedSlot,
-
-        status: "pending",
-      };
-
-      await base44.entities.InterviewSignup.create(
-        bookingData
+      setError(
+        "Sorry, someone has already taken that slot. Please choose another time."
       );
 
-      // Send notification.
+      return;
+    }
+
+    // Create the booking.
+    const bookingData = {
+      ...form,
+      preferredDate: selectedSlot.slice(0, 10),
+      selectedSlot: selectedSlot,
+      status: "pending",
+    };
+
+    await base44.entities.InterviewSignup.create(
+      bookingData
+    );
+
+    // Add the slot to the local booked list immediately.
+    setBookedSlots((currentSlots) => [
+      ...currentSlots,
+      selectedSlot,
+    ]);
+
+    // The booking itself succeeded.
+    // Notification/calendar failures should NOT make
+    // the user think the booking failed.
+    try {
       await base44.functions.invoke(
         "sendInterviewNotification",
         bookingData
       );
+    } catch (notificationError) {
+      console.error(
+        "Interview notification failed:",
+        notificationError
+      );
+    }
 
-      // Send calendar invite.
+    try {
       await base44.functions.invoke(
         "sendCalendarInvite",
         bookingData
       );
-
-      // Immediately remove this slot from the page.
-      setBookedSlots((currentSlots) => [
-        ...currentSlots,
-        selectedSlot,
-      ]);
-
-      setSubmitted(true);
-    } catch (err) {
-      console.error("Interview booking error:", err);
-
-      setError(
-        "Something went wrong while booking your interview. Please try again."
+    } catch (calendarError) {
+      console.error(
+        "Calendar invite failed:",
+        calendarError
       );
-    } finally {
-      setSubmitting(false);
     }
-  };
 
-  const resetForm = async () => {
-    setSubmitted(false);
+    // Show successful booking.
+    setSubmitted(true);
 
+  } catch (err) {
+    console.error(
+      "Interview booking failed:",
+      err
+    );
+
+    setError(
+      "We couldn't complete your booking. Please try again."
+    );
+  } finally {
+    setSubmitting(false);
+  }
+};
     setForm({
       name: "",
       email: "",
