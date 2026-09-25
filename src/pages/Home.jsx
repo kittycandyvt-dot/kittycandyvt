@@ -83,6 +83,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* STREAM SCHEDULE */}
+      <section className="py-16 px-4 md:px-6 bg-pink-50/50">
+        <div className="max-w-4xl mx-auto">
+          <SectionHeading eyebrow="Stream Schedule" title="Catch me live ✨" subtitle="All times in EST (10 PM)" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { day: "Monday", icon: "🌙" },
+              { day: "Wednesday", icon: "🎤" },
+              { day: "Friday", icon: "🎉" },
+              { day: "Saturday", icon: "✨" },
+            ].map((s) => (
+              <div key={s.day} className="glass rounded-2xl p-6 text-center hover:-translate-y-1 hover:shadow-lg transition-all">
+                <div className="text-3xl mb-2">{s.icon}</div>
+                <h3 className="font-bold text-plum-900">{s.day}</h3>
+                <p className="text-sm font-semibold text-pink-500 mt-1">10:00 PM EST</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <a href={site.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-105 transition-transform">
+              <Play size={18} /> Follow on {site.livePlatform}
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* HEAR MY VOICE */}
       <section className="py-16 px-4 md:px-6 bg-pink-50/50">
         <div className="max-w-4xl mx-auto">
