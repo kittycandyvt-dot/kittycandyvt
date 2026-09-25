@@ -183,7 +183,7 @@ export const socials = [
   { name: "TikTok", url: "https://www.tiktok.com/@kittycandyvt?is_from_webapp=1&sender_device=pc", icon: "Music2" },
   { name: "Instagram", url: "https://instagram.com/", icon: "Instagram" },
   { name: "X/Twitter", url: "https://twitter.com/", icon: "Twitter" },
-  { name: "Bluesky", url: "https://bsky.app/", icon: "Cloud" },
+
   { name: "Discord", url: "https://discord.gg/Zndy24ErNr", icon: "MessageCircle" },
   { name: "Ko-fi", url: "https://ko-fi.com/kittycandyvt", icon: "Coffee" },
   { name: "Throne", url: "https://throne.com/kittycandy_vt", icon: "Crown" },
