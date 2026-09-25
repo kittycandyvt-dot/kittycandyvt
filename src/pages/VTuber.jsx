@@ -43,24 +43,24 @@ export default function VTuber() {
       </div>
 
       {/* MODEL HISTORY */}
-      <div className="mb-16 hidden">
-        <SectionHeading eyebrow="Model History" title="Evolution timeline" />
-        <div className="relative pl-8">
-          <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-pink-200" />
-          {vtuberModel.modelHistory.map((h) =>
-          <div key={h.version} className="relative mb-6">
-              <div className="absolute -left-[1.35rem] top-1 w-4 h-4 rounded-full bg-gradient-to-br from-pink-400 to-fuchsia-500 border-2 border-white shadow" />
-              <div className="glass rounded-2xl p-4">
-                <div className="flex flex-wrap justify-between items-center">
-                  <h4 className="font-bold text-plum-900">{h.version}</h4>
-                  <span className="text-xs text-pink-500 font-semibold">{h.date}</span>
-                </div>
-                <p className="text-sm text-plum-500 mt-1">{h.note}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 
       {/* LORE */}
       <div className="mb-16 rounded-3xl bg-gradient-to-br from-pink-100 to-fuchsia-100 p-8 md:p-12 border border-pink-200">
