@@ -17,7 +17,7 @@ export const site = {
   birthday: "Add your birthday",
   timezone: "Add your timezone",
   languages: ["Language 1", "Language 2"],
-  pronouns: "Add your pronouns",
+  pronouns: "She/Her",
   vocalRange: "Add your vocal range",
 };
 
@@ -44,7 +44,7 @@ export const about = {
   ],
   profile: {
     "VTuber Name": "KittyCandyVT",
-    Pronouns: "Add your pronouns",
+    Pronouns: "She/Her",
     Birthday: "Add your birthday",
     "Debut Date": "Add your debut date",
     "Time Zone": "Add your timezone",
