@@ -7,6 +7,7 @@ import Sparkles from "@/components/Sparkles";
 import SocialLinks from "@/components/SocialLinks";
 import SectionHeading from "@/components/SectionHeading";
 import AudioPlayer from "@/components/AudioPlayer";
+import { Image } from "@/components/ui/image";
 import StreamSchedule from "@/components/StreamSchedule";
 
 const heroImg = "";
@@ -55,11 +56,8 @@ export default function Home() {
           <div className="order-1 md:order-2 flex justify-center">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-br from-pink-200 to-fuchsia-200 rounded-full blur-2xl opacity-60" />
-              <div className="relative w-72 md:w-96 aspect-[3/4] rounded-[2rem] shadow-2xl border-4 border-white bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center">
-                <div className="text-center text-plum-400">
-                  <div className="text-6xl mb-2">🎀</div>
-                  <p className="text-sm font-medium">Your VTuber Artwork</p>
-                </div>
+              <div className="relative w-72 md:w-96 aspect-[3/4] rounded-[2rem] shadow-2xl border-4 border-white overflow-hidden">
+                <Image src={heroImg || "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/4a032d727_wink.jpg"} alt={`${site.vtuberName} hero artwork`} className="w-full h-full object-cover" fittingType="fill" />
               </div>
               <div className="absolute -top-3 -right-3 grid place-items-center w-12 h-12 rounded-full bg-white shadow-lg text-pink-500">
                 <Star size={22} className="fill-pink-400 text-pink-400" />
