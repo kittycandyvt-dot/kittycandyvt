@@ -114,25 +114,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* LATEST CONTENT */}
-      <section className="py-16 px-4 md:px-6 bg-pink-50/50">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeading eyebrow="Latest Content" title="Fresh from the studio" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {latestContent.map((c) => (
-              <div key={c.title} className="group rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center text-4xl">🎬</div>
-                <div className="p-4">
-                  <span className="text-xs font-semibold text-pink-500 uppercase tracking-wide">{c.platform}</span>
-                  <h3 className="font-semibold text-plum-900 mt-1">{c.title}</h3>
-                  <p className="text-xs text-plum-400 mt-1">{c.type}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* SPONSORS */}
       <section className="py-16 px-4 md:px-6 bg-pink-50/50">
         <div className="max-w-7xl mx-auto">
