@@ -15,10 +15,9 @@ export const site = {
   liveUrl: "https://twitch.tv/kittycandyvt",
   debutDate: "July 2025",
   birthday: "December 31",
-  timezone: "Add your timezone",
-  languages: ["Language 1", "Language 2"],
+  timezone: "EST",
+  languages: ["English", "French"],
   pronouns: "She/Her",
-  vocalRange: "Add your vocal range",
 };
 
 export const about = {
@@ -47,9 +46,8 @@ export const about = {
     Pronouns: "She/Her",
     Birthday: "December 31",
     "Debut Date": "July 2025",
-    "Time Zone": "Add your timezone",
-    Languages: "Add your languages",
-    "Vocal Range": "Add your vocal range",
+    "Time Zone": "EST",
+    Languages: "English / French",
   },
 };
 
