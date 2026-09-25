@@ -26,6 +26,7 @@ const BLOCKED_DATES = [
   "2026-10-04",
   "2026-10-05",
   "2026-10-11",
+  "2026-09-25",
 ];
 
 // Available interview days:
