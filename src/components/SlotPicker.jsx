@@ -7,6 +7,18 @@ const MONTH_NAMES = [
 ];
 
 // Generate available interview slots for the next 3 months.
+// Manually blocked dates (YYYY-MM-DD) — unavailable for booking.
+const BLOCKED_DATES = [
+  "2026-10-01",
+  "2026-10-03",
+  "2026-10-07",
+  "2026-10-10",
+  "2026-10-12",
+  "2026-10-16",
+  "2026-10-21",
+  "2026-10-28",
+];
+
 // Slots: every Monday, Wednesday, Friday, Saturday at 8:00 PM.
 function generateSlots() {
   const slots = [];
@@ -17,7 +29,7 @@ function generateSlots() {
   for (let i = 0; i < 90; i++) {
     const d = new Date(today);
     d.setDate(today.getDate() + i);
-    if (validDays.includes(d.getDay())) {
+    if (validDays.includes(d.getDay()) && !BLOCKED_DATES.includes(d.toISOString().slice(0, 10))) {
       const slot = new Date(d);
       slot.setHours(20, 0, 0, 0); // 8:00 PM
       slots.push(slot);
