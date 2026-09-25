@@ -1,0 +1,188 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
+import SectionHeading from "@/components/SectionHeading";
+import { Sparkles as SparkleIcon, Mic, Calendar, CheckCircle2 } from "lucide-react";
+
+export default function InterviewSignup() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    handle: "",
+    platform: "",
+    topic: "",
+    preferredDate: "",
+    details: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  const platforms = ["Twitch", "YouTube", "TikTok", "X/Twitter", "Instagram", "Other"];
+
+  const handleChange = (e) => {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!form.name.trim() || !form.email.trim()) {
+      setError("Please fill in your name and email.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      await base44.entities.InterviewSignup.create({ ...form, status: "pending" });
+      setSubmitted(true);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 md:px-6 py-20 text-center">
+        <div className="glass rounded-3xl p-10">
+          <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-pink-400 to-fuchsia-400 grid place-items-center text-white mb-4">
+            <CheckCircle2 size={32} />
+          </div>
+          <h2 className="font-display text-3xl font-bold text-plum-900">You're on the list! 💕</h2>
+          <p className="mt-3 text-plum-600">
+            Thanks for signing up for an interview! I'll reach out to <span className="font-semibold text-pink-600">{form.email}</span> soon to confirm a time.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3 justify-center">
+            <Link to="/" className="px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-105 transition-transform">
+              Back Home
+            </Link>
+            <button
+              onClick={() => {
+                setSubmitted(false);
+                setForm({ name: "", email: "", handle: "", platform: "", topic: "", preferredDate: "", details: "" });
+              }}
+              className="px-6 py-3 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 hover:bg-pink-50 transition-colors"
+            >
+              Sign Up Another
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 md:px-6 py-12">
+      <SectionHeading
+        eyebrow="Interview Sign-Up"
+        title="Let's chat on stream ✨"
+        subtitle="Sign up for a VTuber interview and we'll get you scheduled for a fun conversation!"
+      />
+
+      <form onSubmit={handleSubmit} className="glass rounded-3xl p-6 md:p-8 space-y-5">
+        <div className="grid md:grid-cols-2 gap-5">
+          <Field label="Name" required>
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              placeholder="Your display name"
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+            />
+          </Field>
+          <Field label="Email" required>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              placeholder="you@example.com"
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+            />
+          </Field>
+          <Field label="Social Handle">
+            <input
+              name="handle"
+              value={form.handle}
+              onChange={handleChange}
+              placeholder="@username"
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+            />
+          </Field>
+          <Field label="Platform">
+            <select
+              name="platform"
+              value={form.platform}
+              onChange={handleChange}
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+            >
+              <option value="">Select a platform</option>
+              {platforms.map((p) => (
+                <option key={p} value={p}>{p}</option>
+              ))}
+            </select>
+          </Field>
+        </div>
+
+        <Field label="Interview Topic">
+          <input
+            name="topic"
+            value={form.topic}
+            onChange={handleChange}
+            placeholder="What would you like to talk about?"
+            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+          />
+        </Field>
+
+        <Field label="Preferred Date">
+          <input
+            type="date"
+            name="preferredDate"
+            value={form.preferredDate}
+            onChange={handleChange}
+            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+          />
+        </Field>
+
+        <Field label="Additional Details">
+          <textarea
+            name="details"
+            value={form.details}
+            onChange={handleChange}
+            rows={4}
+            placeholder="Anything else you'd like me to know?"
+            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition resize-none"
+          />
+        </Field>
+
+        {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {submitting ? (
+            <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Submitting...</>
+          ) : (
+            <><Mic size={18} /> Sign Me Up!</>
+          )}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function Field({ label, required, children }) {
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-plum-700 mb-1.5">
+        {label}{required && <span className="text-pink-500"> *</span>}
+      </label>
+      {children}
+    </div>
+  );
+}

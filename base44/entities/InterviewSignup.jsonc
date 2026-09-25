@@ -1,0 +1,55 @@
+{
+  "name": "InterviewSignup",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Your display name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email"
+    },
+    "handle": {
+      "type": "string",
+      "title": "Social Handle",
+      "description": "Your @username"
+    },
+    "platform": {
+      "type": "string",
+      "title": "Platform",
+      "description": "Where you stream / create"
+    },
+    "topic": {
+      "type": "string",
+      "title": "Interview Topic",
+      "description": "What would you like to talk about?"
+    },
+    "preferredDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Preferred Date"
+    },
+    "details": {
+      "type": "string",
+      "title": "Additional Details"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "completed",
+        "declined"
+      ],
+      "default": "pending",
+      "title": "Status"
+    }
+  },
+  "required": [
+    "name",
+    "email"
+  ]
+}
