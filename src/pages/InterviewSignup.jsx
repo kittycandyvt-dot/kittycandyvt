@@ -24,20 +24,10 @@ export default function InterviewSignup() {
   useEffect(() => {
     (async () => {
       try {
-        const signups = await base44.entities.InterviewSignup.list();
-        const taken = signups
-          .filter((s) => s.status === "pending" || s.status === "confirmed")
-          .map((s) => s.preferredDate);
-        // bookedSlots expects ISO strings matching SlotPicker format.
-        // Reconstruct the 8 PM slot for each booked date.
-        const isoSlots = taken
-          .filter(Boolean)
-          .map((d) => {
-            const date = new Date(d + "T00:00:00");
-            date.setHours(20, 0, 0, 0);
-            return date.toISOString();
-          });
-        setBookedSlots(isoSlots);
+        const res = await base44.functions.invoke("getBookedSlots", {});
+        if (res.data?.bookedSlots?.length) {
+          setBookedSlots(res.data.bookedSlots);
+        }
       } catch (err) {
         // ignore — just show all slots
       }
