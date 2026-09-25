@@ -27,8 +27,8 @@ export default function VTuber() {
       <div className="mb-16">
         <SectionHeading eyebrow="Outfits" title="Wardrobe of dreams" />
         <div className="flex gap-5 overflow-x-auto pb-4 snap-x">
-          {vtuberModel.outfits.map((o) => (
-            <div key={o.name} className="snap-start shrink-0 w-64 rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
+          {vtuberModel.outfits.map((o) =>
+          <div key={o.name} className="snap-start shrink-0 w-64 rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
               <div className="aspect-[3/4] bg-black overflow-hidden">
                 <Image src={o.img} alt={o.name} className="w-full h-full" fittingType="fit" />
               </div>
@@ -38,17 +38,17 @@ export default function VTuber() {
                 <a href={o.link} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs font-semibold text-pink-500 hover:underline">View asset ↗</a>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
       {/* MODEL HISTORY */}
-      <div className="mb-16">
+      <div className="mb-16 hidden">
         <SectionHeading eyebrow="Model History" title="Evolution timeline" />
         <div className="relative pl-8">
           <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-pink-200" />
-          {vtuberModel.modelHistory.map((h) => (
-            <div key={h.version} className="relative mb-6">
+          {vtuberModel.modelHistory.map((h) =>
+          <div key={h.version} className="relative mb-6">
               <div className="absolute -left-[1.35rem] top-1 w-4 h-4 rounded-full bg-gradient-to-br from-pink-400 to-fuchsia-500 border-2 border-white shadow" />
               <div className="glass rounded-2xl p-4">
                 <div className="flex flex-wrap justify-between items-center">
@@ -58,7 +58,7 @@ export default function VTuber() {
                 <p className="text-sm text-plum-500 mt-1">{h.note}</p>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
@@ -74,8 +74,8 @@ export default function VTuber() {
       <div>
         <SectionHeading eyebrow="Fanart" title="Art from lovely fans 💕" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {vtuberModel.fanart.map((f) => (
-            <div key={f.artist} className="rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
+          {vtuberModel.fanart.map((f) =>
+          <div key={f.artist} className="rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
               <div className="aspect-square bg-pink-50 overflow-hidden">
                 <Image src={f.img} alt={`Fanart by ${f.artist}`} className="w-full h-full scale-150" fittingType="fit" />
               </div>
@@ -83,9 +83,9 @@ export default function VTuber() {
                 <a href={f.link} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-pink-500 hover:underline">{f.artist}</a>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
