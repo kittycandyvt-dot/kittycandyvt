@@ -84,7 +84,7 @@ export default function SpicyVoiceActing() {
               </div>
               <h3 className="font-bold text-white mb-1">{d.title}</h3>
               <p className="text-sm text-pink-200/50 mb-3">{d.type} voice</p>
-              <AudioPlayer title={d.title} subtitle={`${d.type} · ${d.category}`} duration={d.duration} compact />
+              <AudioPlayer title={d.title} subtitle={`${d.type} · ${d.category}`} duration={d.duration} compact src={d.src} />
             </div>
           ))}
         </div>
