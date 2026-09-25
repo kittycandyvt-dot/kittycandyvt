@@ -128,12 +128,12 @@ export default function InterviewSignup() {
         </div>
 
         <Field label="Interview Topic">
-          <input
-            name="topic"
-            value={form.topic}
-            onChange={handleChange}
-            placeholder="What would you like to talk about?"
-            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition hidden" />
+          
+
+
+
+
+          
           
         </Field>
 
