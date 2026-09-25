@@ -23,7 +23,7 @@ const BLOCKED_DATES = [
 // Monday, Wednesday, Friday, Saturday
 //
 // Interview time:
-// 8:00 PM
+// 10:00 PM
 function generateSlots() {
   const slots = [];
   const today = new Date();
