@@ -13,7 +13,7 @@ export const site = {
   status: "offline", // "live" | "offline"
   livePlatform: "Twitch",
   liveUrl: "https://twitch.tv/kittycandyvt",
-  debutDate: "Add your debut date",
+  debutDate: "July 2025",
   birthday: "December 31",
   timezone: "Add your timezone",
   languages: ["Language 1", "Language 2"],
@@ -46,7 +46,7 @@ export const about = {
     "VTuber Name": "KittyCandyVT",
     Pronouns: "She/Her",
     Birthday: "December 31",
-    "Debut Date": "Add your debut date",
+    "Debut Date": "July 2025",
     "Time Zone": "Add your timezone",
     Languages: "Add your languages",
     "Vocal Range": "Add your vocal range",
