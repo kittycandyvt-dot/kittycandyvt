@@ -12,7 +12,7 @@ const navItems = [
   { label: "Commissions", to: "/commissions" },
   { label: "Merch", to: "/merch" },
   { label: "Sponsors", to: "/sponsors" },
-  { label: "Interview", to: "/interview-signup" },
+  { label: "Book a VTuber Interview", to: "/interview-signup" },
   { label: "Contact", to: "/contact" },
   { label: "Terms", to: "/terms" },
 ];
