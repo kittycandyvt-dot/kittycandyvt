@@ -188,7 +188,7 @@ export const socials = [
   { name: "Bluesky", url: "https://bsky.app/", icon: "Cloud" },
   { name: "Discord", url: "https://discord.gg/Zndy24ErNr", icon: "MessageCircle" },
   { name: "Ko-fi", url: "https://ko-fi.com/kittycandyvt", icon: "Coffee" },
-  { name: "Throne", url: "https://throne.com/", icon: "Crown" },
+  { name: "Throne", url: "https://throne.com/kittycandy_vt", icon: "Crown" },
 ];
 
 export const latestContent = [
