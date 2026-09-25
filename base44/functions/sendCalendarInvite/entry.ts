@@ -12,9 +12,11 @@ export default async function(req) {
 
     const { accessToken } = await base44.asServiceRole.connectors.getConnection("googlecalendar");
 
-    // Build the event time: preferredDate at 10:00 PM, 2 hour duration.
-    const start = new Date(preferredDate + "T22:00:00");
-    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    // Build the event time: preferredDate at 10:00 PM Eastern Time.
+// Interview duration: 2 hours.
+
+const start = new Date(`${preferredDate}T22:00:00`);
+const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
     const eventPayload = {
       summary: `🎤 Interview with ${name || "Guest"}`,
       description: "Your interview session has been booked. We can't wait to chat with you! 💕",
@@ -65,8 +67,8 @@ export default async function(req) {
           <div style="background: #fff; border: 1px solid #f9a8c5; border-radius: 12px; padding: 16px; margin: 16px 0;">
             <p style="margin: 0 0 8px; font-size: 14px; color: #b01a58; font-weight: 600;">📅 Interview Details</p>
             <p style="margin: 0 0 6px;"><strong>Date:</strong> ${eventDate}</p>
-            <p style="margin: 0 0 6px;"><strong>Time:</strong> ${eventTime} EST</p>
-            <p style="margin: 0 0 6px;"><strong>Duration:</strong> 1 hour</p>
+           <p style="margin: 0 0 6px;"><strong>Time:</strong> ${eventTime} Eastern Time</p>
+          <p style="margin: 0 0 6px;"><strong>Duration:</strong> 2 hours</p>
           </div>
           <p style="margin: 0 0 16px;">A calendar invite has been sent to your email — please accept it to add the event to your own calendar. You'll also receive a reminder before we go live.</p>
           ${data.htmlLink ? `<p style="margin: 0 0 16px;"><a href="${data.htmlLink}" style="display: inline-block; background: linear-gradient(90deg, #ec4899, #d946ef); color: #fff; padding: 10px 24px; border-radius: 999px; text-decoration: none; font-weight: 600;">View in Google Calendar</a></p>` : ""}
@@ -78,7 +80,7 @@ export default async function(req) {
 
     await base44.asServiceRole.integrations.Core.SendEmail({
       to: email,
-      subject: `🎤 Interview Confirmed — ${eventDate} at ${eventTime} EST`,
+      subject: `🎤 Interview Confirmed — ${eventDate} at ${eventTime} Eastern Time`,
       html: confirmHtml,
     });
 
