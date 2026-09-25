@@ -9,7 +9,7 @@ export const site = {
   title: "VTuber • Voice Actress • Content Creator",
   intro:
     "Write a short introduction about yourself here. Describe who you are, what you do, and what makes you unique. This will appear on your home page.",
-  email: "your-email@example.com",
+  email: "kittycandyvt@gmail.com",
   status: "offline", // "live" | "offline"
   livePlatform: "Twitch",
   liveUrl: "https://twitch.tv/kittycandyvt",
