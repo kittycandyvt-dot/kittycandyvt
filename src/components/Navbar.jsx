@@ -66,20 +66,6 @@ export default function Navbar() {
                 </li>
               );
             })}
-            {isAdmin && (
-              <li>
-                <Link
-                  to="/review-approval"
-                  className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                    location.pathname === "/review-approval"
-                      ? "text-pink-600 bg-pink-50"
-                      : "text-plum-600 hover:text-pink-500 hover:bg-pink-50/60"
-                  }`}
-                >
-                  Reviews
-                </Link>
-              </li>
-            )}
           </ul>
 
           <div className="flex items-center gap-2">
@@ -115,17 +101,7 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            {isAdmin && (
-              <li>
-                <Link
-                  to="/review-approval"
-                  onClick={() => setOpen(false)}
-                  className="block px-4 py-3 rounded-xl text-sm font-medium text-plum-700 hover:bg-pink-50"
-                >
-                  Review Approvals
-                </Link>
-              </li>
-            )}
+
             <li>
               <Link
                 to="/commissions"
