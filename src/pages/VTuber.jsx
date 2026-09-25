@@ -77,7 +77,7 @@ export default function VTuber() {
           {vtuberModel.fanart.map((f) => (
             <div key={f.artist} className="rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
               <div className="aspect-square bg-pink-50 overflow-hidden">
-                <Image src={f.img} alt={`Fanart by ${f.artist}`} className="w-full h-full" fittingType="fill" />
+                <Image src={f.img} alt={`Fanart by ${f.artist}`} className="w-full h-full" fittingType="fit" />
               </div>
               <div className="p-3 text-center">
                 <a href={f.link} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-pink-500 hover:underline">{f.artist}</a>
