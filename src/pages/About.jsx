@@ -16,7 +16,7 @@ function ProfileRow({ label, value }) {
 export default function About() {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
-      <SectionHeading eyebrow="About" title={`Meet ${site.vtuberName}`} subtitle="Get to know the voice behind the sparkle." />
+      <SectionHeading eyebrow="About" title={`Meet ${site.vtuberName}`} subtitle="Get to know the voice behind the temptation~" />
 
       <div className="grid md:grid-cols-3 gap-8">
         <div className="md:col-span-1">
