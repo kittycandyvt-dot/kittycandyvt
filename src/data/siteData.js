@@ -13,6 +13,7 @@ export const site = {
   status: "offline", // "live" | "offline"
   livePlatform: "Twitch",
   liveUrl: "https://twitch.tv/kittycandyvt",
+  logo: "",
   debutDate: "July 2025",
   birthday: "December 31",
   timezone: "EST",

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Heart } from "lucide-react";
 import { site } from "@/data/siteData";
+import { Image } from "@/components/ui/image";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -23,9 +24,13 @@ export default function Navbar() {
       <div className="bg-white/70 backdrop-blur-xl border-b border-pink-100 shadow-sm">
         <nav className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg text-plum-900">
-            <span className="grid place-items-center w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-fuchsia-500 text-white">
-              <Heart size={16} />
-            </span>
+            {site.logo ? (
+              <Image src={site.logo} alt={site.vtuberName} className="w-8 h-8 rounded-full object-cover" fittingType="fill" />
+            ) : (
+              <span className="grid place-items-center w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-fuchsia-500 text-white">
+                <Heart size={16} />
+              </span>
+            )}
             {site.vtuberName}
           </Link>
 
