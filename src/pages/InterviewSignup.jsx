@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import SectionHeading from "@/components/SectionHeading";
 import { Mic, CheckCircle2 } from "lucide-react";
+import StreamSchedule from "@/components/StreamSchedule";
 
 export default function InterviewSignup() {
   const [form, setForm] = useState({
@@ -161,6 +162,10 @@ export default function InterviewSignup() {
           )}
         </button>
       </form>
+
+      <div className="mt-16">
+        <StreamSchedule />
+      </div>
     </div>
   );
 }
