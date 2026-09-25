@@ -137,7 +137,7 @@ export const whatIOffer = [
   "Narration", "Commercials", "Voice Packs", "Stream Alerts", "Audio Dramas",
 ];
 
-export const turnaround = "Add your turnaround time here.";
+export const turnaround = "1-2 weeks";
 
 export const commissionProcess = [
   { step: 1, title: "Submit Request", desc: "Fill out the commission form with your project details." },
