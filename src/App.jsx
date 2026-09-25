@@ -18,6 +18,7 @@ import InterviewSignup from '@/pages/InterviewSignup';
 import SpicyVoiceActing from '@/pages/SpicyVoiceActing';
 import Contact from '@/pages/Contact';
 import Terms from '@/pages/Terms';
+import ReviewApproval from '@/pages/ReviewApproval';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -53,6 +54,7 @@ const AuthenticatedApp = () => {
         <Route path="/spicy" element={<SpicyVoiceActing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/review-approval" element={<ReviewApproval />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

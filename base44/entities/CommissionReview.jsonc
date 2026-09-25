@@ -1,0 +1,49 @@
+{
+  "name": "CommissionReview",
+  "type": "object",
+  "properties": {
+    "clientName": {
+      "type": "string",
+      "title": "Client Name",
+      "description": "Name of the client leaving the review"
+    },
+    "clientHandle": {
+      "type": "string",
+      "title": "Social Handle",
+      "description": "Optional @username or social handle"
+    },
+    "projectType": {
+      "type": "string",
+      "title": "Project Type",
+      "description": "Type of commission (e.g. Voice Acting, Character Voice, NSFW)"
+    },
+    "rating": {
+      "type": "number",
+      "title": "Rating",
+      "description": "Star rating from 1 to 5",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "reviewText": {
+      "type": "string",
+      "title": "Review",
+      "description": "The client's review of the work"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending",
+      "title": "Status",
+      "description": "Approval status \u2014 only approved reviews show on the site"
+    }
+  },
+  "required": [
+    "clientName",
+    "rating",
+    "reviewText"
+  ]
+}

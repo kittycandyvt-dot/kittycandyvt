@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Heart } from "lucide-react";
 import { site } from "@/data/siteData";
 import { Image } from "@/components/ui/image";
+import { base44 } from "@/api/base44Client";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -18,7 +19,19 @@ const navItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    base44.auth.isAuthenticated().then(async (authed) => {
+      if (authed) {
+        try {
+          const me = await base44.auth.me();
+          setIsAdmin(me?.role === "admin");
+        } catch { setIsAdmin(false); }
+      }
+    }).catch(() => {});
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -53,6 +66,20 @@ export default function Navbar() {
                 </li>
               );
             })}
+            {isAdmin && (
+              <li>
+                <Link
+                  to="/review-approval"
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                    location.pathname === "/review-approval"
+                      ? "text-pink-600 bg-pink-50"
+                      : "text-plum-600 hover:text-pink-500 hover:bg-pink-50/60"
+                  }`}
+                >
+                  Reviews
+                </Link>
+              </li>
+            )}
           </ul>
 
           <div className="flex items-center gap-2">
@@ -88,6 +115,17 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            {isAdmin && (
+              <li>
+                <Link
+                  to="/review-approval"
+                  onClick={() => setOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-sm font-medium text-plum-700 hover:bg-pink-50"
+                >
+                  Review Approvals
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 to="/commissions"

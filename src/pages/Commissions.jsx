@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { pricing, pricingAddons, whatIOffer, turnaround, commissionProcess } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
+import ReviewForm from "@/components/ReviewForm";
+import ReviewList from "@/components/ReviewList";
 
 export default function Commissions() {
   return (
@@ -55,6 +57,18 @@ export default function Commissions() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* REVIEWS */}
+      <div className="mb-12">
+        <SectionHeading eyebrow="Client Love" title="Reviews" subtitle="See what clients say about their custom voice work." />
+        <ReviewList />
+      </div>
+
+      {/* LEAVE A REVIEW */}
+      <div className="mb-12">
+        <SectionHeading eyebrow="Share Your Experience" title="Leave a Review" subtitle="Worked with me? I'd love to hear about it!" />
+        <ReviewForm />
       </div>
 
       {/* CTA */}
