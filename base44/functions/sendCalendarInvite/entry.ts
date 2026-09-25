@@ -1,80 +1,142 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.49';
+import { createClientFromRequest } from "npm:@base44/sdk@0.8.49";
 
 export default async function(req) {
   try {
     const base44 = createClientFromRequest(req);
     const body = await req.json();
-    const { name, email, preferredDate } = body || {};
 
-    if (!email || !preferredDate) {
-      return Response.json(
-        { error: "Email and preferredDate are required" },
-        { status: 400 }
-      );
-    }
+    const {
+      name,
+      email,
+      selectedSlot,
+    } = body || {};
 
-    const { accessToken } =
-      await base44.asServiceRole.connectors.getConnection("googlecalendar");
-
-    /*
-     * INTERVIEW TIME
-     *
-     * Start: 10:00 PM America/Toronto
-     * End:   12:00 AM the following day
-     * Duration: 2 hours
-     *
-     * IMPORTANT:
-     * We send the local Toronto time directly to Google Calendar.
-     * We do NOT use toISOString(), because that converts the time
-     * to UTC and was causing 10 PM to appear as 6 PM.
-     */
-
-    // Validate the expected YYYY-MM-DD format.
-    const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(preferredDate);
-
-    if (!dateMatch) {
+    if (!email || !selectedSlot) {
       return Response.json(
         {
           error:
-            "Invalid preferredDate format. Expected YYYY-MM-DD."
+            "Email and selectedSlot are required",
         },
         { status: 400 }
       );
     }
 
-    const year = Number(dateMatch[1]);
-    const month = Number(dateMatch[2]);
-    const day = Number(dateMatch[3]);
+    /*
+     * The frontend stores selectedSlot as an ISO timestamp.
+     *
+     * Example:
+     * 2026-11-02T03:00:00.000Z
+     *
+     * We convert that into the correct local
+     * America/Toronto date and time.
+     */
 
-    // Calculate the next calendar day for the midnight end time.
-    const nextDay = new Date(Date.UTC(year, month - 1, day + 1));
+    const slot = new Date(selectedSlot);
 
-    const endDate =
-      `${nextDay.getUTCFullYear()}-` +
-      `${String(nextDay.getUTCMonth() + 1).padStart(2, "0")}-` +
-      `${String(nextDay.getUTCDate()).padStart(2, "0")}`;
+    if (Number.isNaN(slot.getTime())) {
+      return Response.json(
+        {
+          error: "Invalid selectedSlot.",
+        },
+        { status: 400 }
+      );
+    }
 
     /*
-     * Google Calendar event.
+     * Get the local Toronto date/time components.
+     */
+
+    const formatter = new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone: "America/Toronto",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }
+    );
+
+    const parts = formatter.formatToParts(slot);
+
+    const getPart = (type) =>
+      parts.find((part) => part.type === type)?.value;
+
+    const year = getPart("year");
+    const month = getPart("month");
+    const day = getPart("day");
+    const hour = getPart("hour");
+    const minute = getPart("minute");
+
+    const localDate =
+      `${year}-${month}-${day}`;
+
+    /*
+     * The interview is 2 hours long.
      *
-     * These are intentionally LOCAL times.
-     * Google Calendar uses America/Toronto to determine whether
-     * the date is currently EST or EDT.
+     * Calculate the ending time using the actual
+     * selected slot.
+     */
+
+    const endSlot = new Date(
+      slot.getTime() + 2 * 60 * 60 * 1000
+    );
+
+    const endParts = new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone: "America/Toronto",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }
+    ).formatToParts(endSlot);
+
+    const getEndPart = (type) =>
+      endParts.find(
+        (part) => part.type === type
+      )?.value;
+
+    const endDate =
+      `${getEndPart("year")}-${getEndPart("month")}-${getEndPart("day")}`;
+
+    const endHour = getEndPart("hour");
+    const endMinute = getEndPart("minute");
+
+    /*
+     * Connect to Google Calendar.
+     */
+
+    const { accessToken } =
+      await base44.asServiceRole.connectors.getConnection(
+        "googlecalendar"
+      );
+
+    /*
+     * Create the calendar event.
      */
 
     const eventPayload = {
-      summary: `🎤 Interview with ${name || "Guest"}`,
+      summary:
+        `🎤 Interview with ${name || "Guest"}`,
 
       description:
-        "Your interview session has been booked. We can't wait to chat with you! 💕",
+        "Your interview session has been booked with KittyCandyVT! 💕",
 
       start: {
-        dateTime: `${preferredDate}T22:00:00`,
+        dateTime:
+          `${localDate}T${hour}:${minute}:00`,
         timeZone: "America/Toronto",
       },
 
       end: {
-        dateTime: `${endDate}T00:00:00`,
+        dateTime:
+          `${endDate}T${endHour}:${endMinute}:00`,
         timeZone: "America/Toronto",
       },
 
@@ -89,60 +151,71 @@ export default async function(req) {
       guestsCanSeeOtherGuests: false,
     };
 
-    /*
-     * Create the Google Calendar event.
-     */
-
     const response = await fetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all",
       {
         method: "POST",
 
         headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
+          Authorization:
+            `Bearer ${accessToken}`,
+
+          "Content-Type":
+            "application/json",
         },
 
-        body: JSON.stringify(eventPayload),
+        body:
+          JSON.stringify(eventPayload),
       }
     );
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Google Calendar error:", data);
+      console.error(
+        "Google Calendar error:",
+        data
+      );
 
       return Response.json(
         {
           error:
             data.error?.message ||
-            "Failed to create calendar event",
+            "Failed to create calendar event.",
         },
         { status: 502 }
       );
     }
 
     /*
-     * Confirmation email.
-     *
-     * Format the selected date without converting it through UTC.
+     * Format the date for the confirmation email.
      */
 
-    const displayDate = new Date(`${preferredDate}T12:00:00`);
+    const displayDate =
+      new Intl.DateTimeFormat(
+        "en-US",
+        {
+          timeZone: "America/Toronto",
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }
+      ).format(slot);
 
-    const eventDate = displayDate.toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-      timeZone: "America/Toronto",
-    });
-
-    // The interview is always at 10 PM.
-    const eventTime = "10:00 PM";
+    const displayTime =
+      new Intl.DateTimeFormat(
+        "en-US",
+        {
+          timeZone: "America/Toronto",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        }
+      ).format(slot);
 
     /*
-     * Confirmation email HTML.
+     * Confirmation email.
      */
 
     const confirmHtml = `
@@ -172,11 +245,11 @@ export default async function(req) {
             </p>
 
             <p style="margin: 0 0 6px;">
-              <strong>Date:</strong> ${eventDate}
+              <strong>Date:</strong> ${displayDate}
             </p>
 
             <p style="margin: 0 0 6px;">
-              <strong>Time:</strong> ${eventTime} Eastern Time
+              <strong>Time:</strong> ${displayTime} Eastern Time
             </p>
 
             <p style="margin: 0 0 6px;">
@@ -186,9 +259,8 @@ export default async function(req) {
           </div>
 
           <p style="margin: 0 0 16px;">
-            A calendar invite has been sent to your email — please accept it
-            to add the event to your own calendar. You'll also receive a
-            reminder before we go live.
+            A calendar invite has been sent to your email.
+            Please accept it to add the interview to your calendar.
           </p>
 
           ${
@@ -223,14 +295,12 @@ export default async function(req) {
 
     await base44.asServiceRole.integrations.Core.SendEmail({
       to: email,
+
       subject:
-        `🎤 Interview Confirmed — ${eventDate} at ${eventTime} Eastern Time`,
+        `🎤 Interview Confirmed — ${displayDate} at ${displayTime} Eastern Time`,
+
       html: confirmHtml,
     });
-
-    /*
-     * Return success.
-     */
 
     return Response.json({
       success: true,
@@ -239,13 +309,20 @@ export default async function(req) {
     });
 
   } catch (error) {
-    console.error("Interview booking error:", error);
+    console.error(
+      "sendCalendarInvite error:",
+      error
+    );
 
     return Response.json(
       {
-        error: error?.message || "Something went wrong",
+        error:
+          error?.message ||
+          "Something went wrong creating the calendar invite.",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }
