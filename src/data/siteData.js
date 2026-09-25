@@ -180,7 +180,7 @@ export const testimonials = [
 ];
 
 export const socials = [
-  { name: "Twitch", url: "https://twitch.tv/", icon: "Twitch" },
+  { name: "Twitch", url: "https://twitch.tv/kittycandyvt", icon: "Twitch" },
   { name: "YouTube", url: "https://youtube.com/", icon: "Youtube" },
   { name: "TikTok", url: "https://tiktok.com/", icon: "Music2" },
   { name: "Instagram", url: "https://instagram.com/", icon: "Instagram" },
