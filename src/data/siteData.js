@@ -214,8 +214,6 @@ export const spicyVoiceDemos = [
   { title: "Spicy Demo 2", category: "NSFW", type: "Dominant", duration: "0:00", src: "https://media.base44.com/files/public/6ab5f8664d2ba33c8d38d474/3d9dc4271_Mommy-frogguclouds.mp3" },
   { title: "Spicy Demo 3", category: "NSFW", type: "Submissive", duration: "0:00", src: "https://media.base44.com/files/public/6ab5f8664d2ba33c8d38d474/2b2c938ea_Minaxium-Felix.mp3" },
   { title: "Spicy Demo 4", category: "NSFW", type: "Playful", duration: "0:00", src: "https://media.base44.com/files/public/6ab5f8664d2ba33c8d38d474/b6986f7ca_missinfo.mp3" },
-  { title: "Spicy Demo 5", category: "NSFW", type: "Wholesome", duration: "0:00" },
-  { title: "Spicy Demo 6", category: "NSFW", type: "Roleplay", duration: "0:00" },
 ];
 
 export const spicyIntro =
