@@ -9,7 +9,6 @@ const navItems = [
   { label: "About", to: "/about" },
   { label: "VTuber", to: "/vtuber" },
   { label: "Voice Acting", to: "/voice-acting" },
-  { label: "Portfolio", to: "/portfolio" },
   { label: "Commissions", to: "/commissions" },
   { label: "Merch", to: "/merch" },
   { label: "Contact", to: "/contact" },
