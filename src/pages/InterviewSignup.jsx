@@ -171,7 +171,11 @@ export default function InterviewSignup() {
   } finally {
     setSubmitting(false);
   }
-};
+  };
+
+  const resetForm = async () => {
+    setSubmitted(false);
+
     setForm({
       name: "",
       email: "",
