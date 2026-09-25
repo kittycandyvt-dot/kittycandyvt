@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Sparkles as SparkleIcon, Heart, Mic, Video, Users, ArrowRight, Play, Star } from "lucide-react";
-import { site, latestContent } from "@/data/siteData";
+import { site, latestContent, sponsors } from "@/data/siteData";
 import Sparkles from "@/components/Sparkles";
 import SocialLinks from "@/components/SocialLinks";
 import SectionHeading from "@/components/SectionHeading";
@@ -124,6 +124,34 @@ export default function Home() {
                   <p className="text-xs text-plum-400 mt-1">{c.type}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SPONSORS */}
+      <section className="py-16 px-4 md:px-6 bg-pink-50/50">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading eyebrow="Sponsors & Partners" title="Brands I love" subtitle="Use my affiliate links for sweet perks ✨" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {sponsors.map((s) => (
+              <a
+                key={s.name}
+                href={s.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative overflow-hidden rounded-3xl p-8 flex flex-col items-center justify-center gap-4 text-center bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm p-2 grid place-items-center overflow-hidden">
+                  <img src={s.img} alt={`${s.name} logo`} className="w-full h-full object-contain rounded-xl" />
+                </div>
+                <span className="relative font-display text-lg font-bold text-white">{s.name}</span>
+                {s.promo && (
+                  <span className="relative inline-block px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow">{s.promo}</span>
+                )}
+                <span className="relative text-xs font-medium text-pink-300 group-hover:text-fuchsia-300 transition-colors">Visit Partner ↗</span>
+              </a>
             ))}
           </div>
         </div>
