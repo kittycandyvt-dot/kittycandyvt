@@ -12,7 +12,7 @@ export default function InterviewSignup() {
     platform: "",
     topic: "",
     preferredDate: "",
-    details: "",
+    details: ""
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -62,14 +62,14 @@ export default function InterviewSignup() {
                 setSubmitted(false);
                 setForm({ name: "", email: "", handle: "", platform: "", topic: "", preferredDate: "", details: "" });
               }}
-              className="px-6 py-3 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 hover:bg-pink-50 transition-colors"
-            >
+              className="px-6 py-3 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 hover:bg-pink-50 transition-colors">
+              
               Sign Up Another
             </button>
           </div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -77,8 +77,8 @@ export default function InterviewSignup() {
       <SectionHeading
         eyebrow="Interview Sign-Up"
         title="Let's chat on stream ✨"
-        subtitle="Sign up for a VTuber interview and we'll get you scheduled for a fun conversation!"
-      />
+        subtitle="Sign up for a VTuber interview and we'll get you scheduled for a fun conversation!" />
+      
 
       <form onSubmit={handleSubmit} className="glass rounded-3xl p-6 md:p-8 space-y-5">
         <div className="grid md:grid-cols-2 gap-5">
@@ -89,8 +89,8 @@ export default function InterviewSignup() {
               onChange={handleChange}
               required
               placeholder="Your display name"
-              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
-            />
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition" />
+            
           </Field>
           <Field label="Email" required>
             <input
@@ -100,8 +100,8 @@ export default function InterviewSignup() {
               onChange={handleChange}
               required
               placeholder="you@example.com"
-              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
-            />
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition" />
+            
           </Field>
           <Field label="Social Handle">
             <input
@@ -109,20 +109,20 @@ export default function InterviewSignup() {
               value={form.handle}
               onChange={handleChange}
               placeholder="@username"
-              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
-            />
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition" />
+            
           </Field>
           <Field label="Platform">
             <select
               name="platform"
               value={form.platform}
               onChange={handleChange}
-              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
-            >
+              className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition">
+              
               <option value="">Select a platform</option>
-              {platforms.map((p) => (
-                <option key={p} value={p}>{p}</option>
-              ))}
+              {platforms.map((p) =>
+              <option key={p} value={p}>{p}</option>
+              )}
             </select>
           </Field>
         </div>
@@ -133,8 +133,8 @@ export default function InterviewSignup() {
             value={form.topic}
             onChange={handleChange}
             placeholder="What would you like to talk about?"
-            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
-          />
+            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition hidden" />
+          
         </Field>
 
         <Field label="Preferred Date">
@@ -143,8 +143,8 @@ export default function InterviewSignup() {
             name="preferredDate"
             value={form.preferredDate}
             onChange={handleChange}
-            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
-          />
+            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition" />
+          
         </Field>
 
         <Field label="Additional Details">
@@ -154,8 +154,8 @@ export default function InterviewSignup() {
             onChange={handleChange}
             rows={4}
             placeholder="Anything else you'd like me to know?"
-            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition resize-none"
-          />
+            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition resize-none" />
+          
         </Field>
 
         {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
@@ -163,17 +163,17 @@ export default function InterviewSignup() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          {submitting ? (
-            <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Submitting...</>
-          ) : (
-            <><Mic size={18} /> Sign Me Up!</>
-          )}
+          className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:cursor-not-allowed">
+          
+          {submitting ?
+          <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Submitting...</> :
+
+          <><Mic size={18} /> Sign Me Up!</>
+          }
         </button>
       </form>
-    </div>
-  );
+    </div>);
+
 }
 
 function Field({ label, required, children }) {
@@ -183,6 +183,6 @@ function Field({ label, required, children }) {
         {label}{required && <span className="text-pink-500"> *</span>}
       </label>
       {children}
-    </div>
-  );
+    </div>);
+
 }
