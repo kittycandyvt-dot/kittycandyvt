@@ -32,6 +32,9 @@ export default function Sponsors() {
                 <img src={s.img} alt={`${s.name} logo`} className="w-full h-full object-contain rounded-xl" />
               </div>
               <span className="relative font-display text-lg font-bold text-white">{s.name}</span>
+              {s.promo && (
+                <span className="relative inline-block px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow">{s.promo}</span>
+              )}
               <span className="relative text-xs font-medium text-pink-300 group-hover:text-fuchsia-300 transition-colors">Visit Partner ↗</span>
             </a>
           ))}
