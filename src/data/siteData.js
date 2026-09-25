@@ -4,7 +4,7 @@
 // ============================================================
 
 export const site = {
-  vtuberName: "Your VTuber Name",
+  vtuberName: "KittyCandyVT",
   tagline: "Your cute tagline goes here ✨",
   title: "VTuber • Voice Actress • Content Creator",
   intro:
