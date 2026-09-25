@@ -149,7 +149,7 @@ export const commissionProcess = [
 ];
 
 export const merch = [
-  { name: "Product Name", category: "Stickers", price: "$0", desc: "Product description.", available: true, img: "" },
+  { name: "Lenticular Stickers", category: "Stickers", price: "$5.98", desc: "Two looks. One very tempting Kitty. Tilt it to watch the design shift — perfect for laptops, notebooks, phone cases, and anywhere that needs a little sweetness.", available: true, img: "https://img02.wooacry.com/rzr/2026/08/29/98374f5f-7710-471d-ba1b-16288175c681.jpg?x-oss-process=image/auto-orient,1/format,webp/resize,s_800/interlace,1", link: "https://acggoods.com/store/kittycandycollectibles/product/lenticular-stickers-by-kitty-candy/1055332" },
   { name: "Product Name", category: "Keychains", price: "$0", desc: "Product description.", available: true, img: "" },
   { name: "Product Name", category: "Acrylic Stands", price: "$0", desc: "Product description.", available: true, img: "" },
   { name: "Product Name", category: "Prints", price: "$0", desc: "Product description.", available: true, img: "" },

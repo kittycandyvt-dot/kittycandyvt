@@ -31,23 +31,40 @@ export default function Merch() {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((m) => (
           <div key={m.name} className="rounded-3xl bg-white border border-pink-100 overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="aspect-square bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center text-5xl">🎁</div>
+            <div className="aspect-square bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center text-5xl overflow-hidden">
+              {m.img ? (
+                <img src={m.img} alt={m.name} className="w-full h-full object-cover" />
+              ) : (
+                <span>🎁</span>
+              )}
+            </div>
             <div className="p-5">
               <span className="text-xs font-semibold text-pink-500 uppercase tracking-wide">{m.category}</span>
               <h3 className="font-bold text-plum-900 mt-1">{m.name}</h3>
               <p className="text-sm text-plum-400 mt-1">{m.desc}</p>
               <div className="flex items-center justify-between mt-4">
                 <span className="font-display text-xl font-bold text-plum-900">{m.price}</span>
-                <button
-                  disabled={!m.available}
-                  className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                    m.available
-                      ? "text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-105 shadow"
-                      : "text-plum-400 bg-pink-50 cursor-not-allowed"
-                  }`}
-                >
-                  {m.available ? (<><ShoppingBag size={14} /> Buy</>) : "Sold Out"}
-                </button>
+                {m.available && m.link ? (
+                  <a
+                    href={m.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition-all text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-105 shadow"
+                  >
+                    <ShoppingBag size={14} /> Buy
+                  </a>
+                ) : (
+                  <button
+                    disabled={!m.available}
+                    className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                      m.available
+                        ? "text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-105 shadow"
+                        : "text-plum-400 bg-pink-50 cursor-not-allowed"
+                    }`}
+                  >
+                    {m.available ? (<><ShoppingBag size={14} /> Buy</>) : "Sold Out"}
+                  </button>
+                )}
               </div>
             </div>
           </div>
