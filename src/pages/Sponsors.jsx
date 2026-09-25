@@ -18,16 +18,21 @@ export default function Sponsors() {
       {/* SPONSORS */}
       <div className="mb-16">
         <SectionHeading eyebrow="Partners" title="Trusted by lovely brands" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {sponsors.map((s) => (
             <a
               key={s.name}
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="aspect-[4/3] grid place-items-center rounded-2xl bg-white border border-pink-100 text-plum-600 font-semibold hover:bg-pink-50 hover:scale-105 transition-all text-center px-2"
+              className="group relative overflow-hidden rounded-3xl p-6 flex flex-col items-center justify-center gap-3 text-center glass border border-pink-200/60 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
             >
-              {s.name}
+              <div className="absolute inset-0 bg-gradient-to-br from-pink-400/10 to-fuchsia-400/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-fuchsia-500 grid place-items-center text-white text-2xl font-bold shadow-lg">
+                {s.name[0]}
+              </div>
+              <span className="relative font-display text-lg font-bold text-plum-900">{s.name}</span>
+              <span className="relative text-xs font-medium text-pink-500 group-hover:text-fuchsia-500 transition-colors">Visit Partner ↗</span>
             </a>
           ))}
         </div>
