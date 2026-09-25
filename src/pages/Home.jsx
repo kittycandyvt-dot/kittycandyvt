@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles as SparkleIcon, Heart, Mic, Video, Users, ArrowRight, Play, Star } from "lucide-react";
+import { Sparkles as SparkleIcon, Heart, Mic, Video, Users, ArrowRight, Play, Star, Flame } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { site, latestContent, sponsors } from "@/data/siteData";
 import Sparkles from "@/components/Sparkles";
@@ -42,6 +42,9 @@ export default function Home() {
               </a>
               <Link to="/commissions" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 shadow-sm hover:bg-pink-50 transition-colors">
                 <Mic size={18} /> Hire Me
+              </Link>
+              <Link to="/spicy" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-red-500 to-pink-600 shadow-lg hover:scale-105 transition-transform">
+                <Flame size={18} /> Spicy 18+
               </Link>
             </div>
             <div className="mt-6 flex justify-center md:justify-start">
