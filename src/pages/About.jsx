@@ -9,8 +9,8 @@ function ProfileRow({ label, value }) {
     <div className="flex justify-between gap-4 py-2 border-b border-pink-100 last:border-0">
       <span className="text-sm text-plum-400 font-medium">{label}</span>
       <span className="text-sm text-plum-900 font-semibold text-right">{value}</span>
-    </div>
-  );
+    </div>);
+
 }
 
 export default function About() {
@@ -28,9 +28,9 @@ export default function About() {
               </div>
             </div>
             <div className="mt-5 glass rounded-2xl p-5">
-              {Object.entries(about.profile).map(([k, v]) => (
-                <ProfileRow key={k} label={k} value={v} />
-              ))}
+              {Object.entries(about.profile).map(([k, v]) =>
+              <ProfileRow key={k} label={k} value={v} />
+              )}
             </div>
           </div>
         </div>
@@ -50,9 +50,9 @@ export default function About() {
             <div className="glass rounded-3xl p-6">
               <h3 className="font-display text-lg font-bold text-plum-900 mb-2">🌟 Personality</h3>
               <div className="flex flex-wrap gap-2">
-                {about.personality.map((p) => (
-                  <span key={p} className="px-3 py-1 rounded-full text-xs font-medium text-pink-600 bg-pink-50 border border-pink-100">{p}</span>
-                ))}
+                {about.personality.map((p) =>
+                <span key={p} className="px-3 py-1 rounded-full text-xs font-medium text-pink-600 bg-pink-50 border border-pink-100">{p}</span>
+                )}
               </div>
             </div>
             <div className="glass rounded-3xl p-6">
@@ -76,11 +76,11 @@ export default function About() {
           </div>
 
           {/* Character Stats */}
-          <div className="glass rounded-3xl p-6">
+          <div className="glass rounded-3xl p-6 hidden">
             <h3 className="font-display text-xl font-bold text-plum-900 mb-4">📊 Character Stats</h3>
             <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
-              {about.stats.map((s) => (
-                <div key={s.label}>
+              {about.stats.map((s) =>
+              <div key={s.label}>
                   <div className="flex justify-between text-sm mb-1">
                     <span className="text-plum-600 font-medium">{s.label}</span>
                     <span className="text-pink-500 font-bold">{s.value}</span>
@@ -89,11 +89,11 @@ export default function About() {
                     <div className="h-full bg-gradient-to-r from-pink-400 to-fuchsia-500 rounded-full" style={{ width: `${s.value}%` }} />
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
