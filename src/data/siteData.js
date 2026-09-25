@@ -617,12 +617,12 @@ export const spicyIntro =
 export const aiPolicy =
   "AMy voice may not be My voice may not be:
 
-Used to train an AI model.
-Used to create a voice clone.
-Used to generate synthetic speech.
+Utilized to train an AI model.
+Utilized to create a voice clone.
+Utilized to generate synthetic speech.
 Uploaded to voice-cloning services.
-Used to create AI-generated derivatives.
-Used to impersonate me.
+Utilized to create AI-generated derivatives.
+Utilized to impersonate me.
 Combined with AI systems to generate additional recordings.
 
 Any AI-related use requires my explicit written permission and a separate agreement.";
