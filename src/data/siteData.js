@@ -615,4 +615,15 @@ export const spicyIntro =
   "Welcome to the spicy side ✨ — a curated collection of NSFW voice acting demos for adult audiences only.";
 
 export const aiPolicy =
-  "Add your AI / voice cloning policy here. State clearly whether your voice recordings may be used for AI voice cloning, synthetic voice creation, or AI training.";
+  "AMy voice may not be:
+
+Used to train an AI model.
+Used to create a voice clone.
+Used to generate synthetic speech.
+Uploaded to voice-cloning services.
+Used to create AI-generated derivatives.
+Used to impersonate me.
+Combined with AI systems to generate additional recordings.
+
+Any AI-related use requires my explicit written permission and a separate agreement.
+";
