@@ -6,11 +6,15 @@ export default async function(req) {
 
     const bookings =
       await base44.asServiceRole.entities.InterviewSignup.filter({
-        status: "pending",
+        status: {
+          $in: ["pending", "confirmed"]
+        }
       });
 
     const bookedSlots = bookings
       .map((booking) => {
+        // New bookings use selectedSlot.
+        // Older bookings fall back to preferredDate.
         return booking.selectedSlot || booking.preferredDate;
       })
       .filter(Boolean);
