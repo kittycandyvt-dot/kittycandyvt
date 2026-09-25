@@ -39,11 +39,20 @@ function generateSlots() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const validDays = [1, 3, 5, 6];
+  const validDays = [1, 3, 5, 6]; // Mon, Wed, Fri, Sat
 
   for (let i = 0; i < 90; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
+
+    // Completely block September and October 2026
+    const isSeptember2026 =
+      date.getFullYear() === 2026 &&
+      date.getMonth() === 8;
+
+    const isOctober2026 =
+      date.getFullYear() === 2026 &&
+      date.getMonth() === 9;
 
     const dateString = [
       date.getFullYear(),
@@ -53,11 +62,13 @@ function generateSlots() {
 
     if (
       validDays.includes(date.getDay()) &&
+      !isSeptember2026 &&
+      !isOctober2026 &&
       !BLOCKED_DATES.includes(dateString)
     ) {
       const slot = new Date(date);
 
-      // 10:00 PM local time
+      // 10:00 PM
       slot.setHours(22, 0, 0, 0);
 
       slots.push(slot);
@@ -66,7 +77,6 @@ function generateSlots() {
 
   return slots;
 }
-
 export default function SlotPicker({
   selectedSlot,
   onSelect,
