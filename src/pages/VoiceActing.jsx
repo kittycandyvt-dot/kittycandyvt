@@ -3,7 +3,7 @@ import { voiceDemos, voiceCategories, vocalRange, homeStudio } from "@/data/site
 import SectionHeading from "@/components/SectionHeading";
 import AudioPlayer from "@/components/AudioPlayer";
 
-const studioImg = "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/4f5981053_generated_18a4cc1b.jpg";
+const studioImg = "";
 
 export default function VoiceActing() {
   return (
@@ -68,7 +68,12 @@ export default function VoiceActing() {
 
       {/* HOME STUDIO */}
       <div className="grid md:grid-cols-2 gap-8 items-center">
-        <img src={studioImg} alt="Home recording studio" className="w-full rounded-3xl shadow-xl border-4 border-white" />
+        <div className="w-full aspect-[4/3] rounded-3xl shadow-xl border-4 border-white bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center text-plum-400 text-center">
+          <div>
+            <div className="text-6xl mb-2">🎙️</div>
+            <p className="text-sm font-medium">Your Studio Photo</p>
+          </div>
+        </div>
         <div className="glass rounded-3xl p-8">
           <h3 className="font-display text-2xl font-bold text-plum-900 mb-4">🏠 Home Studio</h3>
           <div className="space-y-3">

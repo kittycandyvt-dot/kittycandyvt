@@ -2,7 +2,7 @@ import React from "react";
 import { about, site } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 
-const aboutImg = "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/2b2073b4f_generated_a0619d45.jpg";
+const aboutImg = "";
 
 function ProfileRow({ label, value }) {
   return (
@@ -21,7 +21,12 @@ export default function About() {
       <div className="grid md:grid-cols-3 gap-8">
         <div className="md:col-span-1">
           <div className="sticky top-24">
-            <img src={aboutImg} alt={`${site.vtuberName} portrait`} className="w-full rounded-3xl shadow-xl border-4 border-white" />
+            <div className="w-full aspect-[3/4] rounded-3xl shadow-xl border-4 border-white bg-gradient-to-br from-pink-100 to-fuchsia-100 grid place-items-center text-plum-400 text-center">
+              <div>
+                <div className="text-6xl mb-2">💖</div>
+                <p className="text-sm font-medium">Your Portrait</p>
+              </div>
+            </div>
             <div className="mt-5 glass rounded-2xl p-5">
               {Object.entries(about.profile).map(([k, v]) => (
                 <ProfileRow key={k} label={k} value={v} />
