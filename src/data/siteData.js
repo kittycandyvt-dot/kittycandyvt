@@ -54,7 +54,7 @@ export const about = {
 export const vtuberModel = {
   modelArtist: "MoshieStudio",
   riggingArtist: "MoshieStudio",
-  modelVersion: "Add model version",
+  
   outfits: [
     { name: "A maid for your desires", desc: "Valentine Sweetheart Maid VTuber outfit.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/b0e0102f5_vts_2026-09-25_03-41-10.png", link: "https://www.etsy.com/ca/listing/4398575782/valentine-sweetheart-maid-vtuber-outfit?ref=yr_purchases" },
     { name: "Comfy gaming", desc: "Bean Bag Gamer VTuber asset outfit.", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/9d3a9e0d0_vts_2026-09-25_03-41-32.png", link: "https://www.etsy.com/ca/listing/4487226218/bean-bag-gamer-vtuber-asset-outfit-and?ref=yr_purchases" },
