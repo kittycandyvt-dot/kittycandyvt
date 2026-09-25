@@ -8,7 +8,7 @@ export const site = {
   tagline: "I don't bite...unless you want me to~",
   title: "VTuber • Voice Actress • Content Creator",
   intro:
-    "Write a short introduction about yourself here. Describe who you are, what you do, and what makes you unique. This will appear on your home page.",
+    "Just a kitty who likes to play games, bring projects to life, learn about other Streamers and has the power to tempt you to stay~",
   email: "kittycandyvt@gmail.com",
   status: "offline", // "live" | "offline"
   livePlatform: "Twitch",
