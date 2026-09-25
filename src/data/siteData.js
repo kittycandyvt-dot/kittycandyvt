@@ -163,12 +163,9 @@ export const merch = [
 export const merchCategories = ["Stickers", "Keychains", "Acrylic Stands", "Prints", "Apparel", "Other"];
 
 export const sponsors = [
-  { name: "Partner Name", link: "https://" },
-  { name: "Partner Name", link: "https://" },
-  { name: "Partner Name", link: "https://" },
-  { name: "Partner Name", link: "https://" },
-  { name: "Partner Name", link: "https://" },
-  { name: "Partner Name", link: "https://" },
+  { name: "Lovense", link: "https://www.lovense.com/" },
+  { name: "Gamer Girl", link: "https://gamergirl.com/" },
+  { name: "Blacklyte", link: "https://blacklyte.com/" },
 ];
 
 export const collabTypes = [
