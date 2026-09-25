@@ -70,11 +70,8 @@ export default function Home() {
       {/* MEET THE VTUBER */}
       <section className="py-16 px-4 md:px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div className="aspect-square rounded-3xl bg-gradient-to-br from-pink-100 to-fuchsia-100 border border-pink-200 grid place-items-center text-plum-400 text-center">
-            <div>
-              <div className="text-5xl mb-2">🌸</div>
-              <p className="text-sm font-medium">Your Photo</p>
-            </div>
+          <div className="aspect-square rounded-3xl border border-pink-200 overflow-hidden">
+            <Image src="https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/9f28708c8_kitty-business-card_1.png" alt="KittyCandyVT portrait" className="w-full h-full" fittingType="fill" />
           </div>
           <div>
             <SectionHeading eyebrow="Meet the VTuber" title="A star with a voice like honey" center={false} />
