@@ -1,4 +1,3 @@
-```jsx
 import React from "react";
 import { about, site } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
@@ -142,4 +141,3 @@ export default function About() {
     </div>
   );
 }
-```
