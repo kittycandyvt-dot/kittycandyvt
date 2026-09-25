@@ -28,10 +28,9 @@ export const about = {
   likes: ["Cats", "Pink", "Ramen Noodles", "Sushi"],
   dislikes: ["Racism", "Homophobia", "Water"],
   funFacts: [
-    "Fun fact 1",
-    "Fun fact 2",
-    "Fun fact 3",
-    "Fun fact 4",
+    "I'm 5'1",
+    "Autistic",
+    "Hypersexual",
   ],
   stats: [
     { label: "Stat 1", value: 0 },
