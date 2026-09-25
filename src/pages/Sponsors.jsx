@@ -25,14 +25,14 @@ export default function Sponsors() {
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-3xl p-6 flex flex-col items-center justify-center gap-3 text-center glass border border-pink-200/60 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
+              className="group relative overflow-hidden rounded-3xl p-8 flex flex-col items-center justify-center gap-4 text-center bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-400/10 to-fuchsia-400/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-fuchsia-500 grid place-items-center text-white text-2xl font-bold shadow-lg">
-                {s.name[0]}
+              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm p-2 grid place-items-center overflow-hidden">
+                <img src={s.img} alt={`${s.name} logo`} className="w-full h-full object-contain rounded-xl" />
               </div>
-              <span className="relative font-display text-lg font-bold text-plum-900">{s.name}</span>
-              <span className="relative text-xs font-medium text-pink-500 group-hover:text-fuchsia-500 transition-colors">Visit Partner ↗</span>
+              <span className="relative font-display text-lg font-bold text-white">{s.name}</span>
+              <span className="relative text-xs font-medium text-pink-300 group-hover:text-fuchsia-300 transition-colors">Visit Partner ↗</span>
             </a>
           ))}
         </div>

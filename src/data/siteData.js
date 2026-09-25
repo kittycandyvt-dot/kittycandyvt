@@ -163,9 +163,9 @@ export const merch = [
 export const merchCategories = ["Stickers", "Keychains", "Acrylic Stands", "Prints", "Apparel", "Other"];
 
 export const sponsors = [
-  { name: "Lovense", link: "https://www.lovense.com/" },
-  { name: "Gamer Girl", link: "https://gamergirl.com/" },
-  { name: "Blacklyte", link: "https://blacklyte.com/" },
+  { name: "Lovense", link: "https://www.lovense.com/", img: "https://pbs.twimg.com/profile_images/1679431995733192706/YgsdLTqv.jpg" },
+  { name: "Drink Gamer Girl", link: "https://drinkgamergirl.com/", img: "https://pbs.twimg.com/profile_images/2013735294546112512/YPFUfkzS.jpg" },
+  { name: "Blacklyte", link: "https://blacklyte.com/", img: "https://pbs.twimg.com/profile_images/1955145355387183104/7tF9uTRT.jpg" },
 ];
 
 export const collabTypes = [
