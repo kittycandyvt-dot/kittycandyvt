@@ -11,7 +11,6 @@ import Home from '@/pages/Home';
 import About from '@/pages/About';
 import VTuber from '@/pages/VTuber';
 import VoiceActing from '@/pages/VoiceActing';
-import Portfolio from '@/pages/Portfolio';
 import Commissions from '@/pages/Commissions';
 import Merch from '@/pages/Merch';
 import Sponsors from '@/pages/Sponsors';
@@ -47,7 +46,6 @@ const AuthenticatedApp = () => {
         <Route path="/about" element={<About />} />
         <Route path="/vtuber" element={<VTuber />} />
         <Route path="/voice-acting" element={<VoiceActing />} />
-        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/commissions" element={<Commissions />} />
         <Route path="/merch" element={<Merch />} />
         <Route path="/sponsors" element={<Sponsors />} />
