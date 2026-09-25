@@ -182,7 +182,7 @@ export const testimonials = [
 export const socials = [
   { name: "Twitch", url: "https://twitch.tv/kittycandyvt", icon: "Twitch" },
   { name: "YouTube", url: "https://www.youtube.com/@KittyCandyVT", icon: "Youtube" },
-  { name: "TikTok", url: "https://tiktok.com/", icon: "Music2" },
+  { name: "TikTok", url: "https://www.tiktok.com/@kittycandyvt?is_from_webapp=1&sender_device=pc", icon: "Music2" },
   { name: "Instagram", url: "https://instagram.com/", icon: "Instagram" },
   { name: "X/Twitter", url: "https://twitter.com/", icon: "Twitter" },
   { name: "Bluesky", url: "https://bsky.app/", icon: "Cloud" },
