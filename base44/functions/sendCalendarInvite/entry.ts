@@ -15,7 +15,7 @@ export default async function(req) {
     // Build the event time: preferredDate at 10:00 PM Eastern Time.
 // Interview duration: 2 hours.
 
-const start = new Date(`${preferredDate}T22:00:00`);
+const start = new Date(preferredDate + "T22:00:00");
 const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
     const eventPayload = {
       summary: `🎤 Interview with ${name || "Guest"}`,
