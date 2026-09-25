@@ -22,11 +22,6 @@
       "title": "Platform",
       "description": "Where you stream / create"
     },
-    "topic": {
-      "type": "string",
-      "title": "Interview Topic",
-      "description": "What would you like to talk about?"
-    },
     "preferredDate": {
       "type": "string",
       "format": "date",
