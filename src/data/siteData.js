@@ -12,7 +12,7 @@ export const site = {
   email: "your-email@example.com",
   status: "offline", // "live" | "offline"
   livePlatform: "Twitch",
-  liveUrl: "https://twitch.tv/",
+  liveUrl: "https://twitch.tv/kittycandyvt",
   debutDate: "Add your debut date",
   birthday: "Add your birthday",
   timezone: "Add your timezone",
