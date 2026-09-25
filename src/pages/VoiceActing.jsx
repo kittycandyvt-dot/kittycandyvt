@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { voiceDemos, voiceCategories, vocalRange, homeStudio } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 import AudioPlayer from "@/components/AudioPlayer";
+import { Flame } from "lucide-react";
 
 const studioImg = "";
 
@@ -9,6 +11,25 @@ export default function VoiceActing() {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
       <SectionHeading eyebrow="Voice Acting" title="Professional Voice Portfolio" subtitle="A full spectrum of characters, tones, and styles." />
+
+      {/* Spicy CTA */}
+      <div className="mb-12 rounded-3xl bg-gradient-to-br from-[#1a0a12] to-[#0d0610] p-6 md:p-8 text-center relative overflow-hidden">
+        <div className="mx-auto w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-pink-600 grid place-items-center text-white mb-3">
+          <Flame size={24} />
+        </div>
+        <h2 className="font-display text-xl md:text-2xl font-bold text-white mb-2">
+          Looking for something spicier? 🔥
+        </h2>
+        <p className="text-pink-100/70 mb-4 max-w-lg mx-auto text-sm">
+          Explore my 18+ NSFW voice acting demos — for adult audiences only.
+        </p>
+        <Link
+          to="/spicy"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-red-500 to-pink-600 shadow-lg hover:scale-105 transition-transform"
+        >
+          <Flame size={18} /> Enter the Spicy Side
+        </Link>
+      </div>
 
       {/* DEMO REEL */}
       <div className="mb-12 rounded-3xl bg-gradient-to-br from-pink-500 to-fuchsia-500 p-8 md:p-12 text-white text-center relative overflow-hidden">

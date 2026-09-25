@@ -16,6 +16,7 @@ import Commissions from '@/pages/Commissions';
 import Merch from '@/pages/Merch';
 import Sponsors from '@/pages/Sponsors';
 import InterviewSignup from '@/pages/InterviewSignup';
+import SpicyVoiceActing from '@/pages/SpicyVoiceActing';
 import Contact from '@/pages/Contact';
 import Terms from '@/pages/Terms';
 
@@ -51,6 +52,7 @@ const AuthenticatedApp = () => {
         <Route path="/merch" element={<Merch />} />
         <Route path="/sponsors" element={<Sponsors />} />
         <Route path="/interview-signup" element={<InterviewSignup />} />
+        <Route path="/spicy" element={<SpicyVoiceActing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<PageNotFound />} />

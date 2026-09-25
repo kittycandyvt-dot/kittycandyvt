@@ -212,5 +212,17 @@ export const terms = [
   { title: "Privacy Policy", body: "Add your privacy policy here." },
 ];
 
+export const spicyVoiceDemos = [
+  { title: "Spicy Demo 1", category: "NSFW", type: "Seductive", duration: "0:00" },
+  { title: "Spicy Demo 2", category: "NSFW", type: "Dominant", duration: "0:00" },
+  { title: "Spicy Demo 3", category: "NSFW", type: "Submissive", duration: "0:00" },
+  { title: "Spicy Demo 4", category: "NSFW", type: "Playful", duration: "0:00" },
+  { title: "Spicy Demo 5", category: "NSFW", type: "Wholesome", duration: "0:00" },
+  { title: "Spicy Demo 6", category: "NSFW", type: "Roleplay", duration: "0:00" },
+];
+
+export const spicyIntro =
+  "Welcome to the spicy side ✨ — a curated collection of NSFW voice acting demos for adult audiences only.";
+
 export const aiPolicy =
   "Add your AI / voice cloning policy here. State clearly whether your voice recordings may be used for AI voice cloning, synthetic voice creation, or AI training.";
