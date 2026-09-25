@@ -211,6 +211,7 @@ All clients and characters involved in NSFW commissions must be 18+.
 I reserve the right to decline any commission or script I am uncomfortable performing.
 Please provide your script, character information, desired tone, and any relevant pronunciation notes when ordering.
 Commission slots are limited and are handled on a first-come, first-served basis unless otherwise stated.
+
 🎙️ Scripts & Content
 You must provide the script unless we have agreed on custom writing separately.
 Please clearly mark any specific lines, sounds, character directions, or acting notes you want included.
@@ -218,6 +219,7 @@ Script length is calculated by word count, not estimated recording time.
 Minor script edits may be accommodated, but substantial rewrites or additions may require an additional fee.
 I will not perform content involving minors or characters presented as minors.
 I may refuse content involving illegal, non-consensual, or personally uncomfortable scenarios.
+
 💰 Payment
 Payment is required before recording begins unless otherwise agreed.
 Prices are based on the agreed commission package and script length.
@@ -228,20 +230,24 @@ Multiple characters/voices
 Significant audio editing
 Additional takes beyond the agreed amount
 Once recording has begun, payments are generally non-refundable.
+
 🔄 Revisions & Retakes
 One minor revision is included unless otherwise stated.
 A revision means correcting an agreed-upon performance or pronunciation issue — it does not mean completely changing the script or character direction.
 New lines added after recording may be charged separately.
 Retakes caused by my own recording mistake will not incur an additional fee.
+
 📦 Delivery
 Finished audio will be delivered digitally in the agreed format.
 Standard turnaround times will be provided when the commission is accepted.
 Delays caused by incomplete information, script changes, or delayed client responses may extend the delivery date.
 Rush delivery may be available for an additional fee.
+
 🔒 Privacy
 Commissioned material will be treated as private unless you give permission for me to share it publicly.
 I will not publicly post private commission audio without permission.
 Please do not redistribute, resell, or publicly upload commissioned audio unless your commission package specifically includes those rights.
+
 ©️ Usage & Rights
 
 Unless otherwise agreed:
