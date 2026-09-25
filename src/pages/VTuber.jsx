@@ -1,6 +1,7 @@
 import React from "react";
 import { vtuberModel, about } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
+import { Image } from "@/components/ui/image";
 
 export default function VTuber() {
   return (
@@ -9,7 +10,9 @@ export default function VTuber() {
 
       {/* MODEL */}
       <div className="grid md:grid-cols-2 gap-8 mb-16">
-        <div className="aspect-[3/4] rounded-3xl bg-gradient-to-br from-pink-100 to-fuchsia-100 border border-pink-200 grid place-items-center text-6xl">🎀</div>
+        <div className="aspect-[4/3] rounded-3xl bg-white border border-pink-200 overflow-hidden">
+          <Image src="https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/69171be45_kittycandyvt.png" alt="KittyCandyVT character reference sheet" className="w-full h-full" fittingType="fit" />
+        </div>
         <div className="glass rounded-3xl p-8">
           <h3 className="font-display text-2xl font-bold text-plum-900 mb-4">Current Model</h3>
           <div className="space-y-3">
