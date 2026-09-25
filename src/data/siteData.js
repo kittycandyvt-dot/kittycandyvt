@@ -5,7 +5,7 @@
 
 export const site = {
   vtuberName: "KittyCandyVT",
-  tagline: "Your cute tagline goes here ✨",
+  tagline: "I don't bite...unless you want me to~",
   title: "VTuber • Voice Actress • Content Creator",
   intro:
     "Write a short introduction about yourself here. Describe who you are, what you do, and what makes you unique. This will appear on your home page.",
