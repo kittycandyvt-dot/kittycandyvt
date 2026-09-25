@@ -25,7 +25,7 @@ export const about = {
     "Write a detailed description about yourself here. Share your background, experience, and what makes you passionate about voice acting and VTubing.",
   lore: "Kitty was once just a normal cat living with a genius scientist. He was trying to experiment with different chemicals to extend his life. One night while the scientist was asleep, Kitty smelled delicious cotton candy and followed the scent to a chemical vat. She jumped in to taste the flavour and was transformed almost instantly into a Kitty/Human hybrid. When the scientist found out, he was amazed his experiment had such an impact and vowed to teach Kitty everything she needed to know about being human. Alas, one tragic night the lab caught on fire and the scientist was killed by the flames. Devastated, Kitty vowed to take her master's teachings to heart and now lives as a hybrid in disguise, using her VTuber persona to fit in with humans.",
   personality: ["Bratty", "Empathetic", "Autistic", "Flirty"],
-  likes: ["Like 1", "Like 2", "Like 3", "Like 4"],
+  likes: ["Cats", "Pink", "Ramen Noodles", "Sushi"],
   dislikes: ["Dislike 1", "Dislike 2", "Dislike 3"],
   funFacts: [
     "Fun fact 1",
