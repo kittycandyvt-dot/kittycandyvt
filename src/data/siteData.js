@@ -155,7 +155,6 @@ export const merch = [
   { name: "Product Name", category: "Prints", price: "$0", desc: "Product description.", available: true, img: "" },
   { name: "Product Name", category: "Apparel", price: "$0", desc: "Product description.", available: false, img: "" },
   { name: "Product Name", category: "Other", price: "$0", desc: "Product description.", available: true, img: "" },
-  { name: "Lenticular Stickers", category: "Stickers", price: "See store", desc: "Lenticular stickers by Kitty Candy.", available: true, img: "", link: "https://acggoods.com/store/kittycandycollectibles/product/lenticular-stickers-by-kitty-candy/1055332" },
 ];
 
 export const merchCategories = ["Stickers", "Keychains", "Acrylic Stands", "Prints", "Apparel", "Other"];
