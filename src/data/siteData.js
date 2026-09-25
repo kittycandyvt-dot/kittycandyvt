@@ -181,7 +181,7 @@ export const testimonials = [
 
 export const socials = [
   { name: "Twitch", url: "https://twitch.tv/kittycandyvt", icon: "Twitch" },
-  { name: "YouTube", url: "https://youtube.com/", icon: "Youtube" },
+  { name: "YouTube", url: "https://www.youtube.com/@KittyCandyVT", icon: "Youtube" },
   { name: "TikTok", url: "https://tiktok.com/", icon: "Music2" },
   { name: "Instagram", url: "https://instagram.com/", icon: "Instagram" },
   { name: "X/Twitter", url: "https://twitter.com/", icon: "Twitter" },
