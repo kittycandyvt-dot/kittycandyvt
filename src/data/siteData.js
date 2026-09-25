@@ -14,7 +14,7 @@ export const site = {
   livePlatform: "Twitch",
   liveUrl: "https://twitch.tv/kittycandyvt",
   debutDate: "Add your debut date",
-  birthday: "Add your birthday",
+  birthday: "December 31",
   timezone: "Add your timezone",
   languages: ["Language 1", "Language 2"],
   pronouns: "She/Her",
@@ -45,7 +45,7 @@ export const about = {
   profile: {
     "VTuber Name": "KittyCandyVT",
     Pronouns: "She/Her",
-    Birthday: "Add your birthday",
+    Birthday: "December 31",
     "Debut Date": "Add your debut date",
     "Time Zone": "Add your timezone",
     Languages: "Add your languages",
