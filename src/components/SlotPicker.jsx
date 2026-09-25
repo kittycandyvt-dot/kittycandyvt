@@ -2,12 +2,21 @@ import React, { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
 
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
-// Manually blocked dates (YYYY-MM-DD).
-// These dates will NEVER appear as available.
+// Dates that are manually unavailable.
 const BLOCKED_DATES = [
   "2026-10-01",
   "2026-10-03",
@@ -17,53 +26,38 @@ const BLOCKED_DATES = [
   "2026-10-16",
   "2026-10-21",
   "2026-10-28",
-  "2026-09-26",
-  "2026-09-27",
-  "2026-09-28",
-  "2026-09-29",
-  "2026-09-30",
-  "2026-10-02",
-  "2026-10-04",
-  "2026-10-05",
-  "2026-10-11",
-  "2026-09-25",
-  "2026-10-09",
-  "2026-10-14",
-  "2026-10-17",
-  "2026-10-19",
-  "2026-10-23",
-  "2026-10-24",
-  "2026-10-26",
-  "2026-10-30",
-  "2026-10-31",
 ];
 
-// Available interview days:
+// Interview days:
 // Monday, Wednesday, Friday, Saturday
 //
 // Interview time:
 // 10:00 PM
 function generateSlots() {
   const slots = [];
-  const today = new Date();
 
+  const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const validDays = [1, 3, 5, 6]; // Mon, Wed, Fri, Sat
+  const validDays = [1, 3, 5, 6];
 
   for (let i = 0; i < 90; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
 
-    const dateString = d.toISOString().slice(0, 10);
+    const dateString = [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, "0"),
+      String(date.getDate()).padStart(2, "0"),
+    ].join("-");
 
     if (
-      validDays.includes(d.getDay()) &&
+      validDays.includes(date.getDay()) &&
       !BLOCKED_DATES.includes(dateString)
     ) {
-      const slot = new Date(d);
+      const slot = new Date(date);
 
-      // 10:00 PM
+      // 10:00 PM local time
       slot.setHours(22, 0, 0, 0);
 
       slots.push(slot);
@@ -78,19 +72,22 @@ export default function SlotPicker({
   onSelect,
   bookedSlots = [],
 }) {
-  // Convert booked slots into a Set so checking availability is fast.
+  // Only exact booked ISO timestamps are considered unavailable.
   const bookedSet = useMemo(() => {
-    return new Set(bookedSlots);
+    return new Set(
+      bookedSlots.filter(
+        (slot) => typeof slot === "string" && slot.includes("T")
+      )
+    );
   }, [bookedSlots]);
 
-  // Remove any slots that have already been booked.
+  // Remove already-booked slots.
   const allSlots = useMemo(() => {
     return generateSlots().filter((slot) => {
       return !bookedSet.has(slot.toISOString());
     });
   }, [bookedSet]);
 
-  // Organize slots by month.
   const months = useMemo(() => {
     const map = {};
 
@@ -130,7 +127,6 @@ export default function SlotPicker({
     );
   };
 
-  // If there are no available slots.
   if (!months.length) {
     return (
       <div className="glass rounded-3xl p-6 md:p-8 text-center">
@@ -149,10 +145,7 @@ export default function SlotPicker({
 
   return (
     <div className="glass rounded-3xl p-6 md:p-8">
-
-      {/* Month navigation */}
       <div className="flex items-center justify-between mb-5">
-
         <button
           type="button"
           onClick={() =>
@@ -182,12 +175,9 @@ export default function SlotPicker({
         >
           <ChevronRight size={18} />
         </button>
-
       </div>
 
-      {/* Available slots */}
       <div className="grid sm:grid-cols-2 gap-3">
-
         {current?.slots.map((slot) => {
           const iso = slot.toISOString();
 
@@ -207,9 +197,7 @@ export default function SlotPicker({
               <Clock
                 size={15}
                 className={
-                  isSelected
-                    ? "text-white"
-                    : "text-pink-400"
+                  isSelected ? "text-white" : "text-pink-400"
                 }
               />
 
@@ -217,17 +205,13 @@ export default function SlotPicker({
             </button>
           );
         })}
-
       </div>
 
-      {/* Selected slot */}
       {selectedSlot && (
         <p className="mt-4 text-sm text-pink-600 font-semibold">
-          ✓ Selected:{" "}
-          {formatSlot(new Date(selectedSlot))}
+          ✓ Selected: {formatSlot(new Date(selectedSlot))}
         </p>
       )}
-
     </div>
   );
 }
