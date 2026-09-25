@@ -25,7 +25,13 @@
     "preferredDate": {
       "type": "string",
       "format": "date",
-      "title": "Preferred Date"
+      "title": "Preferred Date",
+      "description": "The date of the interview"
+    },
+    "selectedSlot": {
+      "type": "string",
+      "title": "Selected Interview Slot",
+      "description": "The exact interview date and time in ISO format"
     },
     "details": {
       "type": "string",
@@ -45,6 +51,7 @@
   },
   "required": [
     "name",
-    "email"
+    "email",
+    "selectedSlot"
   ]
 }
