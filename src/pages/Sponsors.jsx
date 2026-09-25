@@ -1,5 +1,5 @@
 import React from "react";
-import { sponsors, collabTypes, testimonials } from "@/data/siteData";
+import { sponsors, collabTypes } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 import { Link } from "react-router-dom";
 
@@ -37,25 +37,6 @@ export default function Sponsors() {
               )}
               <span className="relative text-xs font-medium text-pink-300 group-hover:text-fuchsia-300 transition-colors">Visit Partner ↗</span>
             </a>
-          ))}
-        </div>
-      </div>
-
-      {/* TESTIMONIALS */}
-      <div>
-        <SectionHeading eyebrow="Testimonials" title="Kind words from clients" />
-        <div className="grid md:grid-cols-3 gap-5">
-          {testimonials.map((t) => (
-            <div key={t.name} className="glass rounded-3xl p-6">
-              <p className="text-plum-700 italic">"{t.quote}"</p>
-              <div className="mt-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-300 to-fuchsia-300 grid place-items-center text-white font-bold">{t.name[0]}</div>
-                <div>
-                  <p className="font-semibold text-plum-900 text-sm">{t.name}</p>
-                  <p className="text-xs text-plum-400">{t.role} · {t.company}</p>
-                </div>
-              </div>
-            </div>
           ))}
         </div>
       </div>
