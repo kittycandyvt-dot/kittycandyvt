@@ -31,7 +31,7 @@ function generateSlots() {
     d.setDate(today.getDate() + i);
     if (validDays.includes(d.getDay()) && !BLOCKED_DATES.includes(d.toISOString().slice(0, 10))) {
       const slot = new Date(d);
-      slot.setHours(20, 0, 0, 0); // 8:00 PM
+      slot.setHours(22, 0, 0, 0); // 10:00 PM
       slots.push(slot);
     }
   }
