@@ -68,10 +68,13 @@ export const vtuberModel = {
     { version: "Model v3", date: "Date", note: "Description" },
   ],
   fanart: [
-    { artist: "Artist Name", link: "https://", img: "" },
-    { artist: "Artist Name", link: "https://", img: "" },
-    { artist: "Artist Name", link: "https://", img: "" },
-    { artist: "Artist Name", link: "https://", img: "" },
+    { artist: "Frogguclouds (Twitter)", link: "https://twitter.com/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/c72acf032_wink.jpg" },
+    { artist: "Minaxium (Vgen)", link: "https://vgen.co/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/8e35e9d15_snuggle.jpg" },
+    { artist: "Gensox (Vgen)", link: "https://vgen.co/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/311e773fa_cyber-kitty.jpg" },
+    { artist: "Minaxium (Vgen)", link: "https://vgen.co/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/f52b5211f_Illustration_20260905.png" },
+    { artist: "Miwayuex (Vgen)", link: "https://vgen.co/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/1cb445320_IMG_1570.png" },
+    { artist: "Frogguclouds (Twitter)", link: "https://twitter.com/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/ffe71a780_Illustration_20260828.png" },
+    { artist: "Minaxium (Vgen)", link: "https://vgen.co/", img: "https://media.base44.com/images/public/6ab5f8664d2ba33c8d38d474/bc391910d_Illustration_20260826.png" },
   ],
 };
 
