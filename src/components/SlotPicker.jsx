@@ -54,7 +54,7 @@ function generateSlots() {
       const slot = new Date(d);
 
       // 10:00 PM
-      slot.setHours(20, 0, 0, 0);
+      slot.setHours(22, 0, 0, 0);
 
       slots.push(slot);
     }
