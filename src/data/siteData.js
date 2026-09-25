@@ -615,7 +615,7 @@ export const spicyIntro =
   "Welcome to the spicy side ✨ — a curated collection of NSFW voice acting demos for adult audiences only.";
 
 export const aiPolicy =
-  "AMy voice may not be:
+  "AMy voice may not be My voice may not be:
 
 Used to train an AI model.
 Used to create a voice clone.
@@ -625,5 +625,4 @@ Used to create AI-generated derivatives.
 Used to impersonate me.
 Combined with AI systems to generate additional recordings.
 
-Any AI-related use requires my explicit written permission and a separate agreement.
-";
+Any AI-related use requires my explicit written permission and a separate agreement.";
