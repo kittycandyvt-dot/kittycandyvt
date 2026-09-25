@@ -1,5 +1,5 @@
 import React from "react";
-import { vtuberModel } from "@/data/siteData";
+import { vtuberModel, about } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 
 export default function VTuber() {
@@ -58,9 +58,9 @@ export default function VTuber() {
 
       {/* LORE */}
       <div className="mb-16 rounded-3xl bg-gradient-to-br from-pink-100 to-fuchsia-100 p-8 md:p-12 border border-pink-200">
-        <SectionHeading eyebrow="Lore" title="The story of a fallen star" />
+        <SectionHeading eyebrow="Lore" title="The story of KittyCandy" />
         <p className="text-plum-700 italic text-lg max-w-2xl mx-auto text-center">
-          "Born from a fallen star in the Dream Nebula, Luna drifted to Earth on a ribbon of light. She discovered human language and fell in love with the many ways a voice can make someone feel..."
+          {about.lore}
         </p>
       </div>
 
