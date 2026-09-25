@@ -43,7 +43,7 @@ export const about = {
     { label: "Stat 6", value: 0 },
   ],
   profile: {
-    "VTuber Name": "Your VTuber Name",
+    "VTuber Name": "KittyCandyVT",
     Pronouns: "Add your pronouns",
     Birthday: "Add your birthday",
     "Debut Date": "Add your debut date",
