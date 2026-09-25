@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import SectionHeading from "@/components/SectionHeading";
-import { Mic, CheckCircle2 } from "lucide-react";
+import { Mic, CheckCircle2, CalendarCheck } from "lucide-react";
 import StreamSchedule from "@/components/StreamSchedule";
+import SlotPicker from "@/components/SlotPicker";
 
 export default function InterviewSignup() {
   const [form, setForm] = useState({
@@ -17,6 +18,7 @@ export default function InterviewSignup() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState("");
 
   const platforms = ["Twitch", "YouTube", "TikTok", "X/Twitter", "Instagram", "Other"];
 
@@ -29,6 +31,10 @@ export default function InterviewSignup() {
     setError("");
     if (!form.name.trim() || !form.email.trim()) {
       setError("Please fill in your name and email.");
+      return;
+    }
+    if (!selectedSlot) {
+      setError("Please select a time slot.");
       return;
     }
     setSubmitting(true);
@@ -61,7 +67,8 @@ export default function InterviewSignup() {
               onClick={() => {
                 setSubmitted(false);
                 setForm({ name: "", email: "", handle: "", platform: "", preferredDate: "", details: "" });
-              }}
+                setSelectedSlot("");
+                }}
               className="px-6 py-3 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 hover:bg-pink-50 transition-colors"
             >
               Sign Up Another
@@ -127,15 +134,16 @@ export default function InterviewSignup() {
           </Field>
         </div>
 
-        <Field label="Preferred Date">
-          <input
-            type="date"
-            name="preferredDate"
-            value={form.preferredDate}
-            onChange={handleChange}
-            className="w-full px-4 py-2.5 rounded-xl border border-pink-200 bg-white/70 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
+        <div>
+          <label className="block text-sm font-semibold text-plum-700 mb-3">Choose a time slot</label>
+          <SlotPicker
+            selectedSlot={selectedSlot}
+            onSelect={(iso) => {
+              setSelectedSlot(iso);
+              setForm((f) => ({ ...f, preferredDate: iso.slice(0, 10) }));
+            }}
           />
-        </Field>
+        </div>
 
         <Field label="Additional Details">
           <textarea
@@ -156,9 +164,9 @@ export default function InterviewSignup() {
           className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {submitting ? (
-            <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Submitting...</>
+            <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Booking...</>
           ) : (
-            <><Mic size={18} /> Sign Me Up!</>
+            <><CalendarCheck size={18} /> Book My Interview</>
           )}
         </button>
       </form>
