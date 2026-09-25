@@ -6,35 +6,51 @@ export default function AudioPlayer({
   subtitle = "",
   duration = "0:30",
   compact = false,
+  src = "",
 }) {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [current, setCurrent] = useState("0:00");
 
-  // No real audio file — simulate a player with a timer for demo purposes.
+  const fmt = (secs) => {
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
   const toggle = () => {
-    setPlaying((p) => !p);
+    if (!audioRef.current || !src) {
+      setPlaying((p) => !p);
+      return;
+    }
+    if (playing) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
   };
 
   useEffect(() => {
-    if (!playing) return;
-    const id = setInterval(() => {
-      setProgress((p) => {
-        const next = Math.min(p + 100 / (30 * 10), 100);
-        if (next >= 100) {
-          setPlaying(false);
-          return 0;
-        }
-        const secs = Math.round((next / 100) * 30);
-        const m = Math.floor(secs / 60);
-        const s = secs % 60;
-        setCurrent(`${m}:${s.toString().padStart(2, "0")}`);
-        return next;
-      });
-    }, 100);
-    return () => clearInterval(id);
-  }, [playing]);
+    if (!src || !audioRef.current) return;
+    const audio = audioRef.current;
+    const onTime = () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      setProgress(pct);
+      setCurrent(fmt(audio.currentTime));
+    };
+    const onEnd = () => {
+      setPlaying(false);
+      setProgress(0);
+      setCurrent("0:00");
+    };
+    audio.addEventListener("timeupdate", onTime);
+    audio.addEventListener("ended", onEnd);
+    return () => {
+      audio.removeEventListener("timeupdate", onTime);
+      audio.removeEventListener("ended", onEnd);
+    };
+  }, [src]);
 
   return (
     <div
@@ -53,7 +69,7 @@ export default function AudioPlayer({
         {!compact && (
           <div className="flex items-center justify-between gap-2 mb-1">
             <p className="font-semibold text-sm text-plum-900 truncate">{title}</p>
-            <span className="text-xs text-pink-400 tabular-nums">{current} / {duration}</span>
+            <span className="text-xs text-pink-400 tabular-nums">{current}{src ? "" : ` / ${duration}`}</span>
           </div>
         )}
         {compact && <p className="font-semibold text-sm text-plum-900 truncate">{title}</p>}
@@ -61,8 +77,10 @@ export default function AudioPlayer({
         <div
           className="mt-1 h-2 rounded-full bg-pink-100 overflow-hidden cursor-pointer"
           onClick={(e) => {
+            if (!audioRef.current || !src || !audioRef.current.duration) return;
             const rect = e.currentTarget.getBoundingClientRect();
-            setProgress(((e.clientX - rect.left) / rect.width) * 100);
+            const pct = (e.clientX - rect.left) / rect.width;
+            audioRef.current.currentTime = pct * audioRef.current.duration;
           }}
         >
           <div
@@ -71,6 +89,7 @@ export default function AudioPlayer({
           />
         </div>
       </div>
+      {src && <audio ref={audioRef} src={src} preload="metadata" />}
     </div>
   );
 }

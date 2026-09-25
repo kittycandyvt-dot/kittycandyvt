@@ -94,7 +94,7 @@ export default function Home() {
       <section className="py-16 px-4 md:px-6 bg-pink-50/50">
         <div className="max-w-4xl mx-auto">
           <SectionHeading eyebrow="Hear My Voice" title="Listen to my demos" subtitle="A taste of the characters and tones I can bring to life." />
-          <AudioPlayer title="Featured Demo Reel" subtitle="Voice Actress · All ranges" duration="1:30" />
+          <AudioPlayer title="Obsessive Villain Script" subtitle="Voice Actress · Villainous" duration="1:30" src="https://media.base44.com/files/public/6ab5f8664d2ba33c8d38d474/d59f64a37_ObsessiveVillainscript.mp3" />
           <div className="mt-6 flex flex-wrap gap-2 justify-center">
             {["Character Voices", "Commercial", "Narration", "More Demos"].map((b) => (
               <span key={b} className="px-4 py-2 rounded-full text-sm font-medium text-pink-600 bg-white border border-pink-100 hover:bg-pink-50 cursor-pointer transition-colors">{b}</span>
