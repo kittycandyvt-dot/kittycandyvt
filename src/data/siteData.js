@@ -205,8 +205,8 @@ export const latestContent = [
 ];
 
 export const terms = [
-  { title: "Commission Terms", body: "💕 General
-I only accept commissions from 18+ clients.
+  { title: "Commission Terms", body: `💕 General
+  I only accept commissions from 18+ clients.
 All clients and characters involved in NSFW commissions must be 18+.
 I reserve the right to decline any commission or script I am uncomfortable performing.
 Please provide your script, character information, desired tone, and any relevant pronunciation notes when ordering.
@@ -270,9 +270,9 @@ Have read and understood these terms.
 Have provided accurate information about your commission.
 Agree to the usage and redistribution restrictions above.
 
-Thank you for supporting my voice work! 💕" },
+Thank you for supporting my voice work! 💕` },
   { title: "Payment Terms", body: "Half of payment will be given before voice recording starts the other half given after final product is complete" },
-  { title: "Refund Policy", body: "💸 Refund Policy
+  { title: "Refund Policy", body: `💸 Refund Policy
 
 Please read this policy before purchasing a voice-acting commission. By placing an order, you acknowledge and agree to these terms.
 
@@ -339,9 +339,9 @@ Because commissioned recordings are custom-made digital content, completed commi
 
 Each refund request will be considered individually and handled fairly based on the circumstances.
 
-By purchasing a commission, you confirm that you have read and agreed to this refund policy." },
+By purchasing a commission, you confirm that you have read and agreed to this refund policy.` },
 
-  { title: "Commercial Usage", body: "Please read this policy before purchasing a voice-acting commission. Commercial rights are not automatically included unless specifically stated in your commission package.
+  { title: "Commercial Usage", body: `Please read this policy before purchasing a voice-acting commission. Commercial rights are not automatically included unless specifically stated in your commission package.
 
 🎙️ Personal Use
 
@@ -467,11 +467,11 @@ Commercial licensing does not transfer ownership of my voice.
 AI/voice-cloning use is prohibited without explicit written permission.
 You are responsible for ensuring your use complies with the agreed license.
 
-Thank you for respecting my work, voice, and boundaries!" },
+Thank you for respecting my work, voice, and boundaries!` },
 
   { title: "Copyright", body: "I reserve the rights to any and all work done by me" },
   
-  { title: "Privacy Policy", body: "Your privacy matters to me. This policy explains what information I collect, why I collect it, how I use it, and how I handle your commission materials.
+  { title: "Privacy Policy", body: `Your privacy matters to me. This policy explains what information I collect, why I collect it, how I use it, and how I handle your commission materials.
 
 📋 Information I May Collect
 
@@ -595,7 +595,7 @@ The updated version will apply once posted.
 
 If you have questions about how your information or commission materials are handled, please contact me before submitting your commission.
 
-By submitting a commission request, you acknowledge that you have read and understood this Privacy Policy." },
+By submitting a commission request, you acknowledge that you have read and understood this Privacy Policy.` },
 ];
 
 export const spicyVoiceDemos = [
