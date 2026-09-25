@@ -4,82 +4,67 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 340 60% 99%;
+    --foreground: 330 35% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 330 35% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 330 35% 12%;
+    --primary: 330 80% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 340 60% 96%;
+    --secondary-foreground: 330 35% 12%;
+    --muted: 340 50% 96%;
+    --muted-foreground: 330 15% 45%;
+    --accent: 270 60% 82%;
+    --accent-foreground: 330 35% 12%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-    --font-heading: ui-sans-serif, system-ui, sans-serif;
-    --font-body: ui-sans-serif, system-ui, sans-serif;
-    --font-display: ui-sans-serif, system-ui, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --border: 340 50% 92%;
+    --input: 340 50% 92%;
+    --ring: 330 80% 56%;
+    --chart-1: 330 80% 61%;
+    --chart-2: 270 60% 70%;
+    --chart-3: 30 80% 70%;
+    --chart-4: 43 80% 75%;
+    --chart-5: 197 60% 65%;
+    --radius: 1rem;
+    --font-heading: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-background: 340 60% 99%;
+    --sidebar-foreground: 330 35% 26%;
+    --sidebar-primary: 330 80% 56%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 340 60% 96%;
+    --sidebar-accent-foreground: 330 35% 12%;
+    --sidebar-border: 340 50% 92%;
+    --sidebar-ring: 330 80% 56%;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 330 30% 8%;
+    --foreground: 340 40% 96%;
+    --card: 330 30% 10%;
+    --card-foreground: 340 40% 96%;
+    --popover: 330 30% 10%;
+    --popover-foreground: 340 40% 96%;
+    --primary: 330 80% 66%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 330 30% 16%;
+    --secondary-foreground: 340 40% 96%;
+    --muted: 330 30% 16%;
+    --muted-foreground: 340 20% 65%;
+    --accent: 270 50% 30%;
+    --accent-foreground: 340 40% 96%;
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 330 30% 20%;
+    --input: 330 30% 20%;
+    --ring: 330 80% 66%;
   }
 }
-
-
 
 @layer base {
   * {
@@ -89,4 +74,63 @@
   body {
     @apply bg-background text-foreground font-body;
   }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-heading;
+  }
+
+  /* Accessibility: keyboard focus */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px dashed #E64A85;
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
 }
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(247, 200, 217, 0.8);
+  }
+
+  .shimmer {
+    background: linear-gradient(110deg, #ec4899 0%, #f0abfc 35%, #ec4899 70%, #f0abfc 100%);
+    background-size: 200% 100%;
+    animation: shimmer-slide 3s linear infinite;
+  }
+}
+
+@keyframes sparkle-float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-12px) scale(1.2); opacity: 1; }
+}
+
+@keyframes shimmer-slide {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(236, 72, 153, 0); }
+}
+
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
