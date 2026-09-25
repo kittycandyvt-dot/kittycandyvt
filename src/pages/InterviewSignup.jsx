@@ -65,6 +65,7 @@ export default function InterviewSignup() {
     try {
       await base44.entities.InterviewSignup.create({ ...form, status: "pending" });
       await base44.functions.invoke("sendInterviewNotification", form);
+      await base44.functions.invoke("sendCalendarInvite", form);
       setSubmitted(true);
     } catch (err) {
       setError("Something went wrong. Please try again.");
