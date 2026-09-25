@@ -26,8 +26,9 @@ function generateSlots() {
   return slots;
 }
 
-export default function SlotPicker({ selectedSlot, onSelect }) {
-  const allSlots = useMemo(() => generateSlots(), []);
+export default function SlotPicker({ selectedSlot, onSelect, bookedSlots = [] }) {
+  const bookedSet = useMemo(() => new Set(bookedSlots), [bookedSlots]);
+  const allSlots = useMemo(() => generateSlots().filter((s) => !bookedSet.has(s.toISOString())), [bookedSet]);
   const months = useMemo(() => {
     const map = {};
     allSlots.forEach((s) => {

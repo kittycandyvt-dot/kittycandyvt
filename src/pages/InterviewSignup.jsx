@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import SectionHeading from "@/components/SectionHeading";
@@ -19,6 +19,30 @@ export default function InterviewSignup() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [bookedSlots, setBookedSlots] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const signups = await base44.entities.InterviewSignup.list();
+        const taken = signups
+          .filter((s) => s.status === "pending" || s.status === "confirmed")
+          .map((s) => s.preferredDate);
+        // bookedSlots expects ISO strings matching SlotPicker format.
+        // Reconstruct the 8 PM slot for each booked date.
+        const isoSlots = taken
+          .filter(Boolean)
+          .map((d) => {
+            const date = new Date(d + "T00:00:00");
+            date.setHours(20, 0, 0, 0);
+            return date.toISOString();
+          });
+        setBookedSlots(isoSlots);
+      } catch (err) {
+        // ignore — just show all slots
+      }
+    })();
+  }, []);
 
   const platforms = ["Twitch", "YouTube", "TikTok", "X/Twitter", "Instagram", "Other"];
 
@@ -138,6 +162,7 @@ export default function InterviewSignup() {
           <label className="block text-sm font-semibold text-plum-700 mb-3">Choose a time slot</label>
           <SlotPicker
             selectedSlot={selectedSlot}
+            bookedSlots={bookedSlots}
             onSelect={(iso) => {
               setSelectedSlot(iso);
               setForm((f) => ({ ...f, preferredDate: iso.slice(0, 10) }));
