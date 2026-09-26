@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.49';
 
-export default async function (req) {
+Deno.serve(async (req) => {
   try {
     const url = new URL(req.url);
 
