@@ -30,6 +30,9 @@ export default function Sponsors() {
           </div>
         </div>
       </div>
+      <div className="mt-4 pt-4 border-t border-pink-300/20">
+  <TwitterFollowerCount />
+</div>
       {/* SPONSORS */}
       <div className="mb-16">
         <SectionHeading eyebrow="Partners" title="Trusted by lovely brands" />
