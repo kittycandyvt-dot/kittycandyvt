@@ -23,17 +23,19 @@ Deno.serve(async () => {
 
     const userData = await userResponse.json();
 
-    if (!userResponse.ok) {
-      console.error("X user request failed:", userData);
+if (!userResponse.ok) {
+  console.error("X user request failed:", userData);
 
-      return Response.json(
-        {
-          success: false,
-          error: "Could not retrieve X/Twitter user information.",
-        },
-        { status: 400 }
-      );
-    }
+  return Response.json(
+    {
+      success: false,
+      error: "X API request failed.",
+      details: userData,
+      status: userResponse.status,
+    },
+    { status: 400 }
+  );
+}
 
     const user = userData.data;
 
