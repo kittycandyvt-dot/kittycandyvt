@@ -277,7 +277,7 @@ export default function SpicyVoiceActing() {
 }
 ```
 
-### Your links are now built in
+
 
 **💗 Fansly**
 `https://fansly.com/KittyCandyVT`
@@ -285,4 +285,4 @@ export default function SpicyVoiceActing() {
 **🧡 Patreon**
 `https://www.patreon.com/c/SpicyKittyxxVA?vanity=user`
 
-I also removed the unused `base44` import, so you shouldn't get a warning about it being imported but never used.
+
