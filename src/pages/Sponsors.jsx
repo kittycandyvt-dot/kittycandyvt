@@ -2,6 +2,7 @@ import React from "react";
 import { sponsors, collabTypes } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 import { Link } from "react-router-dom";
+import TwitchFollowerCount from "@/components/TwitchFollowerCount";
 
 export default function Sponsors() {
   return (
