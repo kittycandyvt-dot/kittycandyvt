@@ -1,62 +1,42 @@
 Deno.serve(async () => {
   try {
-    const bearerToken = Deno.env.get("TWITTER_BEARER_TOKEN");
-    const username = Deno.env.get("TWITTER_USERNAME");
+    const profileUrl = "https://x.com/KittyCandy_VT";
 
-    if (!bearerToken) {
-      throw new Error("TWITTER_BEARER_TOKEN is not configured.");
-    }
-
-    if (!username) {
-      throw new Error("TWITTER_USERNAME is not configured.");
-    }
-
-    // Find the X user by username
-    const userResponse = await fetch(
-      `https://api.x.com/2/users/by/username/${encodeURIComponent(username)}?user.fields=public_metrics`,
-      {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      }
+    const response = await fetch(
+      `https://pulse.walls.sh/profile?url=${encodeURIComponent(profileUrl)}`
     );
 
-    const userData = await userResponse.json();
+    const data = await response.json();
 
-if (!userResponse.ok) {
-  console.error("X user request failed:", userData);
+    if (!response.ok) {
+      console.error("Pulse X profile request failed:", data);
 
-  return Response.json(
-    {
-      success: false,
-      error: "X API request failed.",
-      details: userData,
-      status: userResponse.status,
-    },
-    { status: 400 }
-  );
-}
-
-    const user = userData.data;
-
-    if (!user) {
       return Response.json(
         {
           success: false,
-          error: "X/Twitter user was not found.",
+          error: "Could not retrieve X/Twitter follower information.",
         },
-        { status: 404 }
+        { status: 400 }
       );
     }
 
-    const followers =
-      user.public_metrics?.followers_count ?? 0;
+    if (data.platform !== "x" || typeof data.followers !== "number") {
+      console.error("Unexpected Pulse response:", data);
+
+      return Response.json(
+        {
+          success: false,
+          error: "Invalid X/Twitter profile response.",
+        },
+        { status: 400 }
+      );
+    }
 
     return Response.json({
       success: true,
-      username: user.username,
-      followers,
-      updated_at: new Date().toISOString(),
+      username: data.handle || "KittyCandy_VT",
+      followers: data.followers,
+      updated_at: data.fetchedAt || new Date().toISOString(),
     });
 
   } catch (error) {
