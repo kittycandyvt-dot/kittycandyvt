@@ -4,6 +4,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { Link } from "react-router-dom";
 import TwitchFollowerCount from "@/components/TwitchFollowerCount";
 import TwitterFollowerCount from "@/components/TwitterFollowerCount";
+import TikTokFollowerCount from "@/components/TikTokFollowerCount";
 
 export default function Sponsors() {
   return (
@@ -17,40 +18,55 @@ export default function Sponsors() {
         ))}
       </div>
       
-                  {/* SOCIAL FOLLOWERS */}
-      <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+                 {/* SOCIAL FOLLOWERS */}
+<div className="mb-16 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
 
-        {/* TWITCH */}
-        <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
-          <div className="text-sm font-semibold text-pink-300 mb-3">
-            🐱 Join the Kitty Crew
-          </div>
+  {/* TWITCH */}
+  <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
+    <div className="text-sm font-semibold text-pink-300 mb-3">
+      🐱 Join the Kitty Crew
+    </div>
 
-          <div className="flex justify-center">
-            <TwitchFollowerCount />
-          </div>
+    <div className="flex justify-center">
+      <TwitchFollowerCount />
+    </div>
 
-          <div className="mt-3 text-xs text-pink-200/70">
-            Follow me on Twitch ✨
-          </div>
-        </div>
+    <div className="mt-3 text-xs text-pink-200/70">
+      Follow me on Twitch ✨
+    </div>
+  </div>
 
-        {/* X / TWITTER */}
-        <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
-          <div className="text-sm font-semibold text-pink-300 mb-3">
-            🖤 Follow Me on X
-          </div>
+  {/* X / TWITTER */}
+  <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
+    <div className="text-sm font-semibold text-pink-300 mb-3">
+      🖤 Follow Me on X
+    </div>
 
-          <div className="flex justify-center">
-            <TwitterFollowerCount />
-          </div>
+    <div className="flex justify-center">
+      <TwitterFollowerCount />
+    </div>
 
-          <div className="mt-3 text-xs text-pink-200/70">
-            Follow me on X ✨
-          </div>
-        </div>
+    <div className="mt-3 text-xs text-pink-200/70">
+      Follow me on X ✨
+    </div>
+  </div>
 
-      </div>
+  {/* TIKTOK */}
+  <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
+    <div className="text-sm font-semibold text-pink-300 mb-3">
+      🎵 Follow Me on TikTok
+    </div>
+
+    <div className="flex justify-center">
+      <TikTokFollowerCount />
+    </div>
+
+    <div className="mt-3 text-xs text-pink-200/70">
+      Follow me on TikTok ✨
+    </div>
+  </div>
+
+</div>
       {/* SPONSORS */}
       <div className="mb-16">
         <SectionHeading eyebrow="Partners" title="Trusted by lovely brands" />
