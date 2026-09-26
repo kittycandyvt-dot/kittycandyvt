@@ -3,6 +3,7 @@ import { sponsors, collabTypes } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 import { Link } from "react-router-dom";
 import TwitchFollowerCount from "@/components/TwitchFollowerCount";
+import TwitterFollowerCount from "@/components/TwitterFollowerCount";
 
 export default function Sponsors() {
   return (
