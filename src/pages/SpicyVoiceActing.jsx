@@ -1,4 +1,3 @@
-```jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { spicyVoiceDemos, spicyIntro } from "@/data/siteData";
@@ -275,14 +274,3 @@ export default function SpicyVoiceActing() {
     </div>
   );
 }
-```
-
-
-
-**💗 Fansly**
-`https://fansly.com/KittyCandyVT`
-
-**🧡 Patreon**
-`https://www.patreon.com/c/SpicyKittyxxVA?vanity=user`
-
-
