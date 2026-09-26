@@ -6,7 +6,30 @@ Deno.serve(async () => {
       `https://pulse.walls.sh/profile?url=${encodeURIComponent(profileUrl)}`
     );
 
-    const data = await response.json();
+    const responseText = await response.text();
+
+    let data;
+
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      console.error(
+        "Pulse returned a non-JSON response:",
+        response.status,
+        responseText
+      );
+
+      return Response.json(
+        {
+          success: false,
+          error:
+            response.status === 502
+              ? "X profile lookup is temporarily unavailable. Please try again."
+              : "X follower service returned an invalid response.",
+        },
+        { status: response.status }
+      );
+    }
 
     if (!response.ok) {
       console.error("Pulse X profile request failed:", data);
@@ -14,13 +37,19 @@ Deno.serve(async () => {
       return Response.json(
         {
           success: false,
-          error: "Could not retrieve X/Twitter follower information.",
+          error:
+            response.status === 502
+              ? "X profile lookup is temporarily unavailable. Please try again."
+              : "Could not retrieve X/Twitter follower information.",
         },
-        { status: 400 }
+        { status: response.status }
       );
     }
 
-    if (data.platform !== "x" || typeof data.followers !== "number") {
+    if (
+      data.platform !== "x" ||
+      typeof data.followers !== "number"
+    ) {
       console.error("Unexpected Pulse response:", data);
 
       return Response.json(
@@ -36,7 +65,8 @@ Deno.serve(async () => {
       success: true,
       username: data.handle || "KittyCandy_VT",
       followers: data.followers,
-      updated_at: data.fetchedAt || new Date().toISOString(),
+      updated_at:
+        data.fetchedAt || new Date().toISOString(),
     });
 
   } catch (error) {
