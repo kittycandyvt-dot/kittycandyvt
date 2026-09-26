@@ -15,7 +15,21 @@ export default function Sponsors() {
           <span key={c} className="px-4 py-2 rounded-full text-sm font-medium text-plum-600 bg-white border border-pink-100 hover:bg-pink-50 transition-colors">{c}</span>
         ))}
       </div>
+      
+      {/* TWITCH FOLLOWERS */}
+      <div className="mb-16 flex justify-center">
+        <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
+          <div className="text-sm font-semibold text-pink-300 mb-2">
+            🐱 Join the Kitty Crew
+          </div>
 
+          <TwitchFollowerCount />
+
+          <div className="mt-2 text-xs text-pink-200/70">
+            Follow along on Twitch ✨
+          </div>
+        </div>
+      </div>
       {/* SPONSORS */}
       <div className="mb-16">
         <SectionHeading eyebrow="Partners" title="Trusted by lovely brands" />
