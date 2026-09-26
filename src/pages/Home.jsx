@@ -9,6 +9,9 @@ import SectionHeading from "@/components/SectionHeading";
 import AudioPlayer from "@/components/AudioPlayer";
 import { Image } from "@/components/ui/image";
 import StreamSchedule from "@/components/StreamSchedule";
+import TwitchFollowerCount from "@/components/TwitchFollowerCount";
+import TwitterFollowerCount from "@/components/TwitterFollowerCount";
+import TikTokFollowerCount from "@/components/TikTokFollowerCount";
 
 const heroImg = "";
 
