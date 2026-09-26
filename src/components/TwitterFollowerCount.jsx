@@ -10,13 +10,20 @@ export default function TwitterFollowerCount() {
         "/api/functions/getTwitterFollowers"
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
       const data = await response.json();
 
-      if (data.success) {
+      if (data.success && typeof data.followers === "number") {
         setFollowers(data.followers);
+      } else {
+        throw new Error("Invalid follower response");
       }
     } catch (error) {
       console.error("Failed to load X followers:", error);
+      setFollowers(null);
     } finally {
       setLoading(false);
     }
@@ -25,7 +32,6 @@ export default function TwitterFollowerCount() {
   useEffect(() => {
     getFollowers();
 
-    // Update every minute
     const interval = setInterval(getFollowers, 60000);
 
     return () => clearInterval(interval);
@@ -36,9 +42,9 @@ export default function TwitterFollowerCount() {
       href="https://x.com/KittyCandy_VT"
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-3"
+      className="flex items-center justify-center gap-3"
     >
-      <div>
+      <div className="text-center">
         <div className="font-semibold text-white">
           X / Twitter
         </div>
