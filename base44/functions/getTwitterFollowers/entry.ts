@@ -1,73 +1,83 @@
 Deno.serve(async () => {
   try {
     const profileUrl = "https://x.com/KittyCandy_VT";
+    const pulseUrl = `https://pulse.walls.sh/profile?url=${encodeURIComponent(profileUrl)}`;
 
-    const response = await fetch(
-      `https://pulse.walls.sh/profile?url=${encodeURIComponent(profileUrl)}`
+    let lastStatus = 500;
+    let lastResponseText = "";
+
+    // Try up to 3 times in case Pulse temporarily returns a 502
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const response = await fetch(pulseUrl);
+        const responseText = await response.text();
+
+        lastStatus = response.status;
+        lastResponseText = responseText;
+
+        let data;
+
+        try {
+          data = JSON.parse(responseText);
+        } catch {
+          console.error(
+            `Pulse attempt ${attempt} returned non-JSON:`,
+            response.status,
+            responseText
+          );
+
+          if (attempt < 3) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            continue;
+          }
+
+          break;
+        }
+
+        if (
+          response.ok &&
+          data.platform === "x" &&
+          typeof data.followers === "number"
+        ) {
+          return Response.json({
+            success: true,
+            username: data.handle || "KittyCandy_VT",
+            followers: data.followers,
+            updated_at:
+              data.fetchedAt || new Date().toISOString(),
+          });
+        }
+
+        console.error(
+          `Pulse attempt ${attempt} failed:`,
+          response.status,
+          data
+        );
+
+        if (attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          continue;
+        }
+      } catch (error) {
+        console.error(`Pulse attempt ${attempt} error:`, error);
+
+        if (attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          continue;
+        }
+      }
+    }
+
+    return Response.json(
+      {
+        success: false,
+        error:
+          lastStatus === 502
+            ? "X profile lookup is temporarily unavailable. Please try again."
+            : "Could not retrieve X/Twitter follower information.",
+      },
+      { status: lastStatus }
     );
-
-    const responseText = await response.text();
-
-    let data;
-
-    try {
-      data = JSON.parse(responseText);
-    } catch {
-      console.error(
-        "Pulse returned a non-JSON response:",
-        response.status,
-        responseText
-      );
-
-      return Response.json(
-        {
-          success: false,
-          error:
-            response.status === 502
-              ? "X profile lookup is temporarily unavailable. Please try again."
-              : "X follower service returned an invalid response.",
-        },
-        { status: response.status }
-      );
-    }
-
-    if (!response.ok) {
-      console.error("Pulse X profile request failed:", data);
-
-      return Response.json(
-        {
-          success: false,
-          error:
-            response.status === 502
-              ? "X profile lookup is temporarily unavailable. Please try again."
-              : "Could not retrieve X/Twitter follower information.",
-        },
-        { status: response.status }
-      );
-    }
-
-    if (
-      data.platform !== "x" ||
-      typeof data.followers !== "number"
-    ) {
-      console.error("Unexpected Pulse response:", data);
-
-      return Response.json(
-        {
-          success: false,
-          error: "Invalid X/Twitter profile response.",
-        },
-        { status: 400 }
-      );
-    }
-
-    return Response.json({
-      success: true,
-      username: data.handle || "KittyCandy_VT",
-      followers: data.followers,
-      updated_at:
-        data.fetchedAt || new Date().toISOString(),
-    });
 
   } catch (error) {
     console.error("getTwitterFollowers error:", error);
