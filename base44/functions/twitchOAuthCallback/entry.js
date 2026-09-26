@@ -47,6 +47,7 @@ export default async function (req) {
       throw new Error("TWITCH_REDIRECT_URI is not configured.");
     }
 
+    // Exchange authorization code for Twitch tokens
     const tokenResponse = await fetch(
       "https://id.twitch.tv/oauth2/token",
       {
@@ -73,7 +74,6 @@ export default async function (req) {
         JSON.stringify({
           success: false,
           error: "Twitch token exchange failed.",
-          details: tokenData,
         }),
         {
           status: 400,
@@ -82,6 +82,54 @@ export default async function (req) {
           },
         }
       );
+    }
+
+    const accessToken = tokenData.access_token;
+    const refreshToken = tokenData.refresh_token;
+    const expiresIn = tokenData.expires_in;
+
+    if (!accessToken || !refreshToken) {
+      throw new Error("Twitch did not return the required tokens.");
+    }
+
+    // Verify the Twitch account connected to the token
+    const validateResponse = await fetch(
+      "https://id.twitch.tv/oauth2/validate",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    const validateData = await validateResponse.json();
+
+    if (!validateResponse.ok) {
+      console.error("Twitch token validation failed:", validateData);
+      throw new Error("Could not validate the Twitch access token.");
+    }
+
+    // Connect to Base44
+    const base44 = createClientFromRequest(req);
+
+    // Check whether we already have a Twitch authorization
+    const existing = await base44.entities.TwitchAuth.list();
+
+    const authData = {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      expires_at: Date.now() + (expiresIn * 1000),
+      twitch_user_id: validateData.user_id,
+      twitch_username: validateData.login,
+    };
+
+    if (existing && existing.length > 0) {
+      await base44.entities.TwitchAuth.update(
+        existing[0].id,
+        authData
+      );
+    } else {
+      await base44.entities.TwitchAuth.create(authData);
     }
 
     const scopes = tokenData.scope || [];
@@ -93,6 +141,7 @@ export default async function (req) {
         <head>
           <title>Twitch Connected</title>
         </head>
+
         <body style="
           background:#0d0610;
           color:white;
@@ -100,16 +149,30 @@ export default async function (req) {
           padding:40px;
           text-align:center;
         ">
+
           <h1>🐱 Twitch Connected!</h1>
-          <p>Your Twitch authorization was successful.</p>
+
+          <p>
+            Successfully connected:
+            <strong>@${validateData.login}</strong>
+          </p>
+
+          <p>
+            Your Twitch authorization has been securely saved.
+          </p>
+
           <p>Granted permissions:</p>
+
           <pre style="
             background:#1a0d20;
             padding:15px;
             border-radius:10px;
             display:inline-block;
+            text-align:left;
           ">${scopes.join("\n")}</pre>
+
           <p>You can close this window.</p>
+
         </body>
       </html>
       `,
@@ -120,6 +183,7 @@ export default async function (req) {
         },
       }
     );
+
   } catch (error) {
     console.error("Twitch OAuth callback error:", error);
 
