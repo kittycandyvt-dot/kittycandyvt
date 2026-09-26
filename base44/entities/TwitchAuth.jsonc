@@ -1,0 +1,21 @@
+{
+  "name": "TwitchAuth",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string"
+    },
+    "refresh_token": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "number"
+    },
+    "twitch_user_id": {
+      "type": "string"
+    },
+    "twitch_username": {
+      "type": "string"
+    }
+  }
+}
