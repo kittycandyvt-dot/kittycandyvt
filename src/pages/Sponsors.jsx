@@ -17,7 +17,7 @@ export default function Sponsors() {
         ))}
       </div>
       
-      {/* TWITCH FOLLOWERS */}
+            {/* SOCIAL FOLLOWERS */}
       <div className="mb-16 flex justify-center">
         <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
           <div className="text-sm font-semibold text-pink-300 mb-2">
@@ -26,14 +26,15 @@ export default function Sponsors() {
 
           <TwitchFollowerCount />
 
+          <div className="mt-4 pt-4 border-t border-pink-300/20">
+            <TwitterFollowerCount />
+          </div>
+
           <div className="mt-2 text-xs text-pink-200/70">
-            Follow along on Twitch ✨
+            Follow along on Twitch & X ✨
           </div>
         </div>
       </div>
-      <div className="mt-4 pt-4 border-t border-pink-300/20">
-  <TwitterFollowerCount />
-</div>
       {/* SPONSORS */}
       <div className="mb-16">
         <SectionHeading eyebrow="Partners" title="Trusted by lovely brands" />
