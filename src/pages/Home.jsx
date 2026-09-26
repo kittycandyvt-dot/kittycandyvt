@@ -87,6 +87,65 @@ export default function Home() {
       </section>
 
       <StreamSchedule />
+            {/* SOCIAL FOLLOWERS */}
+      <section className="py-12 px-4 md:px-6">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeading
+            eyebrow="Join the Kitty Crew"
+            title="Follow Me Everywhere"
+            subtitle="Come hang out with me across all my socials ✨"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            {/* TWITCH */}
+            <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center hover:-translate-y-1 hover:shadow-2xl transition-all">
+              <div className="text-sm font-semibold text-pink-300 mb-3">
+                🐱 Twitch
+              </div>
+
+              <div className="flex justify-center">
+                <TwitchFollowerCount />
+              </div>
+
+              <div className="mt-3 text-xs text-pink-200/70">
+                Watch me live ✨
+              </div>
+            </div>
+
+            {/* X / TWITTER */}
+            <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center hover:-translate-y-1 hover:shadow-2xl transition-all">
+              <div className="text-sm font-semibold text-pink-300 mb-3">
+                🖤 X / Twitter
+              </div>
+
+              <div className="flex justify-center">
+                <TwitterFollowerCount />
+              </div>
+
+              <div className="mt-3 text-xs text-pink-200/70">
+                Follow my updates ✨
+              </div>
+            </div>
+
+            {/* TIKTOK */}
+            <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center hover:-translate-y-1 hover:shadow-2xl transition-all">
+              <div className="text-sm font-semibold text-pink-300 mb-3">
+                🎵 TikTok
+              </div>
+
+              <div className="flex justify-center">
+                <TikTokFollowerCount />
+              </div>
+
+              <div className="mt-3 text-xs text-pink-200/70">
+                Watch my short-form content ✨
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       {/* HEAR MY VOICE */}
       <section className="py-16 px-4 md:px-6 bg-pink-50/50">
