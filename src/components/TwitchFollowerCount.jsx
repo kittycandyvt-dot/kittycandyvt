@@ -38,12 +38,12 @@ export default function TwitchFollowerCount() {
       rel="noopener noreferrer"
       className="flex items-center gap-3"
     >
-      <div>
-        <div className="font-semibold">
-          Twitch
-        </div>
+     <div>
+  <div className="font-semibold text-white">
+    Twitch
+  </div>
 
-        <div className="text-sm opacity-80">
+  <div className="text-sm text-white opacity-80">
           {loading
             ? "Loading..."
             : followers !== null
