@@ -17,23 +17,39 @@ export default function Sponsors() {
         ))}
       </div>
       
-            {/* SOCIAL FOLLOWERS */}
-      <div className="mb-16 flex justify-center">
+                  {/* SOCIAL FOLLOWERS */}
+      <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+
+        {/* TWITCH */}
         <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
-          <div className="text-sm font-semibold text-pink-300 mb-2">
+          <div className="text-sm font-semibold text-pink-300 mb-3">
             🐱 Join the Kitty Crew
           </div>
 
-          <TwitchFollowerCount />
+          <div className="flex justify-center">
+            <TwitchFollowerCount />
+          </div>
 
-          <div className="mt-4 pt-4 border-t border-pink-300/20">
+          <div className="mt-3 text-xs text-pink-200/70">
+            Follow me on Twitch ✨
+          </div>
+        </div>
+
+        {/* X / TWITTER */}
+        <div className="rounded-3xl bg-gradient-to-br from-plum-900 to-plum-800 border border-pink-300/30 shadow-lg px-8 py-6 text-center">
+          <div className="text-sm font-semibold text-pink-300 mb-3">
+            🖤 Follow Me on X
+          </div>
+
+          <div className="flex justify-center">
             <TwitterFollowerCount />
           </div>
 
-          <div className="mt-2 text-xs text-pink-200/70">
-            Follow along on Twitch & X ✨
+          <div className="mt-3 text-xs text-pink-200/70">
+            Follow me on X ✨
           </div>
         </div>
+
       </div>
       {/* SPONSORS */}
       <div className="mb-16">
