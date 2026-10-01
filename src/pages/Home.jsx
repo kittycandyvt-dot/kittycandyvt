@@ -9,6 +9,7 @@ import SectionHeading from "@/components/SectionHeading";
 import AudioPlayer from "@/components/AudioPlayer";
 import { Image } from "@/components/ui/image";
 import StreamSchedule from "@/components/StreamSchedule";
+import YouTubeVideos from "@/components/YouTubeVideos";
 import TwitchFollowerCount from "@/components/TwitchFollowerCount";
 import TwitterFollowerCount from "@/components/TwitterFollowerCount";
 import TikTokFollowerCount from "@/components/TikTokFollowerCount";
@@ -87,6 +88,9 @@ export default function Home() {
       </section>
 
       <StreamSchedule />
+
+      <YouTubeVideos />
+
             {/* SOCIAL FOLLOWERS */}
       <section className="py-12 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
