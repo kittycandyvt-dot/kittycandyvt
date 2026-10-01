@@ -49,7 +49,24 @@ export default async function(req: Request): Promise<Response> {
     // Step 2: Fetch RSS feed
     const rssRes = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
     const rssXml = await rssRes.text();
-    const videos = extractVideos(rssXml);
+    const allVideos = extractVideos(rssXml);
+
+    // Step 3: Filter out Shorts — a Shorts URL returns 200, regular videos redirect
+    const checked = await Promise.all(
+      allVideos.map(async (v) => {
+        try {
+          const res = await fetch(`https://www.youtube.com/shorts/${v.videoId}`, {
+            redirect: 'manual',
+            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }
+          });
+          return { ...v, isShort: res.status === 200 };
+        } catch {
+          return { ...v, isShort: false };
+        }
+      })
+    );
+
+    const videos = checked.filter((v) => !v.isShort);
 
     return Response.json({ videos, channelId });
   } catch (error) {
