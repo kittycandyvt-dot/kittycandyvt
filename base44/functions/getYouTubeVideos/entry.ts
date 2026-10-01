@@ -66,7 +66,9 @@ export default async function(req: Request): Promise<Response> {
       })
     );
 
-    const videos = checked.filter((v) => !v.isShort);
+    const now = Date.now();
+    const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+    const videos = checked.filter((v) => !v.isShort && new Date(v.published).getTime() > now - THIRTY_DAYS);
 
     return Response.json({ videos, channelId });
   } catch (error) {
