@@ -5,6 +5,8 @@ import SectionHeading from "@/components/SectionHeading";
 import { CheckCircle2, CalendarCheck } from "lucide-react";
 import StreamSchedule from "@/components/StreamSchedule";
 import SlotPicker from "@/components/SlotPicker";
+import ReviewForm from "@/components/ReviewForm";
+import ReviewList from "@/components/ReviewList";
 
 export default function InterviewSignup() {
   const [form, setForm] = useState({
@@ -356,6 +358,18 @@ export default function InterviewSignup() {
           )}
         </button>
       </form>
+
+      <section className="mt-16">
+        <SectionHeading
+          eyebrow="Reviews"
+          title="What people are saying 💕"
+          subtitle="Share your experience working with KittyCandyVT!"
+        />
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <ReviewForm />
+          <ReviewList />
+        </div>
+      </section>
 
       <div className="mt-16">
         <StreamSchedule />
