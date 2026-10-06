@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { base44 } from "@/api/base44Client";
 import { site } from "@/data/siteData";
 import SectionHeading from "@/components/SectionHeading";
 import SocialLinks from "@/components/SocialLinks";
@@ -6,6 +7,8 @@ import { Mail, Upload, CheckCircle } from "lucide-react";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [files, setFiles] = useState([]);
   const [agree, setAgree] = useState(false);
 
@@ -13,9 +16,54 @@ export default function Contact() {
     setFiles(Array.from(e.target.files || []));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError("");
+    setSubmitting(true);
+
+    try {
+      const form = e.target;
+      const get = (name) => form.elements[name]?.value?.trim() || "";
+      const fields = {
+        name: get("name"),
+        email: get("email"),
+        discord: get("discord"),
+        projectName: get("projectName"),
+        projectType: get("projectType"),
+        characterName: get("characterName"),
+        desiredVoice: get("desiredVoice"),
+        tone: get("tone"),
+        emotion: get("emotion"),
+        deadline: get("deadline"),
+        script: get("script"),
+        pronunciation: get("pronunciation"),
+        additional: get("additional"),
+        commercial: form.elements["commercial"]?.checked,
+        nsfw: form.elements["nsfw"]?.checked,
+      };
+
+      const fileUrls = [];
+      for (const file of files) {
+        try {
+          const { file_uri } = await base44.integrations.Core.UploadPrivateFile({ file });
+          if (file_uri) {
+            const { signed_url } = await base44.integrations.Core.CreateFileSignedUrl({ file_uri, expires_in: 604800 });
+            if (signed_url) fileUrls.push(signed_url);
+          }
+        } catch (err) {
+          console.error("File upload failed:", err);
+        }
+      }
+      fields.fileUrls = fileUrls;
+
+      await base44.functions.invoke("sendCommissionRequest", { fields });
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Commission request failed:", err);
+      setError("Something went wrong sending your request. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -116,12 +164,21 @@ export default function Contact() {
           I have read and agree to the commission terms.
         </label>
 
+        {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
+
         <button
           type="submit"
-          disabled={!agree}
-          className={`w-full py-3.5 rounded-full font-bold text-white shadow-lg transition-all ${agree ? "bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-[1.02]" : "bg-pink-200 cursor-not-allowed"}`}
+          disabled={!agree || submitting}
+          className={`w-full py-3.5 rounded-full font-bold text-white shadow-lg transition-all flex items-center justify-center gap-2 ${(agree && !submitting) ? "bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:scale-[1.02]" : "bg-pink-200 cursor-not-allowed"}`}
         >
-          Submit Commission Request
+          {submitting ? (
+            <>
+              <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+              Sending...
+            </>
+          ) : (
+            "Submit Commission Request"
+          )}
         </button>
       </form>
 
