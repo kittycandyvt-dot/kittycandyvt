@@ -32,9 +32,7 @@ export default function Login() {
     }
   };
 
-  const handleGoogle = () => {
-    base44.auth.loginWithProvider("google", returnTo);
-  };
+
 
   return (
     <AuthLayout
