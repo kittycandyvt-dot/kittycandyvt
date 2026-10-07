@@ -50,6 +50,8 @@ export default async function(req) {
       }
     }
 
+    const accessStatus = type === 'refund' || type === 'cancelled' ? 'revoked' : 'active';
+
     // Create entitlement record
     const purchase = await base44.asServiceRole.entities.Purchase.create({
       kofiPurchaseId: messageId || '',
@@ -57,8 +59,26 @@ export default async function(req) {
       productId: productId || '',
       productName: productName || 'VTuber Planner',
       purchaseDate: purchaseDate,
-      accessStatus: type === 'refund' || type === 'cancelled' ? 'revoked' : 'active'
+      accessStatus
     });
+
+    // Send registration email for active purchases (invite the buyer to create their account)
+    if (accessStatus === 'active') {
+      try {
+        await base44.asServiceRole.integrations.Core.SendEmail({
+          to: customerEmail,
+          template_name: 'PlannerPurchaseWelcome',
+          variables: {
+            product_name: productName || 'VTuber Planner',
+            register_url: 'https://kittycandyvt.ca/register',
+            support_url: 'https://kittycandyvt.ca/contact'
+          }
+        });
+      } catch (emailError) {
+        // Email send failure should not block the webhook response
+        console.error('Failed to send purchase email:', emailError.message);
+      }
+    }
 
     return Response.json({ status: 'created', purchaseId: purchase.id, access: purchase.accessStatus });
   } catch (error) {
