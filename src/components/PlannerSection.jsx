@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { BookHeart, ArrowRight, CheckCircle2 } from "lucide-react";
 import Sparkles from "@/components/Sparkles";
+
+const PLANNER_URL = "/planner";
 
 const features = [
   "Stream & content schedule planner",
@@ -50,13 +51,13 @@ export default function PlannerSection() {
               ))}
             </ul>
 
-            <Link
-              to="/planner"
+            <a
+              href={PLANNER_URL}
               className="mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-105 transition-transform"
             >
               Open the Planner
               <ArrowRight size={18} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
