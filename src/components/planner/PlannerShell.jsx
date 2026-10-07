@@ -4,6 +4,7 @@ import { LayoutDashboard, CalendarDays, Clapperboard, Palette, TrendingUp, Light
 import { plannerConfig } from "@/data/plannerConfig";
 import { base44 } from "@/api/base44Client";
 import QuickAdd from "@/components/planner/QuickAdd";
+import { usePlannerTheme } from "@/hooks/usePlannerTheme";
 
 const navItems = [
   { to: "/planner/dashboard", label: "Home", icon: LayoutDashboard },
@@ -28,6 +29,7 @@ export default function PlannerShell() {
   const location = useLocation();
   const [quickAddOpen, setQuickAddOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const { themeStyle, dark } = usePlannerTheme();
 
   useEffect(() => {
     (async () => {
@@ -39,10 +41,10 @@ export default function PlannerShell() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-pink-50/40">
+    <div className={`${dark ? "dark" : ""} min-h-screen bg-background`} style={themeStyle}>
       {/* Desktop top nav */}
-      <header className="hidden md:flex sticky top-0 z-30 items-center justify-between px-6 h-16 glass border-b border-pink-100">
-        <Link to="/planner/dashboard" className="font-display text-lg font-bold text-plum-900">
+      <header className="hidden md:flex sticky top-0 z-30 items-center justify-between px-6 h-16 glass border-b border-border">
+        <Link to="/planner/dashboard" className="font-display text-lg font-bold text-foreground">
           {plannerConfig.productName}
         </Link>
         <nav className="flex items-center gap-1">
@@ -51,16 +53,16 @@ export default function PlannerShell() {
             const Icon = item.icon;
             return (
               <Link key={item.to} to={item.to}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${active ? "bg-pink-500 text-white shadow-sm" : "text-plum-600 hover:bg-pink-100"}`}>
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${active ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:bg-muted"}`}>
                 <Icon size={16} /> {item.label}
               </Link>
             );
           })}
-          <Link to="/planner/search" className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium ${location.pathname === "/planner/search" ? "bg-pink-500 text-white" : "text-plum-600 hover:bg-pink-100"}`}>
+          <Link to="/planner/search" className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium ${location.pathname === "/planner/search" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}>
             <Search size={16} />
           </Link>
           {isAdmin && (
-            <Link to="/planner/admin" className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium ${location.pathname === "/planner/admin" ? "bg-pink-500 text-white" : "text-plum-600 hover:bg-pink-100"}`}>
+            <Link to="/planner/admin" className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium ${location.pathname === "/planner/admin" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}>
               <Shield size={16} />
             </Link>
           )}
@@ -73,18 +75,18 @@ export default function PlannerShell() {
 
       {/* Quick Add FAB */}
       <button onClick={() => setQuickAddOpen(true)}
-        className="fixed right-5 bottom-20 md:bottom-6 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-fuchsia-500 text-white shadow-xl grid place-items-center hover:scale-110 transition-transform">
+        className="fixed right-5 bottom-20 md:bottom-6 z-40 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-xl grid place-items-center hover:scale-110 transition-transform">
         <Plus size={26} />
       </button>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-30 glass border-t border-pink-100 flex items-center justify-around px-2 py-1.5">
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-30 glass border-t border-border flex items-center justify-around px-2 py-1.5">
         {mobileNav.map((item) => {
           const active = location.pathname.startsWith(item.to);
           const Icon = item.icon;
           return (
             <Link key={item.to} to={item.to}
-              className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-[10px] font-medium transition-colors ${active ? "text-pink-600" : "text-plum-400"}`}>
+              className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-[10px] font-medium transition-colors ${active ? "text-primary" : "text-muted-foreground"}`}>
               <Icon size={20} /> {item.label}
             </Link>
           );
@@ -92,7 +94,7 @@ export default function PlannerShell() {
       </nav>
 
       <div className="md:hidden fixed bottom-16 inset-x-0 flex justify-center pointer-events-none">
-        <Link to="/" className="pointer-events-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-plum-600 bg-white/80 border border-pink-100 shadow-sm">
+        <Link to="/" className="pointer-events-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-muted-foreground bg-card/80 border border-border shadow-sm">
           <Home size={14} /> Back to Site
         </Link>
       </div>
