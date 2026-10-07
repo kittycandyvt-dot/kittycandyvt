@@ -2,7 +2,7 @@ import React from "react";
 import { BookHeart, ArrowRight, CheckCircle2 } from "lucide-react";
 import Sparkles from "@/components/Sparkles";
 
-const PLANNER_URL = "https://liberal-pulse-plan-pro.base44.app";
+const PLANNER_URL = "/planner";
 
 const features = [
   "Stream & content schedule planner",
@@ -53,11 +53,9 @@ export default function PlannerSection() {
 
             <a
               href={PLANNER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-105 transition-transform"
             >
-              Get the Planner
+              Open the Planner
               <ArrowRight size={18} />
             </a>
           </div>
