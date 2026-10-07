@@ -1,40 +1,31 @@
 import React from "react";
-import { BookHeart, ExternalLink, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
-
-const PLANNER_URL = "https://liberal-pulse-plan-pro.base44.app";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { CalendarDays, FileText, CheckSquare, Target } from "lucide-react";
+import StreamsTab from "@/components/planner/StreamsTab";
+import ContentTab from "@/components/planner/ContentTab";
+import TasksTab from "@/components/planner/TasksTab";
+import GoalsTab from "@/components/planner/GoalsTab";
 
 export default function Planner() {
   return (
-    <div className="max-w-2xl mx-auto px-4 md:px-6 py-20 text-center">
-      <div className="glass rounded-3xl p-10">
-        <div className="mx-auto w-16 h-16 rounded-3xl bg-gradient-to-br from-pink-500 to-fuchsia-500 grid place-items-center text-white shadow-lg mb-4">
-          <BookHeart size={32} />
-        </div>
-        <h1 className="font-display text-3xl font-bold text-plum-900">
-          VTuber Planner
-        </h1>
-        <p className="mt-3 text-plum-600">
-          My VTuber Planner lives on its own dedicated app. Tap below to open it
-          in a new tab.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3 justify-center">
-          <a
-            href={PLANNER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-105 transition-transform"
-          >
-            Open the Planner <ExternalLink size={18} />
-          </a>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 hover:bg-pink-50 transition-colors"
-          >
-            <ArrowLeft size={18} /> Back Home
-          </Link>
-        </div>
-      </div>
+    <div className="max-w-5xl mx-auto px-4 md:px-6 py-10">
+      <header className="mb-8 text-center">
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-plum-900">My Planner</h1>
+        <p className="mt-2 text-plum-500">Plan your streams, content, tasks and goals — all in one place. ✨</p>
+      </header>
+
+      <Tabs defaultValue="streams" className="w-full">
+        <TabsList className="grid grid-cols-2 md:grid-cols-4 w-full max-w-lg mx-auto mb-6">
+          <TabsTrigger value="streams"><CalendarDays size={15} className="mr-1.5" />Streams</TabsTrigger>
+          <TabsTrigger value="content"><FileText size={15} className="mr-1.5" />Content</TabsTrigger>
+          <TabsTrigger value="tasks"><CheckSquare size={15} className="mr-1.5" />Tasks</TabsTrigger>
+          <TabsTrigger value="goals"><Target size={15} className="mr-1.5" />Goals</TabsTrigger>
+        </TabsList>
+        <TabsContent value="streams"><StreamsTab /></TabsContent>
+        <TabsContent value="content"><ContentTab /></TabsContent>
+        <TabsContent value="tasks"><TasksTab /></TabsContent>
+        <TabsContent value="goals"><GoalsTab /></TabsContent>
+      </Tabs>
     </div>
   );
 }
