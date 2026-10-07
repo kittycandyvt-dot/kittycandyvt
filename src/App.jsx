@@ -19,7 +19,18 @@ import SpicyVoiceActing from '@/pages/SpicyVoiceActing';
 import Contact from '@/pages/Contact';
 import Terms from '@/pages/Terms';
 import ReviewApproval from '@/pages/ReviewApproval';
-import Planner from '@/pages/Planner';
+import PlannerLanding from '@/pages/PlannerLanding';
+import PlannerProtectedRoute from '@/components/planner/PlannerProtectedRoute';
+import PlannerShell from '@/components/planner/PlannerShell';
+import PlannerDashboard from '@/pages/PlannerDashboard';
+import PlannerTasks from '@/pages/PlannerTasks';
+import PlannerContent from '@/pages/PlannerContent';
+import PlannerStreams from '@/pages/PlannerStreams';
+import PlannerBrand from '@/pages/PlannerBrand';
+import PlannerGrowth from '@/pages/PlannerGrowth';
+import PlannerIdeas from '@/pages/PlannerIdeas';
+import PlannerCustomize from '@/pages/PlannerCustomize';
+import PlannerSettings from '@/pages/PlannerSettings';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -56,7 +67,20 @@ const AuthenticatedApp = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/review-approval" element={<ReviewApproval />} />
-        <Route path="/planner" element={<Planner />} />
+        <Route path="/planner" element={<PlannerLanding />} />
+        <Route element={<PlannerProtectedRoute />}>
+          <Route element={<PlannerShell />}>
+            <Route path="/planner/dashboard" element={<PlannerDashboard />} />
+            <Route path="/planner/tasks" element={<PlannerTasks />} />
+            <Route path="/planner/content" element={<PlannerContent />} />
+            <Route path="/planner/streams" element={<PlannerStreams />} />
+            <Route path="/planner/brand" element={<PlannerBrand />} />
+            <Route path="/planner/growth" element={<PlannerGrowth />} />
+            <Route path="/planner/ideas" element={<PlannerIdeas />} />
+            <Route path="/planner/customize" element={<PlannerCustomize />} />
+            <Route path="/planner/settings" element={<PlannerSettings />} />
+          </Route>
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
