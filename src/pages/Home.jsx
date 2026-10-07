@@ -92,6 +92,9 @@ export default function Home() {
 
       <YouTubeVideos />
 
+      {/* VTUBER PLANNER */}
+      <PlannerSection />
+
             {/* SOCIAL FOLLOWERS */}
       <section className="py-12 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
@@ -206,9 +209,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* VTUBER PLANNER */}
-      <PlannerSection />
 
       {/* WORK WITH ME */}
       <section className="py-16 px-4 md:px-6">
