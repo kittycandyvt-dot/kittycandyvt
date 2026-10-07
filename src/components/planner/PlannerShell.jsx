@@ -21,7 +21,10 @@ const mobileNav = [
   { to: "/planner/dashboard", label: "Home", icon: LayoutDashboard },
   { to: "/planner/calendar", label: "Planner", icon: CalendarDays },
   { to: "/planner/content", label: "Content", icon: Clapperboard },
+  { to: "/planner/brand", label: "Brand", icon: Palette },
+  { to: "/planner/growth", label: "Growth", icon: TrendingUp },
   { to: "/planner/ideas", label: "Ideas", icon: Lightbulb },
+  { to: "/planner/customize", label: "Customize", icon: Settings2 },
   { to: "/planner/search", label: "Search", icon: Search },
 ];
 
@@ -80,14 +83,14 @@ export default function PlannerShell() {
       </button>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-30 glass border-t border-border flex items-center justify-around px-2 py-1.5">
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-30 glass border-t border-border flex items-center justify-around px-1 py-1.5 overflow-x-auto">
         {mobileNav.map((item) => {
           const active = location.pathname.startsWith(item.to);
           const Icon = item.icon;
           return (
             <Link key={item.to} to={item.to}
-              className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-[10px] font-medium transition-colors ${active ? "text-primary" : "text-muted-foreground"}`}>
-              <Icon size={20} /> {item.label}
+              className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-[9px] font-medium transition-colors whitespace-nowrap ${active ? "text-primary" : "text-muted-foreground"}`}>
+              <Icon size={18} /> {item.label}
             </Link>
           );
         })}
