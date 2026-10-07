@@ -48,7 +48,7 @@ export default function PlannerLanding() {
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-lg hover:scale-105 transition-transform">
             Get the Planner <ArrowRight size={18} />
           </a>
-          <Link to="/planner/dashboard"
+          <Link to="/login?returnTo=%2Fplanner%2Fdashboard"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-plum-900 bg-white border border-pink-200 shadow-sm hover:bg-pink-50 transition-colors">
             <LogIn size={18} /> Already Purchased? Log In
           </Link>
@@ -131,7 +131,7 @@ export default function PlannerLanding() {
               className="px-6 py-3 rounded-full font-semibold text-pink-600 bg-white shadow-lg hover:scale-105 transition-transform">
               Get the Planner
             </a>
-            <Link to="/planner/dashboard"
+            <Link to="/login?returnTo=%2Fplanner%2Fdashboard"
               className="px-6 py-3 rounded-full font-semibold text-white border-2 border-white/70 hover:bg-white/10 transition-colors">
               Log In
             </Link>
