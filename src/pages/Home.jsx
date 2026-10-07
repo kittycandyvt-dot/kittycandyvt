@@ -90,10 +90,10 @@ export default function Home() {
 
       <StreamSchedule />
 
-      <YouTubeVideos />
-
       {/* VTUBER PLANNER */}
       <PlannerSection />
+
+      <YouTubeVideos />
 
             {/* SOCIAL FOLLOWERS */}
       <section className="py-12 px-4 md:px-6">
