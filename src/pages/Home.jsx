@@ -13,6 +13,7 @@ import YouTubeVideos from "@/components/YouTubeVideos";
 import TwitchFollowerCount from "@/components/TwitchFollowerCount";
 import TwitterFollowerCount from "@/components/TwitterFollowerCount";
 import TikTokFollowerCount from "@/components/TikTokFollowerCount";
+import PlannerSection from "@/components/PlannerSection";
 
 const heroImg = "";
 
@@ -205,6 +206,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* VTUBER PLANNER */}
+      <PlannerSection />
 
       {/* WORK WITH ME */}
       <section className="py-16 px-4 md:px-6">
