@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { plannerConfig } from "@/data/plannerConfig";
 import { Loader2, Lock, LifeBuoy } from "lucide-react";
+import PlannerOnboarding from "@/pages/PlannerOnboarding";
 
 export default function PlannerProtectedRoute() {
   const [state, setState] = useState("loading");
@@ -20,8 +21,11 @@ export default function PlannerProtectedRoute() {
         }
         const res = await base44.functions.invoke("checkEntitlement", {});
         if (!cancelled) {
-          if (res.data?.hasAccess) setState("ok");
-          else { setReason(res.data?.reason || "no_access"); setState("denied"); }
+          if (!res.data?.hasAccess) { setReason(res.data?.reason || "no_access"); setState("denied"); return; }
+          // Skip onboarding for admins or if already onboarded
+          if (res.data?.reason === "admin") { setState("ok"); return; }
+          const custom = await base44.entities.UserCustomization.list();
+          if (!cancelled) setState(custom && custom.length > 0 ? "ok" : "onboarding");
         }
       } catch {
         if (!cancelled) { setReason("error"); setState("denied"); }
@@ -41,6 +45,10 @@ export default function PlannerProtectedRoute() {
   if (state === "unauthenticated") {
     const returnTo = encodeURIComponent(location.pathname + location.search);
     return <Navigate to={`/login?returnTo=${returnTo}`} replace />;
+  }
+
+  if (state === "onboarding") {
+    return <PlannerOnboarding onDone={() => setState("ok")} />;
   }
 
   if (state === "denied") {

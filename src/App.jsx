@@ -31,6 +31,9 @@ import PlannerGrowth from '@/pages/PlannerGrowth';
 import PlannerIdeas from '@/pages/PlannerIdeas';
 import PlannerCustomize from '@/pages/PlannerCustomize';
 import PlannerSettings from '@/pages/PlannerSettings';
+import PlannerCalendar from '@/pages/PlannerCalendar';
+import PlannerSearch from '@/pages/PlannerSearch';
+import PlannerAdmin from '@/pages/PlannerAdmin';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -72,6 +75,9 @@ const AuthenticatedApp = () => {
           <Route element={<PlannerShell />}>
             <Route path="/planner/dashboard" element={<PlannerDashboard />} />
             <Route path="/planner/tasks" element={<PlannerTasks />} />
+            <Route path="/planner/calendar" element={<PlannerCalendar />} />
+            <Route path="/planner/search" element={<PlannerSearch />} />
+            <Route path="/planner/admin" element={<PlannerAdmin />} />
             <Route path="/planner/content" element={<PlannerContent />} />
             <Route path="/planner/streams" element={<PlannerStreams />} />
             <Route path="/planner/brand" element={<PlannerBrand />} />
