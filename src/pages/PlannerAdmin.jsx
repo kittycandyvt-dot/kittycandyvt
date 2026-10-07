@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { Loader2, ShieldCheck, ShieldOff, Users } from "lucide-react";
+import { Loader2, Lock, ShieldCheck, ShieldOff, Users } from "lucide-react";
+
+const OWNER_EMAIL = "kittycandyvt@gmail.com";
 
 export default function PlannerAdmin() {
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(null);
+  const [forbidden, setForbidden] = useState(false);
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.Purchase.list("-created_date");
-    setPurchases(data || []);
+    try {
+      const me = await base44.auth.me();
+      if (me.email !== OWNER_EMAIL) { setForbidden(true); setLoading(false); return; }
+      const data = await base44.entities.Purchase.list("-created_date");
+      setPurchases(data || []);
+    } catch {
+      setForbidden(true);
+    }
     setLoading(false);
   };
 
@@ -24,6 +33,13 @@ export default function PlannerAdmin() {
   };
 
   if (loading) return <div className="py-20 text-center"><Loader2 className="w-6 h-6 animate-spin text-pink-500 mx-auto" /></div>;
+
+  if (forbidden) return (
+    <div className="py-20 text-center">
+      <Lock size={32} className="mx-auto text-plum-400 mb-3" />
+      <p className="text-plum-600 font-medium">Access restricted to the owner.</p>
+    </div>
+  );
 
   return (
     <div>
