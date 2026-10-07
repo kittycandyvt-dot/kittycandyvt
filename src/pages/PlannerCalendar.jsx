@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2, Plus, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -14,6 +14,9 @@ export default function PlannerCalendar() {
   const [loading, setLoading] = useState(true);
   const [cursor, setCursor] = useState(new Date());
   const [view, setView] = useState("month");
+  const [showForm, setShowForm] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [eventForm, setEventForm] = useState({ title: "", date: "", type: "event", priority: "medium", notes: "" });
 
   useEffect(() => {
     (async () => {
@@ -60,6 +63,23 @@ export default function PlannerCalendar() {
   const prev = () => setCursor(new Date(year, month - 1, 1));
   const next = () => setCursor(new Date(year, month + 1, 1));
 
+  const openForm = () => {
+    setEventForm({ title: "", date: "", type: "event", priority: "medium", notes: "" });
+    setShowForm(true);
+  };
+
+  const saveEvent = async () => {
+    if (!eventForm.title.trim() || !eventForm.date) return;
+    setSaving(true);
+    try {
+      await base44.entities.PlannerEvent.create({ ...eventForm, date: new Date(eventForm.date).toISOString() });
+      setEvents([...events, { ...eventForm, date: new Date(eventForm.date).toISOString() }]);
+      setShowForm(false);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const todayStr = new Date().toISOString().slice(0, 10);
 
   return (
@@ -75,8 +95,51 @@ export default function PlannerCalendar() {
           <button onClick={prev} className="p-2 rounded-full bg-white border border-pink-200"><ChevronLeft size={16} /></button>
           <button onClick={() => setCursor(new Date())} className="px-3 py-1.5 rounded-full text-xs font-medium text-plum-600 bg-white border border-pink-200">Today</button>
           <button onClick={next} className="p-2 rounded-full bg-white border border-pink-200"><ChevronRight size={16} /></button>
+          <button onClick={openForm} className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-sm hover:scale-105 transition-transform">
+            <Plus size={16} /> Add Event
+          </button>
         </div>
       </div>
+
+      {showForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40" onClick={() => setShowForm(false)}>
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-pink-100">
+              <h3 className="font-display text-lg font-bold text-plum-900">New Event</h3>
+              <button onClick={() => setShowForm(false)} className="p-2 rounded-full hover:bg-pink-50 text-plum-400"><X size={18} /></button>
+            </div>
+            <div className="p-6 space-y-4">
+              <input value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} placeholder="Event title *" autoFocus
+                className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              <div className="grid grid-cols-2 gap-3">
+                <select value={eventForm.type} onChange={(e) => setEventForm({ ...eventForm, type: e.target.value })}
+                  className="px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400">
+                  <option value="event">Event</option>
+                  <option value="stream">Stream</option>
+                  <option value="upload">Upload</option>
+                  <option value="content">Content</option>
+                  <option value="goal">Goal</option>
+                  <option value="important">Important</option>
+                </select>
+                <select value={eventForm.priority} onChange={(e) => setEventForm({ ...eventForm, priority: e.target.value })}
+                  className="px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              <input type="datetime-local" value={eventForm.date} onChange={(e) => setEventForm({ ...eventForm, date: e.target.value })}
+                className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              <textarea value={eventForm.notes} onChange={(e) => setEventForm({ ...eventForm, notes: e.target.value })} placeholder="Notes" rows={2}
+                className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              <button onClick={saveEvent} disabled={saving || !eventForm.title.trim() || !eventForm.date}
+                className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">
+                {saving ? "Saving…" : "Add Event"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {view === "month" && (
         <div className="glass rounded-2xl p-3 overflow-x-auto">
