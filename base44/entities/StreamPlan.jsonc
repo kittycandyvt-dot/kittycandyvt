@@ -1,0 +1,114 @@
+{
+  "name": "StreamPlan",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Stream Title"
+    },
+    "game": {
+      "type": "string",
+      "title": "Game / Category"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+    },
+    "startTime": {
+      "type": "string",
+      "title": "Start Time"
+    },
+    "endTime": {
+      "type": "string",
+      "title": "End Time"
+    },
+    "platform": {
+      "type": "string",
+      "title": "Platform"
+    },
+    "goal": {
+      "type": "string",
+      "title": "Stream Goal"
+    },
+    "talkingPoints": {
+      "type": "string",
+      "title": "Talking Points"
+    },
+    "segments": {
+      "type": "string",
+      "title": "Segments"
+    },
+    "chatIdeas": {
+      "type": "string",
+      "title": "Chat Interaction Ideas"
+    },
+    "alerts": {
+      "type": "string",
+      "title": "Alerts"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    },
+    "checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "done": {
+            "type": "boolean"
+          }
+        }
+      },
+      "title": "Pre-Stream Checklist"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

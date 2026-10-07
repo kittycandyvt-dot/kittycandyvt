@@ -1,0 +1,82 @@
+{
+  "name": "GrowthMetric",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "title": "Platform"
+    },
+    "metric": {
+      "type": "string",
+      "title": "Metric"
+    },
+    "currentValue": {
+      "type": "number",
+      "default": 0,
+      "title": "Current Value"
+    },
+    "previousValue": {
+      "type": "number",
+      "default": 0,
+      "title": "Previous Value"
+    },
+    "goal": {
+      "type": "number",
+      "title": "Goal"
+    },
+    "targetDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Target Date"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "platform",
+    "metric"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

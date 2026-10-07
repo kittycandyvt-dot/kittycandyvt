@@ -1,0 +1,76 @@
+{
+  "name": "Purchase",
+  "type": "object",
+  "properties": {
+    "kofiPurchaseId": {
+      "type": "string",
+      "title": "Ko-fi Purchase ID",
+      "description": "Unique Ko-fi transaction id"
+    },
+    "customerEmail": {
+      "type": "string",
+      "format": "email",
+      "title": "Customer Email"
+    },
+    "productId": {
+      "type": "string",
+      "title": "Product ID"
+    },
+    "productName": {
+      "type": "string",
+      "title": "Product Name"
+    },
+    "purchaseDate": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Purchase Date"
+    },
+    "accessStatus": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "revoked"
+      ],
+      "default": "active",
+      "title": "Access Status"
+    },
+    "userId": {
+      "type": "string",
+      "title": "Linked User ID",
+      "description": "The planner account user id, once matched"
+    }
+  },
+  "required": [
+    "customerEmail",
+    "accessStatus"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.customerEmail": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

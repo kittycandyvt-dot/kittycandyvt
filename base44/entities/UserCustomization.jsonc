@@ -1,0 +1,138 @@
+{
+  "name": "UserCustomization",
+  "type": "object",
+  "properties": {
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark"
+      ],
+      "default": "light",
+      "title": "Theme"
+    },
+    "primaryColor": {
+      "type": "string",
+      "title": "Primary Color"
+    },
+    "secondaryColor": {
+      "type": "string",
+      "title": "Secondary Color"
+    },
+    "accentColor": {
+      "type": "string",
+      "title": "Accent Color"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "title": "Background Color"
+    },
+    "textColor": {
+      "type": "string",
+      "title": "Text Color"
+    },
+    "font": {
+      "type": "string",
+      "title": "Font"
+    },
+    "cardStyle": {
+      "type": "string",
+      "enum": [
+        "rounded",
+        "soft",
+        "minimal"
+      ],
+      "default": "rounded",
+      "title": "Card Style"
+    },
+    "decorations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Decorations"
+    },
+    "dashboardWidgets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Visible Dashboard Widgets"
+    },
+    "defaultView": {
+      "type": "string",
+      "enum": [
+        "month",
+        "week",
+        "day"
+      ],
+      "default": "month",
+      "title": "Default Planner View"
+    },
+    "weekStart": {
+      "type": "string",
+      "enum": [
+        "sunday",
+        "monday"
+      ],
+      "default": "sunday",
+      "title": "Week Start"
+    },
+    "dateFormat": {
+      "type": "string",
+      "default": "MMM D, YYYY",
+      "title": "Date Format"
+    },
+    "timeFormat": {
+      "type": "string",
+      "enum": [
+        "12h",
+        "24h"
+      ],
+      "default": "12h",
+      "title": "Time Format"
+    }
+  },
+  "required": [],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

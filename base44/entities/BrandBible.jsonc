@@ -1,0 +1,138 @@
+{
+  "name": "BrandBible",
+  "type": "object",
+  "properties": {
+    "vtuberName": {
+      "type": "string",
+      "title": "VTuber Name"
+    },
+    "pronouns": {
+      "type": "string",
+      "title": "Pronouns"
+    },
+    "characterConcept": {
+      "type": "string",
+      "title": "Character Concept"
+    },
+    "personality": {
+      "type": "string",
+      "title": "Personality"
+    },
+    "lore": {
+      "type": "string",
+      "title": "Lore"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "tagline": {
+      "type": "string",
+      "title": "Tagline"
+    },
+    "primaryColor": {
+      "type": "string",
+      "title": "Primary Color"
+    },
+    "secondaryColor": {
+      "type": "string",
+      "title": "Secondary Color"
+    },
+    "accentColor": {
+      "type": "string",
+      "title": "Accent Color"
+    },
+    "fonts": {
+      "type": "string",
+      "title": "Fonts"
+    },
+    "logo": {
+      "type": "string",
+      "title": "Logo URL"
+    },
+    "characterReferences": {
+      "type": "string",
+      "title": "Character References"
+    },
+    "emotes": {
+      "type": "string",
+      "title": "Emotes"
+    },
+    "artReferences": {
+      "type": "string",
+      "title": "Art References"
+    },
+    "voicePersonality": {
+      "type": "string",
+      "title": "Voice Personality"
+    },
+    "tone": {
+      "type": "string",
+      "title": "Tone"
+    },
+    "catchphrases": {
+      "type": "string",
+      "title": "Catchphrases"
+    },
+    "wordsUsed": {
+      "type": "string",
+      "title": "Words I Use"
+    },
+    "wordsAvoided": {
+      "type": "string",
+      "title": "Words I Avoid"
+    },
+    "communityTerminology": {
+      "type": "string",
+      "title": "Community Terminology"
+    },
+    "socials": {
+      "type": "object",
+      "title": "Social Links"
+    }
+  },
+  "required": [
+    "vtuberName"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "name": "ContentIdea",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "platform": {
+      "type": "string",
+      "title": "Platform"
+    },
+    "contentType": {
+      "type": "string",
+      "title": "Content Type"
+    },
+    "idea": {
+      "type": "string",
+      "title": "Idea"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "planning",
+        "recording",
+        "editing",
+        "scheduled",
+        "published"
+      ],
+      "default": "idea",
+      "title": "Status"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "title": "Priority"
+    },
+    "plannedDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Planned Date"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
