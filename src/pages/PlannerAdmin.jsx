@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { Loader2, Lock, ShieldCheck, ShieldOff, Users } from "lucide-react";
+import { Loader2, Lock, ShieldCheck, ShieldOff, Users, UserPlus, Mail } from "lucide-react";
 
 const OWNER_EMAIL = "kittycandyvt@gmail.com";
 
@@ -9,6 +9,9 @@ export default function PlannerAdmin() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(null);
   const [forbidden, setForbidden] = useState(false);
+  const [grantEmail, setGrantEmail] = useState("");
+  const [granting, setGranting] = useState(false);
+  const [grantMsg, setGrantMsg] = useState("");
 
   const load = async () => {
     setLoading(true);
@@ -24,6 +27,26 @@ export default function PlannerAdmin() {
   };
 
   useEffect(() => { load(); }, []);
+
+  const grantAccess = async (e) => {
+    e.preventDefault();
+    if (!grantEmail.trim()) return;
+    setGranting(true);
+    setGrantMsg("");
+    try {
+      const res = await base44.functions.invoke("grantPlannerAccess", { email: grantEmail.trim() });
+      if (res.data?.success) {
+        setGrantMsg(`Invitation sent to ${grantEmail.trim()}! They'll receive an email with a link to set their password.`);
+        setGrantEmail("");
+        load();
+      } else {
+        setGrantMsg(res.data?.error || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setGrantMsg(err.message || "Something went wrong. Please try again.");
+    }
+    setGranting(false);
+  };
 
   const setStatus = async (id, status) => {
     setUpdating(id);
@@ -50,6 +73,37 @@ export default function PlannerAdmin() {
 
       <div className="glass rounded-2xl p-4 mb-4">
         <p className="text-sm text-plum-600">Manage customer access. {purchases.length} purchase record(s).</p>
+      </div>
+
+      <div className="glass rounded-2xl p-5 mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <UserPlus size={18} className="text-pink-500" />
+          <h2 className="font-semibold text-plum-900">Grant Access</h2>
+        </div>
+        <form onSubmit={grantAccess} className="flex flex-wrap gap-2">
+          <div className="relative flex-1 min-w-[200px]">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-plum-400" />
+            <input
+              type="email"
+              placeholder="customer@example.com"
+              value={grantEmail}
+              onChange={(e) => setGrantEmail(e.target.value)}
+              className="w-full h-11 pl-10 pr-4 rounded-full border border-pink-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={granting}
+            className="inline-flex items-center gap-2 px-5 h-11 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 shadow-md hover:scale-105 transition-transform disabled:opacity-50"
+          >
+            {granting ? <Loader2 size={16} className="animate-spin" /> : <UserPlus size={16} />}
+            Grant Access
+          </button>
+        </form>
+        {grantMsg && (
+          <p className="mt-3 text-sm text-plum-600">{grantMsg}</p>
+        )}
       </div>
 
       {purchases.length === 0 ? (

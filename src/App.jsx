@@ -24,6 +24,7 @@ import Contact from '@/pages/Contact';
 import Terms from '@/pages/Terms';
 import ReviewApproval from '@/pages/ReviewApproval';
 import PlannerLanding from '@/pages/PlannerLanding';
+import SetupAccount from '@/pages/SetupAccount';
 import PlannerProtectedRoute from '@/components/planner/PlannerProtectedRoute';
 import PlannerShell from '@/components/planner/PlannerShell';
 import PlannerDashboard from '@/pages/PlannerDashboard';
@@ -79,6 +80,7 @@ const AuthenticatedApp = () => {
         <Route path="/terms" element={<Terms />} />
         <Route path="/review-approval" element={<ReviewApproval />} />
         <Route path="/planner" element={<PlannerLanding />} />
+        <Route path="/setup-account" element={<SetupAccount />} />
         <Route element={<PlannerProtectedRoute />}>
           <Route element={<PlannerShell />}>
             <Route path="/planner/dashboard" element={<PlannerDashboard />} />

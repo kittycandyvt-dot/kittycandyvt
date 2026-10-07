@@ -19,6 +19,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [showExistsError, setShowExistsError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +33,13 @@ export default function Register() {
       await base44.auth.register({ email, password });
       setShowOtp(true);
     } catch (err) {
-      setError(err.message || "Registration failed");
+      const msg = err.message || "";
+      if (msg.toLowerCase().includes("already") || msg.toLowerCase().includes("exists")) {
+        setError("An account with this email already exists. Click here to set your password and log in.");
+        setShowExistsError(true);
+      } else {
+        setError(msg || "Registration failed");
+      }
     } finally {
       setLoading(false);
     }
@@ -142,6 +149,14 @@ export default function Register() {
       {error && (
         <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
           {error}
+          {showExistsError && (
+            <a
+              href={`/setup-account?email=${encodeURIComponent(email)}`}
+              className="block mt-2 underline font-medium"
+            >
+              Set up my password →
+            </a>
+          )}
         </div>
       )}
 
