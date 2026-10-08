@@ -13,7 +13,7 @@ import YouTubeVideos from "@/components/YouTubeVideos";
 import TwitchFollowerCount from "@/components/TwitchFollowerCount";
 import TwitterFollowerCount from "@/components/TwitterFollowerCount";
 import TikTokFollowerCount from "@/components/TikTokFollowerCount";
-import PlannerSection from "@/components/PlannerSection";
+
 
 const heroImg = "";
 
@@ -89,9 +89,6 @@ export default function Home() {
       </section>
 
       <StreamSchedule />
-
-      {/* VTUBER PLANNER */}
-      <PlannerSection />
 
       <YouTubeVideos />
 
