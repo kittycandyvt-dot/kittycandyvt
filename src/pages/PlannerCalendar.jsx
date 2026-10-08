@@ -17,6 +17,62 @@ export default function PlannerCalendar() {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [eventForm, setEventForm] = useState({ title: "", date: "", type: "event", priority: "medium", notes: "" });
+  const [editItem, setEditItem] = useState(null);
+  const [editSaving, setEditSaving] = useState(false);
+
+  const ENTITY_MAP = {
+    event: "PlannerEvent",
+    task: "PlannerTask",
+    stream: "StreamPlan",
+    content: "ContentIdea",
+  };
+
+  const reload = async () => {
+    const [e, t, s, c] = await Promise.all([
+      base44.entities.PlannerEvent.list(),
+      base44.entities.PlannerTask.list(),
+      base44.entities.StreamPlan.list(),
+      base44.entities.ContentIdea.list(),
+    ]);
+    setEvents(e || []);
+    setTasks(t || []);
+    setStreams(s || []);
+    setContent(c || []);
+  };
+
+  const openEdit = (item) => {
+    setEditItem({ ...item });
+  };
+
+  const saveEdit = async () => {
+    if (!editItem) return;
+    setEditSaving(true);
+    try {
+      const entity = ENTITY_MAP[editItem._type];
+      const { id, _type, _date, _label, created_date, updated_date, created_by_id, ...rest } = editItem;
+      if (editItem._type === "event" && rest.date) {
+        rest.date = new Date(rest.date).toISOString();
+      }
+      await base44.entities[entity].update(editItem.id, rest);
+      await reload();
+      setEditItem(null);
+    } finally {
+      setEditSaving(false);
+    }
+  };
+
+  const deleteEdit = async () => {
+    if (!editItem) return;
+    setEditSaving(true);
+    try {
+      const entity = ENTITY_MAP[editItem._type];
+      await base44.entities[entity].delete(editItem.id);
+      await reload();
+      setEditItem(null);
+    } finally {
+      setEditSaving(false);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -158,7 +214,7 @@ export default function PlannerCalendar() {
                   <p className={`text-xs font-medium ${isToday ? "text-pink-600" : "text-plum-400"}`}>{day}</p>
                   <div className="space-y-0.5 mt-1">
                     {dayItems.slice(0, 3).map((it, idx) => (
-                      <div key={idx} className={`text-[10px] px-1 py-0.5 rounded truncate ${typeColor[it._type]}`}>{it._label}</div>
+                      <button key={idx} onClick={() => openEdit(it)} className={`w-full text-left text-[10px] px-1 py-0.5 rounded truncate ${typeColor[it._type]} hover:ring-1 hover:ring-pink-300`}>{it._label}</button>
                     ))}
                     {dayItems.length > 3 && <p className="text-[10px] text-plum-400">+{dayItems.length - 3} more</p>}
                   </div>
@@ -184,7 +240,7 @@ export default function PlannerCalendar() {
                   <p className="text-xs font-semibold text-plum-500 mb-2">{DOW[i]} {d.getDate()}</p>
                   <div className="space-y-1">
                     {dayItems.map((it, idx) => (
-                      <div key={idx} className={`text-[10px] px-1.5 py-1 rounded ${typeColor[it._type]}`}>{it._label}</div>
+                      <button key={idx} onClick={() => openEdit(it)} className={`w-full text-left text-[10px] px-1.5 py-1 rounded ${typeColor[it._type]} hover:ring-1 hover:ring-pink-300`}>{it._label}</button>
                     ))}
                   </div>
                 </div>
@@ -205,7 +261,7 @@ export default function PlannerCalendar() {
             ) : (
               <div className="space-y-2">
                 {dayItems.map((it, idx) => (
-                  <div key={idx} className={`text-sm px-3 py-2 rounded-xl ${typeColor[it._type]}`}>{it._label}</div>
+                  <button key={idx} onClick={() => openEdit(it)} className={`w-full text-left text-sm px-3 py-2 rounded-xl ${typeColor[it._type]} hover:ring-1 hover:ring-pink-300`}>{it._label}</button>
                 ))}
               </div>
             )}
@@ -219,6 +275,51 @@ export default function PlannerCalendar() {
         ))}
         <Link to="/planner/tasks" className="ml-auto text-pink-500 hover:underline">Manage tasks →</Link>
       </div>
+
+      {editItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40" onClick={() => setEditItem(null)}>
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-pink-100">
+              <h3 className="font-display text-lg font-bold text-plum-900 capitalize">Edit {editItem._type}</h3>
+              <button onClick={() => setEditItem(null)} className="p-2 rounded-full hover:bg-pink-50 text-plum-400"><X size={18} /></button>
+            </div>
+            <div className="p-6 space-y-4">
+              <input value={editItem.title || ""} onChange={(e) => setEditItem({ ...editItem, title: e.target.value })} placeholder="Title *"
+                className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              <div className="grid grid-cols-2 gap-3">
+                <select value={editItem.type || "event"} onChange={(e) => setEditItem({ ...editItem, type: e.target.value })}
+                  className="px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400">
+                  <option value="event">Event</option>
+                  <option value="stream">Stream</option>
+                  <option value="upload">Upload</option>
+                  <option value="content">Content</option>
+                  <option value="goal">Goal</option>
+                  <option value="important">Important</option>
+                </select>
+                <select value={editItem.priority || "medium"} onChange={(e) => setEditItem({ ...editItem, priority: e.target.value })}
+                  className="px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              {editItem._type === "event" ? (
+                <input type="datetime-local" value={editItem.date ? new Date(editItem.date).toISOString().slice(0, 16) : ""} onChange={(e) => setEditItem({ ...editItem, date: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              ) : (
+                <input type="date" value={editItem._date || ""} onChange={(e) => setEditItem({ ...editItem, [editItem._type === "task" ? "dueDate" : editItem._type === "content" ? "plannedDate" : "date"]: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              )}
+              <textarea value={editItem.notes || ""} onChange={(e) => setEditItem({ ...editItem, notes: e.target.value })} placeholder="Notes" rows={2}
+                className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
+              <div className="flex gap-2">
+                <button onClick={deleteEdit} disabled={editSaving} className="flex-1 py-2.5 rounded-xl font-semibold text-red-600 bg-red-50 border border-red-100 hover:bg-red-100 disabled:opacity-50">Delete</button>
+                <button onClick={saveEdit} disabled={editSaving || !editItem.title?.trim()} className="flex-1 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{editSaving ? "Saving…" : "Save"}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
