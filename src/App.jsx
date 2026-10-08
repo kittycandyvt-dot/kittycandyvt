@@ -39,6 +39,15 @@ import PlannerSettings from '@/pages/PlannerSettings';
 import PlannerCalendar from '@/pages/PlannerCalendar';
 import PlannerSearch from '@/pages/PlannerSearch';
 import PlannerAdmin from '@/pages/PlannerAdmin';
+import PlannerTwitch from '@/pages/PlannerTwitch';
+import PlannerYouTube from '@/pages/PlannerYouTube';
+import PlannerShortForm from '@/pages/PlannerShortForm';
+import PlannerTwitter from '@/pages/PlannerTwitter';
+import PlannerCommissions from '@/pages/PlannerCommissions';
+import PlannerMoney from '@/pages/PlannerMoney';
+import PlannerCollabs from '@/pages/PlannerCollabs';
+import PlannerMerch from '@/pages/PlannerMerch';
+import PlannerAssets from '@/pages/PlannerAssets';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -95,6 +104,15 @@ const AuthenticatedApp = () => {
             <Route path="/planner/ideas" element={<PlannerIdeas />} />
             <Route path="/planner/customize" element={<PlannerCustomize />} />
             <Route path="/planner/settings" element={<PlannerSettings />} />
+            <Route path="/planner/twitch" element={<PlannerTwitch />} />
+            <Route path="/planner/youtube" element={<PlannerYouTube />} />
+            <Route path="/planner/shorts" element={<PlannerShortForm />} />
+            <Route path="/planner/twitter" element={<PlannerTwitter />} />
+            <Route path="/planner/commissions" element={<PlannerCommissions />} />
+            <Route path="/planner/money" element={<PlannerMoney />} />
+            <Route path="/planner/collabs" element={<PlannerCollabs />} />
+            <Route path="/planner/merch" element={<PlannerMerch />} />
+            <Route path="/planner/assets" element={<PlannerAssets />} />
           </Route>
         </Route>
         <Route path="*" element={<PageNotFound />} />

@@ -1,0 +1,99 @@
+{
+  "name": "TwitchPlan",
+  "type": "object",
+  "properties": {
+    "streamDate": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Stream Date & Time"
+    },
+    "streamTitle": {
+      "type": "string",
+      "title": "Stream Title"
+    },
+    "gameCategory": {
+      "type": "string",
+      "title": "Game / Category"
+    },
+    "streamTheme": {
+      "type": "string",
+      "title": "Stream Theme"
+    },
+    "isCollab": {
+      "type": "boolean",
+      "default": false,
+      "title": "Collab?"
+    },
+    "collabPartner": {
+      "type": "string",
+      "title": "Collab Partner"
+    },
+    "specialEvents": {
+      "type": "string",
+      "title": "Special Events"
+    },
+    "assetsNeeded": {
+      "type": "string",
+      "title": "Assets Needed"
+    },
+    "vodStatus": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "published",
+        "archived"
+      ],
+      "default": "pending",
+      "title": "VOD Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "streamTitle"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

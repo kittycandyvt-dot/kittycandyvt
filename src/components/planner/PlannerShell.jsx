@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LayoutDashboard, CalendarDays, Clapperboard, Palette, TrendingUp, Lightbulb, Settings2, Search, Plus, Home, Shield } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Clapperboard, Palette, TrendingUp, Lightbulb, Settings2, Search, Plus, Home, Shield, Radio, Video, Smartphone, MessageCircle, Mic2, DollarSign, Users, ShoppingBag, FolderOpen } from "lucide-react";
 import { plannerConfig } from "@/data/plannerConfig";
 import { base44 } from "@/api/base44Client";
 import QuickAdd from "@/components/planner/QuickAdd";
@@ -9,7 +9,17 @@ import { usePlannerTheme } from "@/hooks/usePlannerTheme";
 const navItems = [
   { to: "/planner/dashboard", label: "Home", icon: LayoutDashboard },
   { to: "/planner/calendar", label: "Planner", icon: CalendarDays },
+  { to: "/planner/twitch", label: "Twitch", icon: Radio },
+  { to: "/planner/streams", label: "Streams", icon: Clapperboard },
+  { to: "/planner/youtube", label: "YouTube", icon: Video },
+  { to: "/planner/shorts", label: "Shorts", icon: Smartphone },
+  { to: "/planner/twitter", label: "Twitter", icon: MessageCircle },
   { to: "/planner/content", label: "Content", icon: Clapperboard },
+  { to: "/planner/commissions", label: "Commissions", icon: Mic2 },
+  { to: "/planner/money", label: "Money", icon: DollarSign },
+  { to: "/planner/collabs", label: "Collabs", icon: Users },
+  { to: "/planner/merch", label: "Merch", icon: ShoppingBag },
+  { to: "/planner/assets", label: "Assets", icon: FolderOpen },
   { to: "/planner/brand", label: "Brand", icon: Palette },
   { to: "/planner/growth", label: "Growth", icon: TrendingUp },
   { to: "/planner/ideas", label: "Ideas", icon: Lightbulb },
@@ -20,11 +30,21 @@ const navItems = [
 const mobileNav = [
   { to: "/planner/dashboard", label: "Home", icon: LayoutDashboard },
   { to: "/planner/calendar", label: "Planner", icon: CalendarDays },
+  { to: "/planner/twitch", label: "Twitch", icon: Radio },
+  { to: "/planner/streams", label: "Streams", icon: Clapperboard },
+  { to: "/planner/youtube", label: "YouTube", icon: Video },
+  { to: "/planner/shorts", label: "Shorts", icon: Smartphone },
+  { to: "/planner/twitter", label: "Twitter", icon: MessageCircle },
   { to: "/planner/content", label: "Content", icon: Clapperboard },
+  { to: "/planner/commissions", label: "Comms", icon: Mic2 },
+  { to: "/planner/money", label: "Money", icon: DollarSign },
+  { to: "/planner/collabs", label: "Collabs", icon: Users },
+  { to: "/planner/merch", label: "Merch", icon: ShoppingBag },
+  { to: "/planner/assets", label: "Assets", icon: FolderOpen },
   { to: "/planner/brand", label: "Brand", icon: Palette },
   { to: "/planner/growth", label: "Growth", icon: TrendingUp },
   { to: "/planner/ideas", label: "Ideas", icon: Lightbulb },
-  { to: "/planner/customize", label: "Customize", icon: Settings2 },
+  { to: "/planner/customize", label: "Custom", icon: Palette },
   { to: "/planner/search", label: "Search", icon: Search },
 ];
 

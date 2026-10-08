@@ -1,0 +1,118 @@
+{
+  "name": "MerchPlanner",
+  "type": "object",
+  "properties": {
+    "productIdea": {
+      "type": "string",
+      "title": "Product Idea"
+    },
+    "artist": {
+      "type": "string",
+      "title": "Artist"
+    },
+    "artworkStatus": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "done"
+      ],
+      "default": "not_started",
+      "title": "Artwork Status"
+    },
+    "manufacturer": {
+      "type": "string",
+      "title": "Manufacturer"
+    },
+    "cost": {
+      "type": "number",
+      "default": 0,
+      "title": "Cost"
+    },
+    "retailPrice": {
+      "type": "number",
+      "default": 0,
+      "title": "Retail Price"
+    },
+    "profit": {
+      "type": "number",
+      "default": 0,
+      "title": "Profit"
+    },
+    "storeListing": {
+      "type": "string",
+      "title": "Store Listing"
+    },
+    "photos": {
+      "type": "string",
+      "title": "Photos"
+    },
+    "launchDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Launch Date"
+    },
+    "promoCampaign": {
+      "type": "string",
+      "title": "Promo Campaign"
+    },
+    "sales": {
+      "type": "number",
+      "default": 0,
+      "title": "Sales"
+    },
+    "futureIdea": {
+      "type": "boolean",
+      "default": false,
+      "title": "Future Merch Idea"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "productIdea"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

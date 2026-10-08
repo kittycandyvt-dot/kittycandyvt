@@ -1,0 +1,81 @@
+{
+  "name": "MoneyTracker",
+  "type": "object",
+  "properties": {
+    "entryType": {
+      "type": "string",
+      "enum": [
+        "income",
+        "expense"
+      ],
+      "title": "Type"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0,
+      "title": "Amount"
+    },
+    "month": {
+      "type": "string",
+      "title": "Month (YYYY-MM)"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "entryType",
+    "source",
+    "amount"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "TwitterPlan",
+  "type": "object",
+  "properties": {
+    "postType": {
+      "type": "string",
+      "enum": [
+        "announcement",
+        "meme",
+        "thirst_trap",
+        "clip",
+        "engagement",
+        "promo",
+        "personal"
+      ],
+      "default": "announcement",
+      "title": "Post Type"
+    },
+    "content": {
+      "type": "string",
+      "title": "Content"
+    },
+    "scheduledDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Scheduled Date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "drafted",
+        "scheduled",
+        "posted"
+      ],
+      "default": "idea",
+      "title": "Status"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "content"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

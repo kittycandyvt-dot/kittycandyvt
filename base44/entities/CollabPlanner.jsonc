@@ -1,0 +1,108 @@
+{
+  "name": "CollabPlanner",
+  "type": "object",
+  "properties": {
+    "creator": {
+      "type": "string",
+      "title": "Creator"
+    },
+    "platform": {
+      "type": "string",
+      "title": "Platform"
+    },
+    "contact": {
+      "type": "string",
+      "title": "Contact"
+    },
+    "contentStyle": {
+      "type": "string",
+      "title": "Content Style"
+    },
+    "timezone": {
+      "type": "string",
+      "title": "Time Zone"
+    },
+    "ideas": {
+      "type": "string",
+      "title": "Ideas"
+    },
+    "contacted": {
+      "type": "boolean",
+      "default": false,
+      "title": "Contacted?"
+    },
+    "response": {
+      "type": "string",
+      "enum": [
+        "none",
+        "pending",
+        "yes",
+        "no"
+      ],
+      "default": "none",
+      "title": "Response"
+    },
+    "plannedDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Planned Date"
+    },
+    "streamIdea": {
+      "type": "string",
+      "title": "Stream Idea"
+    },
+    "promotionPlan": {
+      "type": "string",
+      "title": "Promotion Plan"
+    },
+    "wishlist": {
+      "type": "boolean",
+      "default": false,
+      "title": "Wishlist (People I Want to Collab With)"
+    }
+  },
+  "required": [
+    "creator"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

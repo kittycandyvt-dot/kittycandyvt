@@ -6,6 +6,14 @@
       "type": "string",
       "title": "Stream Title"
     },
+    "streamConcept": {
+      "type": "string",
+      "title": "Stream Concept"
+    },
+    "titleIdeas": {
+      "type": "string",
+      "title": "Title Ideas"
+    },
     "game": {
       "type": "string",
       "title": "Game / Category"
@@ -21,7 +29,7 @@
     },
     "endTime": {
       "type": "string",
-      "title": "End Time"
+      "title": "Expected End Time"
     },
     "platform": {
       "type": "string",
@@ -29,7 +37,7 @@
     },
     "goal": {
       "type": "string",
-      "title": "Stream Goal"
+      "title": "Stream Goals"
     },
     "talkingPoints": {
       "type": "string",
@@ -37,11 +45,35 @@
     },
     "segments": {
       "type": "string",
-      "title": "Segments"
+      "title": "Bits / Segments"
     },
     "chatIdeas": {
       "type": "string",
-      "title": "Chat Interaction Ideas"
+      "title": "Chat Questions"
+    },
+    "giveaways": {
+      "type": "string",
+      "title": "Giveaways"
+    },
+    "collabGuests": {
+      "type": "string",
+      "title": "Collab Guests"
+    },
+    "assetsNeeded": {
+      "type": "string",
+      "title": "Assets Needed"
+    },
+    "playlist": {
+      "type": "string",
+      "title": "Playlist"
+    },
+    "streamAnnouncements": {
+      "type": "string",
+      "title": "Stream Announcements"
+    },
+    "potentialClips": {
+      "type": "string",
+      "title": "Potential Clip Moments"
     },
     "alerts": {
       "type": "string",

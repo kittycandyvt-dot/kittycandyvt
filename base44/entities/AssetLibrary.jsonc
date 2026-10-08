@@ -1,0 +1,86 @@
+{
+  "name": "AssetLibrary",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Asset Name"
+    },
+    "assetType": {
+      "type": "string",
+      "enum": [
+        "png",
+        "logo",
+        "emote",
+        "alert",
+        "overlay",
+        "starting_screen",
+        "brb_screen",
+        "ending_screen",
+        "thumbnail",
+        "wallpaper",
+        "promo_graphic",
+        "character_art",
+        "model_version"
+      ],
+      "default": "png",
+      "title": "Asset Type"
+    },
+    "fileLink": {
+      "type": "string",
+      "title": "File / Link"
+    },
+    "usageRights": {
+      "type": "string",
+      "title": "Usage Rights / License"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

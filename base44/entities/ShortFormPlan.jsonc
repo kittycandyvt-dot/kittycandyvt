@@ -1,0 +1,99 @@
+{
+  "name": "ShortFormPlan",
+  "type": "object",
+  "properties": {
+    "clipIdea": {
+      "type": "string",
+      "title": "Clip Idea"
+    },
+    "sourceStream": {
+      "type": "string",
+      "title": "Source Stream"
+    },
+    "hook": {
+      "type": "string",
+      "title": "Hook"
+    },
+    "caption": {
+      "type": "string",
+      "title": "Caption"
+    },
+    "hashtags": {
+      "type": "string",
+      "title": "Hashtags"
+    },
+    "editingStatus": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "done"
+      ],
+      "default": "not_started",
+      "title": "Editing Status"
+    },
+    "scheduledDate": {
+      "type": "string",
+      "format": "date",
+      "title": "Scheduled Date"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "tiktok",
+        "reels",
+        "shorts"
+      ],
+      "default": "tiktok",
+      "title": "Platform"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "clipIdea"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
