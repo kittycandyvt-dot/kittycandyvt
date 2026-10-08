@@ -35,7 +35,9 @@ export default function PlannerDashboard() {
 
   const today = new Date().toISOString().slice(0, 10);
   const todaysTasks = tasks.filter(t => t.dueDate === today);
-  const upcomingStreams = streams.filter(s => s.date && s.date >= today).slice(0, 5);
+  const upcomingStreams = streams.filter(s => s.date && s.date >= today)
+    .sort((a, b) => new Date(`${a.date}T${a.startTime || "00:00"}`) - new Date(`${b.date}T${b.startTime || "00:00"}`))
+    .slice(0, 5);
   const activeGoals = goals.filter(g => g.status === "active").slice(0, 4);
   const recentIdeas = ideas.slice(0, 4);
   const inProgressContent = [];
