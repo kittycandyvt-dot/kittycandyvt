@@ -10,6 +10,13 @@ const TABS = [
   { key: "PlannerGoal", label: "Goal", icon: Target, entity: "PlannerGoal" },
 ];
 
+const toTorontoDateTimeLocal = (date) => {
+  if (!date) return "";
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date(date));
+  const g = t => parts.find(p => p.type === t)?.value || "";
+  return `${g("year")}-${g("month")}-${g("day")}T${g("hour")}:${g("minute")}`;
+};
+
 const DEFAULTS = {
   PlannerTask: { title: "", status: "todo", priority: "medium" },
   PlannerEvent: { title: "", date: new Date().toISOString(), type: "event", priority: "medium" },
@@ -73,7 +80,7 @@ export default function QuickAdd({ open, onClose, onCreated }) {
               <input type="date" value={form.dueDate || ""} onChange={(e) => setForm({ ...form, dueDate: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
             )}
             {tab === "PlannerEvent" && (
-              <input type="datetime-local" value={form.date ? form.date.slice(0, 16) : ""} onChange={(e) => setForm({ ...form, date: e.target.value ? new Date(e.target.value).toISOString() : "" })} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
+              <input type="datetime-local" value={toTorontoDateTimeLocal(form.date)} onChange={(e) => setForm({ ...form, date: e.target.value ? new Date(e.target.value).toISOString() : "" })} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
             )}
             {tab === "StreamPlan" && (
               <>

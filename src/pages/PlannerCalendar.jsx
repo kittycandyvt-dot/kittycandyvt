@@ -6,6 +6,27 @@ import { Link } from "react-router-dom";
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+const TORONTO_TZ = "America/Toronto";
+
+const toTorontoDateStr = (date) => {
+  if (!date) return null;
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: TORONTO_TZ,
+    year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(new Date(date));
+};
+
+const toTorontoDateTimeLocal = (date) => {
+  if (!date) return "";
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TORONTO_TZ,
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hour12: false,
+  }).formatToParts(new Date(date));
+  const get = (t) => parts.find(p => p.type === t)?.value || "";
+  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}`;
+};
+
 export default function PlannerCalendar() {
   const [events, setEvents] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -95,7 +116,7 @@ export default function PlannerCalendar() {
 
   const allItems = useMemo(() => {
     return [
-      ...events.map(x => ({ ...x, _date: x.date ? x.date.slice(0, 10) : null, _type: "event", _label: x.title })),
+      ...events.map(x => ({ ...x, _date: toTorontoDateStr(x.date), _type: "event", _label: x.title })),
       ...tasks.map(x => ({ ...x, _date: x.dueDate || null, _type: "task", _label: x.title })),
       ...streams.map(x => ({ ...x, _date: x.date || null, _type: "stream", _label: x.title })),
       ...content.map(x => ({ ...x, _date: x.plannedDate || null, _type: "content", _label: x.title })),
@@ -136,7 +157,7 @@ export default function PlannerCalendar() {
     }
   };
 
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = toTorontoDateStr(new Date());
 
   return (
     <div>
@@ -233,7 +254,7 @@ export default function PlannerCalendar() {
             {Array.from({ length: 7 }).map((_, i) => {
               const d = new Date(start);
               d.setDate(start.getDate() + i);
-              const dateStr = d.toISOString().slice(0, 10);
+              const dateStr = toTorontoDateStr(d);
               const dayItems = allItems.filter(x => x._date === dateStr);
               return (
                 <div key={i} className="glass rounded-2xl p-3 min-h-[160px]">
@@ -251,7 +272,7 @@ export default function PlannerCalendar() {
       })()}
 
       {view === "day" && (() => {
-        const dateStr = cursor.toISOString().slice(0, 10);
+        const dateStr = toTorontoDateStr(cursor);
         const dayItems = allItems.filter(x => x._date === dateStr);
         return (
           <div className="glass rounded-2xl p-5">
@@ -304,7 +325,7 @@ export default function PlannerCalendar() {
                 </select>
               </div>
               {editItem._type === "event" ? (
-                <input type="datetime-local" value={editItem.date ? new Date(editItem.date).toISOString().slice(0, 16) : ""} onChange={(e) => setEditItem({ ...editItem, date: e.target.value })}
+                <input type="datetime-local" value={editItem.date ? toTorontoDateTimeLocal(editItem.date) : ""} onChange={(e) => setEditItem({ ...editItem, date: e.target.value })}
                   className="w-full px-4 py-2.5 rounded-xl border border-pink-200 focus:outline-none focus:border-pink-400" />
               ) : (
                 <input type="date" value={editItem._date || ""} onChange={(e) => setEditItem({ ...editItem, [editItem._type === "task" ? "dueDate" : editItem._type === "content" ? "plannedDate" : "date"]: e.target.value })}
