@@ -128,8 +128,8 @@ export default function PlannerGrowth() {
           <input value={metricForm.platform} onChange={(e) => setMetricForm({ ...metricForm, platform: e.target.value })} placeholder="Platform (e.g. Twitch)" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
           <input value={metricForm.metric} onChange={(e) => setMetricForm({ ...metricForm, metric: e.target.value })} placeholder="Metric (e.g. Followers)" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
           <div className="grid grid-cols-2 gap-3">
-            <input type="number" value={metricForm.currentValue} onChange={(e) => setMetricForm({ ...metricForm, currentValue: Number(e.target.value) })} placeholder="Current" className="px-4 py-2.5 rounded-xl border border-pink-200" />
-            <input type="number" value={metricForm.goal} onChange={(e) => setMetricForm({ ...metricForm, goal: Number(e.target.value) })} placeholder="Goal" className="px-4 py-2.5 rounded-xl border border-pink-200" />
+            <input type="number" value={metricForm.currentValue || ""} onChange={(e) => setMetricForm({ ...metricForm, currentValue: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Current" className="px-4 py-2.5 rounded-xl border border-pink-200" />
+            <input type="number" value={metricForm.goal || ""} onChange={(e) => setMetricForm({ ...metricForm, goal: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Goal" className="px-4 py-2.5 rounded-xl border border-pink-200" />
           </div>
           <button onClick={createMetric} disabled={saving} className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{saving ? "Saving…" : "Add Metric"}</button>
         </div>
@@ -140,7 +140,7 @@ export default function PlannerGrowth() {
           <input value={goalForm.goal} onChange={(e) => setGoalForm({ ...goalForm, goal: e.target.value })} placeholder="Goal * (e.g. Reach 1,000 followers)" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
           <input value={goalForm.category} onChange={(e) => setGoalForm({ ...goalForm, category: e.target.value })} placeholder="Category" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
           <div className="grid grid-cols-2 gap-3">
-            <input type="number" value={goalForm.target} onChange={(e) => setGoalForm({ ...goalForm, target: Number(e.target.value) })} placeholder="Target" className="px-4 py-2.5 rounded-xl border border-pink-200" />
+            <input type="number" value={goalForm.target || ""} onChange={(e) => setGoalForm({ ...goalForm, target: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Target" className="px-4 py-2.5 rounded-xl border border-pink-200" />
             <input type="date" value={goalForm.deadline} onChange={(e) => setGoalForm({ ...goalForm, deadline: e.target.value })} className="px-4 py-2.5 rounded-xl border border-pink-200" />
           </div>
           <button onClick={createGoal} disabled={saving || !goalForm.goal} className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{saving ? "Saving…" : "Add Goal"}</button>
