@@ -25,7 +25,11 @@ export default function PlannerStreams() {
   const load = async () => {
     setLoading(true);
     const data = await base44.entities.StreamPlan.list("-created_date");
-    setStreams(data || []);
+    setStreams((data || []).slice().sort((a, b) => {
+      const da = a.date ? new Date(`${a.date}T${a.startTime || "00:00"}`) : new Date(0);
+      const db = b.date ? new Date(`${b.date}T${b.startTime || "00:00"}`) : new Date(0);
+      return da - db;
+    }));
     setLoading(false);
   };
 
