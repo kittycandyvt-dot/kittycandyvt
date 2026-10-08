@@ -73,7 +73,7 @@ export default function QuickAdd({ open, onClose, onCreated }) {
               <input type="date" value={form.dueDate || ""} onChange={(e) => setForm({ ...form, dueDate: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
             )}
             {tab === "PlannerEvent" && (
-              <input type="datetime-local" value={form.date ? form.date.slice(0, 16) : ""} onChange={(e) => setForm({ ...form, date: new Date(e.target.value).toISOString() })} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
+              <input type="datetime-local" value={form.date ? form.date.slice(0, 16) : ""} onChange={(e) => setForm({ ...form, date: e.target.value ? new Date(e.target.value).toISOString() : "" })} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
             )}
             {tab === "StreamPlan" && (
               <>
