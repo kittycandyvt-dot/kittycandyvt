@@ -124,10 +124,10 @@ export default function PlannerCalendar() {
   }, [events, tasks, streams, content]);
 
   const typeColor = {
-    event: "bg-purple-100 text-purple-600",
-    task: "bg-pink-100 text-pink-600",
+    event: "bg-purple-100 text-purple-700",
+    task: "bg-sky-100 text-sky-700",
     stream: "bg-red-100 text-red-600",
-    content: "bg-amber-100 text-amber-600",
+    content: "bg-emerald-100 text-emerald-700",
   };
 
   if (loading) return <div className="py-20 text-center"><Loader2 className="w-6 h-6 animate-spin text-pink-500 mx-auto" /></div>;
