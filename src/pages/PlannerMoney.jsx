@@ -8,10 +8,21 @@ export default function PlannerMoney() {
     const expenses = items.filter(i => i.entryType === "expense").reduce((s, i) => s + (i.amount || 0), 0);
     const net = income - expenses;
     return (
-      <div className="grid grid-cols-3 gap-3 text-center">
-        <div><p className="text-xs text-plum-400">Income</p><p className="text-lg font-bold text-green-600">${income.toFixed(2)}</p></div>
-        <div><p className="text-xs text-plum-400">Expenses</p><p className="text-lg font-bold text-red-500">${expenses.toFixed(2)}</p></div>
-        <div><p className="text-xs text-plum-400">Net</p><p className={`text-lg font-bold ${net >= 0 ? "text-green-600" : "text-red-500"}`}>${net.toFixed(2)}</p></div>
+      <div className="glass rounded-3xl p-5 mb-4">
+        <div className="grid grid-cols-3 gap-4 text-center">
+          <div className="rounded-2xl bg-green-50 py-3">
+            <p className="text-xs font-medium text-green-600 uppercase tracking-wide">Income</p>
+            <p className="text-2xl font-bold text-green-600 mt-1">${income.toFixed(2)}</p>
+          </div>
+          <div className="rounded-2xl bg-red-50 py-3">
+            <p className="text-xs font-medium text-red-500 uppercase tracking-wide">Expenses</p>
+            <p className="text-2xl font-bold text-red-500 mt-1">${expenses.toFixed(2)}</p>
+          </div>
+          <div className={`rounded-2xl py-3 ${net >= 0 ? "bg-pink-50" : "bg-red-50"}`}>
+            <p className={`text-xs font-medium uppercase tracking-wide ${net >= 0 ? "text-pink-600" : "text-red-500"}`}>Net Balance</p>
+            <p className={`text-2xl font-bold mt-1 ${net >= 0 ? "text-pink-600" : "text-red-500"}`}>${net.toFixed(2)}</p>
+          </div>
+        </div>
       </div>
     );
   };
