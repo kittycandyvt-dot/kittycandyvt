@@ -53,6 +53,30 @@ export default async function(req) {
 
     const accessStatus = type === 'refund' || type === 'cancelled' ? 'revoked' : 'active';
 
+    if (accessStatus === 'revoked') {
+      // Revoke all existing active purchases for this customer instead of creating a new record
+      await base44.asServiceRole.entities.Purchase.updateMany(
+        { customerEmail: customerEmail.toLowerCase(), accessStatus: 'active' },
+        { $set: { accessStatus: 'revoked' } }
+      );
+
+      // Demote any linked user back to regular user role
+      try {
+        const users = await base44.asServiceRole.entities.User.filter({ email: customerEmail.toLowerCase() });
+        if (users && users.length > 0) {
+          for (const u of users) {
+            if (u.role === 'planner') {
+              await base44.asServiceRole.entities.User.update(u.id, { role: 'user' });
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Failed to demote user role on refund:', e.message);
+      }
+
+      return Response.json({ status: 'revoked', access: 'revoked' });
+    }
+
     // Create entitlement record
     const purchase = await base44.asServiceRole.entities.Purchase.create({
       kofiPurchaseId: messageId || '',

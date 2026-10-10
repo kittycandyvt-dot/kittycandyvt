@@ -12,6 +12,11 @@
       "format": "email",
       "title": "Email"
     },
+    "normalizedEmail": {
+      "type": "string",
+      "title": "Normalized Email",
+      "description": "Email with subaddressing and dots stripped, for dedup"
+    },
     "handle": {
       "type": "string",
       "title": "Social Handle",

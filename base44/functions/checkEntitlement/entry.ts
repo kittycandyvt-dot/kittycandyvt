@@ -31,6 +31,15 @@ export default async function(req) {
       await base44.asServiceRole.entities.Purchase.update(active.id, { userId: user.id });
     }
 
+    // Promote user to planner role for server-side RLS enforcement
+    if (user.role !== 'planner' && user.role !== 'admin') {
+      try {
+        await base44.asServiceRole.entities.User.update(user.id, { role: 'planner' });
+      } catch (e) {
+        console.error('Failed to promote user to planner:', e.message);
+      }
+    }
+
     return Response.json({ hasAccess: true, reason: 'active_purchase', purchaseId: active.id });
   } catch (error) {
     return Response.json({ hasAccess: false, reason: 'error', message: error.message }, { status: 500 });

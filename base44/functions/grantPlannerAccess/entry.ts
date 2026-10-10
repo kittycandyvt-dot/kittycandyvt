@@ -39,6 +39,19 @@ export default async function(req) {
       // User may already exist — that's fine
     }
 
+    // Promote existing user to planner role for server-side RLS enforcement
+    try {
+      const users = await base44.asServiceRole.entities.User.filter({ email });
+      if (users && users.length > 0) {
+        const u = users[0];
+        if (u.role !== 'planner' && u.role !== 'admin') {
+          await base44.asServiceRole.entities.User.update(u.id, { role: 'planner' });
+        }
+      }
+    } catch (e) {
+      // User may not exist yet — role will be set on first checkEntitlement call
+    }
+
     // Send custom invitation email with setup link
     const setupLink = `${SETUP_URL}?email=${encodeURIComponent(email)}`;
     const html = `<!DOCTYPE html>

@@ -8,6 +8,43 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function normalizeEmail(email) {
+  const lower = (email || "").toLowerCase();
+  const atIndex = lower.indexOf("@");
+  if (atIndex === -1) return lower;
+  const localPart = lower.slice(0, atIndex).split("+")[0].replace(/\./g, "");
+  const domain = lower.slice(atIndex + 1);
+  return `${localPart}@${domain}`;
+}
+
+function isValidSlot(selectedSlot) {
+  const slot = new Date(selectedSlot);
+  if (Number.isNaN(slot.getTime())) return false;
+  const now = new Date();
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  const maxDate = new Date(today);
+  maxDate.setDate(today.getDate() + 90);
+  if (slot < today || slot > maxDate) return false;
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hour12: false,
+  });
+  const parts = formatter.formatToParts(slot);
+  const get = (t) => parts.find((p) => p.type === t)?.value || "";
+  const year = Number(get("year"));
+  const month = Number(get("month"));
+  const day = Number(get("day"));
+  const hour = Number(get("hour"));
+  const minute = Number(get("minute"));
+  if (year === 2026 && (month === 9 || month === 10)) return false;
+  const dayOfWeek = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
+  if (![1, 3, 5, 6].includes(dayOfWeek)) return false;
+  if (hour !== 22 || minute !== 0) return false;
+  return true;
+}
+
 export default async function(req) {
   try {
     const base44 = createClientFromRequest(req);
@@ -48,9 +85,10 @@ export default async function(req) {
       return Response.json({ error: "This interview slot is already booked." }, { status: 409 });
     }
 
-    // Per-recipient rate limit — one pending booking per email prevents mail relay abuse
+    // Per-recipient rate limit — normalize email (strip subaddressing and dots) to prevent bypass
+    const normalizedEmail = normalizeEmail(email);
     const existingByEmail = await base44.asServiceRole.entities.InterviewSignup.filter({
-      email: email.toLowerCase(),
+      normalizedEmail,
       status: { $in: ["pending", "confirmed"] },
     });
     if (existingByEmail && existingByEmail.length > 0) {
@@ -68,6 +106,11 @@ export default async function(req) {
      */
 
     const slot = new Date(selectedSlot);
+
+    // Validate slot against the server-side whitelist of bookable times
+    if (!isValidSlot(selectedSlot)) {
+      return Response.json({ error: "This time slot is not available for booking." }, { status: 400 });
+    }
 
     if (Number.isNaN(slot.getTime())) {
       return Response.json(
@@ -152,6 +195,7 @@ export default async function(req) {
     await base44.asServiceRole.entities.InterviewSignup.create({
       name: name || "",
       email,
+      normalizedEmail,
       handle: handle || "",
       platform: platform || "",
       preferredDate: preferredDate || selectedSlot.slice(0, 10),
