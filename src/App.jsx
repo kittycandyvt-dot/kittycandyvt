@@ -23,31 +23,6 @@ import SpicyVoiceActing from '@/pages/SpicyVoiceActing';
 import Contact from '@/pages/Contact';
 import Terms from '@/pages/Terms';
 import ReviewApproval from '@/pages/ReviewApproval';
-import PlannerLanding from '@/pages/PlannerLanding';
-import SetupAccount from '@/pages/SetupAccount';
-import PlannerProtectedRoute from '@/components/planner/PlannerProtectedRoute';
-import PlannerShell from '@/components/planner/PlannerShell';
-import PlannerDashboard from '@/pages/PlannerDashboard';
-import PlannerTasks from '@/pages/PlannerTasks';
-import PlannerContent from '@/pages/PlannerContent';
-import PlannerStreams from '@/pages/PlannerStreams';
-import PlannerBrand from '@/pages/PlannerBrand';
-import PlannerGrowth from '@/pages/PlannerGrowth';
-import PlannerIdeas from '@/pages/PlannerIdeas';
-import PlannerCustomize from '@/pages/PlannerCustomize';
-import PlannerSettings from '@/pages/PlannerSettings';
-import PlannerCalendar from '@/pages/PlannerCalendar';
-import PlannerSearch from '@/pages/PlannerSearch';
-import PlannerAdmin from '@/pages/PlannerAdmin';
-import PlannerTwitch from '@/pages/PlannerTwitch';
-import PlannerYouTube from '@/pages/PlannerYouTube';
-import PlannerShortForm from '@/pages/PlannerShortForm';
-import PlannerTwitter from '@/pages/PlannerTwitter';
-import PlannerCommissions from '@/pages/PlannerCommissions';
-import PlannerMoney from '@/pages/PlannerMoney';
-import PlannerCollabs from '@/pages/PlannerCollabs';
-import PlannerMerch from '@/pages/PlannerMerch';
-import PlannerAssets from '@/pages/PlannerAssets';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -88,33 +63,6 @@ const AuthenticatedApp = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/review-approval" element={<ReviewApproval />} />
-        <Route path="/planner" element={<PlannerLanding />} />
-        <Route path="/setup-account" element={<SetupAccount />} />
-        <Route element={<PlannerProtectedRoute />}>
-          <Route element={<PlannerShell />}>
-            <Route path="/planner/dashboard" element={<PlannerDashboard />} />
-            <Route path="/planner/tasks" element={<PlannerTasks />} />
-            <Route path="/planner/calendar" element={<PlannerCalendar />} />
-            <Route path="/planner/search" element={<PlannerSearch />} />
-            <Route path="/planner/admin" element={<PlannerAdmin />} />
-            <Route path="/planner/content" element={<PlannerContent />} />
-            <Route path="/planner/streams" element={<PlannerStreams />} />
-            <Route path="/planner/brand" element={<PlannerBrand />} />
-            <Route path="/planner/growth" element={<PlannerGrowth />} />
-            <Route path="/planner/ideas" element={<PlannerIdeas />} />
-            <Route path="/planner/customize" element={<PlannerCustomize />} />
-            <Route path="/planner/settings" element={<PlannerSettings />} />
-            <Route path="/planner/twitch" element={<PlannerTwitch />} />
-            <Route path="/planner/youtube" element={<PlannerYouTube />} />
-            <Route path="/planner/shorts" element={<PlannerShortForm />} />
-            <Route path="/planner/twitter" element={<PlannerTwitter />} />
-            <Route path="/planner/commissions" element={<PlannerCommissions />} />
-            <Route path="/planner/money" element={<PlannerMoney />} />
-            <Route path="/planner/collabs" element={<PlannerCollabs />} />
-            <Route path="/planner/merch" element={<PlannerMerch />} />
-            <Route path="/planner/assets" element={<PlannerAssets />} />
-          </Route>
-        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
