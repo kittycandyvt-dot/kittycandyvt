@@ -20,8 +20,7 @@ export default async function(req) {
     });
 
     if (!res.ok) {
-      const errBody = await res.text();
-      return Response.json({ error: 'Google Calendar API error', details: errBody }, { status: 502 });
+      return Response.json({ error: 'Failed to load stream schedule.' }, { status: 502 });
     }
 
     const data = await res.json();
@@ -38,6 +37,6 @@ export default async function(req) {
 
     return Response.json({ events });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: 'Failed to load stream schedule.' }, { status: 500 });
   }
 }

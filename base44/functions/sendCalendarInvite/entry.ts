@@ -1,5 +1,13 @@
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.49";
 
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 export default async function(req) {
   try {
     const base44 = createClientFromRequest(req);
@@ -19,6 +27,21 @@ export default async function(req) {
         },
         { status: 400 }
       );
+    }
+
+    // Validate email format to prevent mail injection / spoofing
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return Response.json({ error: "A valid email address is required." }, { status: 400 });
+    }
+
+    // Verify the requested slot is not already booked (prevents calendar flooding)
+    const existingBookings = await base44.asServiceRole.entities.InterviewSignup.filter({
+      selectedSlot,
+      status: { $in: ["pending", "confirmed"] },
+    });
+    if (existingBookings && existingBookings.length > 0) {
+      return Response.json({ error: "This interview slot is already booked." }, { status: 409 });
     }
 
     /*
@@ -123,7 +146,7 @@ export default async function(req) {
 
     const eventPayload = {
       summary:
-        `🎤 Interview with ${name || "Guest"}`,
+        `🎤 Interview with ${escapeHtml(name || "Guest")}`,
 
       description:
         "Your interview session has been booked with KittyCandyVT! 💕",
@@ -230,7 +253,7 @@ export default async function(req) {
         <div style="padding: 28px; color: #25161c; line-height: 1.7;">
 
           <p style="margin: 0 0 16px;">
-            Hi ${name || "there"},
+            Hi ${escapeHtml(name || "there")},
           </p>
 
           <p style="margin: 0 0 16px;">

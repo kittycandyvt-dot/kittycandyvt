@@ -4,8 +4,8 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
 
-    // Get the saved Twitch authorization
-    const authRecords = await base44.entities.TwitchAuth.list();
+    // Get the saved Twitch authorization (server-side only — tokens must never reach the client)
+    const authRecords = await base44.asServiceRole.entities.TwitchAuth.list();
 
     if (!authRecords || authRecords.length === 0) {
       return Response.json(
@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
 
       accessToken = refreshData.access_token;
 
-      await base44.entities.TwitchAuth.update(auth.id, {
+      await base44.asServiceRole.entities.TwitchAuth.update(auth.id, {
         access_token: refreshData.access_token,
         refresh_token:
           refreshData.refresh_token || auth.refresh_token,

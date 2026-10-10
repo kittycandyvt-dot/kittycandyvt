@@ -16,13 +16,14 @@ export default async function(req) {
       payload = await req.json();
     }
 
-    // Optional verification token check
+    // Mandatory verification token check — reject if secret is missing or mismatched
     const verificationToken = secrets.get('KOFI_VERIFICATION_TOKEN');
-    if (verificationToken) {
-      const providedToken = payload.verification_token || payload.verificationToken;
-      if (providedToken !== verificationToken) {
-        return Response.json({ error: 'Invalid verification token' }, { status: 403 });
-      }
+    if (!verificationToken) {
+      return Response.json({ error: 'Webhook verification not configured.' }, { status: 403 });
+    }
+    const providedToken = payload.verification_token || payload.verificationToken;
+    if (providedToken !== verificationToken) {
+      return Response.json({ error: 'Invalid verification token' }, { status: 403 });
     }
 
     const type = payload.type;

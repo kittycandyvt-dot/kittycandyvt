@@ -112,8 +112,17 @@ Deno.serve(async (req) => {
     // Connect to Base44
     const base44 = createClientFromRequest(req);
 
-    // Check whether we already have a Twitch authorization
-    const existing = await base44.entities.TwitchAuth.list();
+    // Require admin authentication — only the owner should be able to store/overwrite Twitch credentials
+    const user = await base44.auth.me();
+    if (!user || user.role !== "admin") {
+      return new Response(
+        JSON.stringify({ success: false, error: "Admin authentication required to connect Twitch." }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Check whether we already have a Twitch authorization (server-side only)
+    const existing = await base44.asServiceRole.entities.TwitchAuth.list();
 
     const authData = {
       access_token: accessToken,
@@ -124,12 +133,12 @@ Deno.serve(async (req) => {
     };
 
     if (existing && existing.length > 0) {
-      await base44.entities.TwitchAuth.update(
+      await base44.asServiceRole.entities.TwitchAuth.update(
         existing[0].id,
         authData
       );
     } else {
-      await base44.entities.TwitchAuth.create(authData);
+      await base44.asServiceRole.entities.TwitchAuth.create(authData);
     }
 
     const scopes = tokenData.scope || [];
