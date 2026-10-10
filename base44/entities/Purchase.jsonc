@@ -46,6 +46,11 @@
     "accessStatus"
   ],
   "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
     "read": {
       "$or": [
         {
@@ -61,7 +66,6 @@
         }
       ]
     },
-    "create": {},
     "update": {
       "user_condition": {
         "role": "admin"
