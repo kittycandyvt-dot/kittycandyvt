@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Trash2, Loader2, TrendingUp } from "lucide-react";
+import { Plus, Trash2, Pencil, Loader2, TrendingUp } from "lucide-react";
 import Modal from "@/components/planner/Modal";
 import EmptyState from "@/components/planner/EmptyState";
 
@@ -11,6 +11,8 @@ export default function PlannerGrowth() {
   const [saving, setSaving] = useState(false);
   const [showMetric, setShowMetric] = useState(false);
   const [showGoal, setShowGoal] = useState(false);
+  const [editingMetric, setEditingMetric] = useState(null);
+  const [editingGoal, setEditingGoal] = useState(null);
   const [metricForm, setMetricForm] = useState({ platform: "", metric: "", currentValue: 0, previousValue: 0, goal: 0, targetDate: "" });
   const [goalForm, setGoalForm] = useState({ goal: "", category: "", target: 0, currentProgress: 0, deadline: "", status: "active", notes: "" });
 
@@ -24,21 +26,57 @@ export default function PlannerGrowth() {
 
   useEffect(() => { load(); }, []);
 
-  const createMetric = async () => {
+  const openAddMetric = () => {
+    setEditingMetric(null);
+    setMetricForm({ platform: "", metric: "", currentValue: 0, previousValue: 0, goal: 0, targetDate: "" });
+    setShowMetric(true);
+  };
+
+  const openEditMetric = (m) => {
+    setEditingMetric(m);
+    setMetricForm({ ...m });
+    setShowMetric(true);
+  };
+
+  const saveMetric = async () => {
     if (!metricForm.platform || !metricForm.metric) return;
     setSaving(true);
-    await base44.entities.GrowthMetric.create(metricForm);
+    const { id, created_date, updated_date, created_by_id, ...rest } = metricForm;
+    if (editingMetric) {
+      await base44.entities.GrowthMetric.update(editingMetric.id, rest);
+    } else {
+      await base44.entities.GrowthMetric.create(rest);
+    }
     setMetricForm({ platform: "", metric: "", currentValue: 0, previousValue: 0, goal: 0, targetDate: "" });
+    setEditingMetric(null);
     setShowMetric(false);
     setSaving(false);
     load();
   };
 
-  const createGoal = async () => {
+  const openAddGoal = () => {
+    setEditingGoal(null);
+    setGoalForm({ goal: "", category: "", target: 0, currentProgress: 0, deadline: "", status: "active", notes: "" });
+    setShowGoal(true);
+  };
+
+  const openEditGoal = (g) => {
+    setEditingGoal(g);
+    setGoalForm({ ...g });
+    setShowGoal(true);
+  };
+
+  const saveGoal = async () => {
     if (!goalForm.goal) return;
     setSaving(true);
-    await base44.entities.PlannerGoal.create(goalForm);
+    const { id, created_date, updated_date, created_by_id, ...rest } = goalForm;
+    if (editingGoal) {
+      await base44.entities.PlannerGoal.update(editingGoal.id, rest);
+    } else {
+      await base44.entities.PlannerGoal.create(rest);
+    }
     setGoalForm({ goal: "", category: "", target: 0, currentProgress: 0, deadline: "", status: "active", notes: "" });
+    setEditingGoal(null);
     setShowGoal(false);
     setSaving(false);
     load();
@@ -61,8 +99,8 @@ export default function PlannerGrowth() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-display text-2xl font-bold text-plum-900">Growth Tracker</h1>
         <div className="flex gap-2">
-          <button onClick={() => setShowGoal(true)} className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-plum-900 bg-white border border-pink-200"><Plus size={16} /> Goal</button>
-          <button onClick={() => setShowMetric(true)} className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500"><Plus size={16} /> Metric</button>
+          <button onClick={openAddGoal} className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-plum-900 bg-white border border-pink-200"><Plus size={16} /> Goal</button>
+          <button onClick={openAddMetric} className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500"><Plus size={16} /> Metric</button>
         </div>
       </div>
 
@@ -79,7 +117,10 @@ export default function PlannerGrowth() {
                   <p className="font-semibold text-plum-900">{m.platform}</p>
                   <p className="text-xs text-plum-400">{m.metric}</p>
                 </div>
-                <button onClick={() => remove(m.id, "GrowthMetric")} className="text-plum-300 hover:text-red-500"><Trash2 size={14} /></button>
+                <div className="flex gap-1">
+                  <button onClick={() => openEditMetric(m)} className="text-plum-300 hover:text-pink-500"><Pencil size={14} /></button>
+                  <button onClick={() => remove(m.id, "GrowthMetric")} className="text-plum-300 hover:text-red-500"><Trash2 size={14} /></button>
+                </div>
               </div>
               <p className="text-2xl font-bold text-pink-600 mt-2">{m.currentValue || 0}</p>
               {m.goal > 0 && (
@@ -111,6 +152,7 @@ export default function PlannerGrowth() {
                     <button onClick={() => updateProgress(g, -1)} className="w-7 h-7 rounded-full bg-pink-50 text-pink-600">−</button>
                     <span className="text-sm text-plum-600">{g.currentProgress || 0}/{g.target}</span>
                     <button onClick={() => updateProgress(g, 1)} className="w-7 h-7 rounded-full bg-pink-50 text-pink-600">+</button>
+                    <button onClick={() => openEditGoal(g)} className="text-plum-300 hover:text-pink-500 ml-1"><Pencil size={14} /></button>
                     <button onClick={() => remove(g.id, "PlannerGoal")} className="text-plum-300 hover:text-red-500 ml-1"><Trash2 size={14} /></button>
                   </div>
                 </div>
@@ -123,7 +165,7 @@ export default function PlannerGrowth() {
         </div>
       )}
 
-      <Modal open={showMetric} onClose={() => setShowMetric(false)} title="New Metric">
+      <Modal open={showMetric} onClose={() => { setShowMetric(false); setEditingMetric(null); }} title={editingMetric ? "Edit Metric" : "New Metric"}>
         <div className="space-y-3">
           <input value={metricForm.platform} onChange={(e) => setMetricForm({ ...metricForm, platform: e.target.value })} placeholder="Platform (e.g. Twitch)" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
           <input value={metricForm.metric} onChange={(e) => setMetricForm({ ...metricForm, metric: e.target.value })} placeholder="Metric (e.g. Followers)" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
@@ -131,11 +173,11 @@ export default function PlannerGrowth() {
             <input type="number" value={metricForm.currentValue || ""} onChange={(e) => setMetricForm({ ...metricForm, currentValue: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Current" className="px-4 py-2.5 rounded-xl border border-pink-200" />
             <input type="number" value={metricForm.goal || ""} onChange={(e) => setMetricForm({ ...metricForm, goal: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Goal" className="px-4 py-2.5 rounded-xl border border-pink-200" />
           </div>
-          <button onClick={createMetric} disabled={saving} className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{saving ? "Saving…" : "Add Metric"}</button>
+          <button onClick={saveMetric} disabled={saving} className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{saving ? "Saving…" : editingMetric ? "Save Changes" : "Add Metric"}</button>
         </div>
       </Modal>
 
-      <Modal open={showGoal} onClose={() => setShowGoal(false)} title="New Goal">
+      <Modal open={showGoal} onClose={() => { setShowGoal(false); setEditingGoal(null); }} title={editingGoal ? "Edit Goal" : "New Goal"}>
         <div className="space-y-3">
           <input value={goalForm.goal} onChange={(e) => setGoalForm({ ...goalForm, goal: e.target.value })} placeholder="Goal * (e.g. Reach 1,000 followers)" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
           <input value={goalForm.category} onChange={(e) => setGoalForm({ ...goalForm, category: e.target.value })} placeholder="Category" className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
@@ -143,7 +185,16 @@ export default function PlannerGrowth() {
             <input type="number" value={goalForm.target || ""} onChange={(e) => setGoalForm({ ...goalForm, target: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Target" className="px-4 py-2.5 rounded-xl border border-pink-200" />
             <input type="date" value={goalForm.deadline} onChange={(e) => setGoalForm({ ...goalForm, deadline: e.target.value })} className="px-4 py-2.5 rounded-xl border border-pink-200" />
           </div>
-          <button onClick={createGoal} disabled={saving || !goalForm.goal} className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{saving ? "Saving…" : "Add Goal"}</button>
+          <div className="grid grid-cols-2 gap-3">
+            <input type="number" value={goalForm.currentProgress || ""} onChange={(e) => setGoalForm({ ...goalForm, currentProgress: e.target.value === "" ? 0 : Number(e.target.value) })} placeholder="Current Progress" className="px-4 py-2.5 rounded-xl border border-pink-200" />
+            <select value={goalForm.status} onChange={(e) => setGoalForm({ ...goalForm, status: e.target.value })} className="px-4 py-2.5 rounded-xl border border-pink-200">
+              <option value="active">Active</option>
+              <option value="completed">Completed</option>
+              <option value="paused">Paused</option>
+            </select>
+          </div>
+          <textarea value={goalForm.notes || ""} onChange={(e) => setGoalForm({ ...goalForm, notes: e.target.value })} placeholder="Notes" rows={2} className="w-full px-4 py-2.5 rounded-xl border border-pink-200" />
+          <button onClick={saveGoal} disabled={saving || !goalForm.goal} className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-pink-500 to-fuchsia-500 disabled:opacity-50">{saving ? "Saving…" : editingGoal ? "Save Changes" : "Add Goal"}</button>
         </div>
       </Modal>
     </div>
