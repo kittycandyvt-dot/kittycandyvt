@@ -16,7 +16,11 @@ export default async function(req) {
     const {
       name,
       email,
+      handle,
+      platform,
+      preferredDate,
       selectedSlot,
+      details,
     } = body || {};
 
     if (!email || !selectedSlot) {
@@ -42,6 +46,15 @@ export default async function(req) {
     });
     if (existingBookings && existingBookings.length > 0) {
       return Response.json({ error: "This interview slot is already booked." }, { status: 409 });
+    }
+
+    // Per-recipient rate limit — one pending booking per email prevents mail relay abuse
+    const existingByEmail = await base44.asServiceRole.entities.InterviewSignup.filter({
+      email: email.toLowerCase(),
+      status: { $in: ["pending", "confirmed"] },
+    });
+    if (existingByEmail && existingByEmail.length > 0) {
+      return Response.json({ error: "You already have a pending interview booking." }, { status: 409 });
     }
 
     /*
@@ -130,6 +143,22 @@ export default async function(req) {
 
     const endHour = getEndPart("hour");
     const endMinute = getEndPart("minute");
+
+    /*
+     * Create the signup record inside this function so the slot conflict
+     * check cannot be bypassed by direct invocation.
+     */
+
+    await base44.asServiceRole.entities.InterviewSignup.create({
+      name: name || "",
+      email,
+      handle: handle || "",
+      platform: platform || "",
+      preferredDate: preferredDate || selectedSlot.slice(0, 10),
+      selectedSlot,
+      details: details || "",
+      status: "pending",
+    });
 
     /*
      * Connect to Google Calendar.

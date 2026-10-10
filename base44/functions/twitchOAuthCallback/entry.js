@@ -31,6 +31,19 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Verify the state parameter against the cookie to prevent CSRF / forced credential binding
+    const stateParam = url.searchParams.get("state");
+    const cookieHeader = req.headers.get("cookie") || "";
+    const cookieMatch = cookieHeader.match(/twitch_oauth_state=([^;]+)/);
+    const cookieState = cookieMatch ? cookieMatch[1] : null;
+
+    if (!stateParam || !cookieState || stateParam !== cookieState) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Invalid or missing state parameter." }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const clientId = Deno.env.get("TWITCH_CLIENT_ID");
     const clientSecret = Deno.env.get("TWITCH_CLIENT_SECRET");
     const redirectUri = Deno.env.get("TWITCH_REDIRECT_URI");

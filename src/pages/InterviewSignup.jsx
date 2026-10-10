@@ -113,17 +113,14 @@ export default function InterviewSignup() {
       return;
     }
 
-    // Create the booking.
+    // Build the booking data — the InterviewSignup record is created
+    // server-side inside sendCalendarInvite to prevent slot conflict bypass.
     const bookingData = {
       ...form,
       preferredDate: selectedSlot.slice(0, 10),
       selectedSlot: selectedSlot,
       status: "pending",
     };
-
-    await base44.entities.InterviewSignup.create(
-      bookingData
-    );
 
     // Add the slot to the local booked list immediately.
     setBookedSlots((currentSlots) => [

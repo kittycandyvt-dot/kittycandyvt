@@ -24,16 +24,17 @@ export default async function(req) {
     }
 
     const data = await res.json();
-    const events = (data.items || []).map((e) => {
-      const start = e.start?.dateTime || e.start?.date;
-      const end = e.end?.dateTime || e.end?.date;
-      return {
-        id: e.id,
-        title: e.summary || 'Untitled Event',
-        start,
-        end,
-      };
-    });
+    const events = (data.items || [])
+      .filter((e) => (e.summary || '').toLowerCase().includes('stream'))
+      .map((e) => {
+        const start = e.start?.dateTime || e.start?.date;
+        const end = e.end?.dateTime || e.end?.date;
+        return {
+          title: e.summary || 'Stream',
+          start,
+          end,
+        };
+      });
 
     return Response.json({ events });
   } catch (error) {
