@@ -5,6 +5,9 @@ import SectionHeading from "@/components/SectionHeading";
 import SocialLinks from "@/components/SocialLinks";
 import { Mail, Upload, CheckCircle } from "lucide-react";
 
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
+const MAX_FILE_COUNT = 5;
+
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -13,7 +16,22 @@ export default function Contact() {
   const [agree, setAgree] = useState(false);
 
   const handleFiles = (e) => {
-    setFiles(Array.from(e.target.files || []));
+    setError("");
+    const selected = Array.from(e.target.files || []);
+    if (selected.length > MAX_FILE_COUNT) {
+      setError(`You can upload a maximum of ${MAX_FILE_COUNT} files.`);
+      setFiles([]);
+      e.target.value = "";
+      return;
+    }
+    const tooLarge = selected.find((f) => f.size > MAX_FILE_SIZE);
+    if (tooLarge) {
+      setError(`"${tooLarge.name}" exceeds the 25 MB size limit.`);
+      setFiles([]);
+      e.target.value = "";
+      return;
+    }
+    setFiles(selected);
   };
 
   const handleSubmit = async (e) => {
@@ -41,6 +59,18 @@ export default function Contact() {
         commercial: form.elements["commercial"]?.checked,
         nsfw: form.elements["nsfw"]?.checked,
       };
+
+      if (files.length > MAX_FILE_COUNT) {
+        setError(`You can upload a maximum of ${MAX_FILE_COUNT} files.`);
+        setSubmitting(false);
+        return;
+      }
+      const oversized = files.find((f) => f.size > MAX_FILE_SIZE);
+      if (oversized) {
+        setError(`"${oversized.name}" exceeds the 25 MB size limit.`);
+        setSubmitting(false);
+        return;
+      }
 
       const fileUrls = [];
       for (const file of files) {
@@ -155,7 +185,7 @@ export default function Contact() {
             <input type="file" multiple onChange={handleFiles} className="text-sm text-plum-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:bg-pink-500 file:text-white" />
           </div>
           {files.length > 0 && (
-            <p className="text-xs text-plum-400 mt-2">{files.length} file(s) selected — stored privately, no public URL, so access follows your app's permissions.</p>
+            <p className="text-xs text-plum-400 mt-2">{files.length} file(s) selected — up to {MAX_FILE_COUNT} files, 25 MB each. Stored privately, no public URL, so access follows your app's permissions.</p>
           )}
         </div>
 
