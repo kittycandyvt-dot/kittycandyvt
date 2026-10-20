@@ -392,6 +392,19 @@ export default async function(req) {
       </div>
     `;
 
+    /*
+     * Send confirmation email to the booking address.
+     */
+
+    await base44.asServiceRole.integrations.Core.SendEmail({
+      to: email,
+
+      subject:
+        `🎤 Interview Confirmed — ${displayDate} at ${displayTime} Eastern Time`,
+
+      html: confirmHtml,
+    });
+
     return Response.json({
       success: true,
       eventId: data.id,
