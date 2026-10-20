@@ -21,33 +21,76 @@ const MONTH_NAMES = [
 const BLOCKED_DATES = [];
 
 // Available interview days:
-// Monday, Wednesday, Friday, Saturday
+// Wednesday only
 //
 // Interview time:
-// 10:00 PM
+// 10:00 PM Eastern Time (America/Toronto)
+
+function createTorontoSlot(year, month, day) {
+  // Create a "fake UTC" date at 10 PM on the given day
+  const fakeUtc = new Date(Date.UTC(year, month, day, 22, 0, 0));
+
+  // Check what hour this is in Toronto timezone
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Toronto",
+    hour: "2-digit",
+    hour12: false,
+  }).formatToParts(fakeUtc);
+
+  const torontoHour = Number(parts.find((p) => p.type === "hour")?.value);
+
+  // Calculate the UTC offset for Toronto (4 for EDT, 5 for EST)
+  const offsetHours = (22 - torontoHour + 24) % 24;
+
+  // The actual UTC time for 10 PM Toronto is fakeUtc + offsetHours
+  return new Date(fakeUtc.getTime() + offsetHours * 3600000);
+}
+
+function getTorontoYearMonth(date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Toronto",
+    year: "numeric", month: "2-digit",
+  }).formatToParts(date);
+  const year = Number(parts.find((p) => p.type === "year")?.value);
+  const month = Number(parts.find((p) => p.type === "month")?.value) - 1;
+  return { year, month };
+}
+
 function generateSlots() {
   const slots = [];
-  const today = new Date();
 
-  today.setHours(0, 0, 0, 0);
+  // Get today's date in Toronto timezone
+  const now = new Date();
+  const torontoParts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
 
-  const validDays = [1, 3, 5, 6];
+  const getPart = (type) =>
+    torontoParts.find((p) => p.type === type)?.value;
+
+  const startYear = Number(getPart("year"));
+  const startMonth = Number(getPart("month")) - 1;
+  const startDay = Number(getPart("day"));
+
+  // Start from today in Toronto
+  const startDate = new Date(Date.UTC(startYear, startMonth, startDay));
 
   for (let i = 0; i < 90; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + i);
+    const date = new Date(startDate);
+    date.setUTCDate(startDate.getUTCDate() + i);
 
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const day = date.getUTCDate();
 
     // Block ALL of September 2026
-    const isSeptember2026 =
-      year === 2026 && month === 8;
+    const isSeptember2026 = year === 2026 && month === 8;
 
     // Block ALL of October 2026
-    const isOctober2026 =
-      year === 2026 && month === 9;
+    const isOctober2026 = year === 2026 && month === 9;
 
     const dateString =
       `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -62,16 +105,12 @@ function generateSlots() {
       continue;
     }
 
-    // Only allow Monday, Wednesday, Friday and Saturday.
-    if (!validDays.includes(date.getDay())) {
+    // Only allow Wednesday.
+    if (date.getUTCDay() !== 3) {
       continue;
     }
 
-    const slot = new Date(date);
-
-    // 10:00 PM local time
-    slot.setHours(22, 0, 0, 0);
-
+    const slot = createTorontoSlot(year, month, day);
     slots.push(slot);
   }
 
@@ -106,13 +145,12 @@ export default function SlotPicker({
     const map = {};
 
     allSlots.forEach((slot) => {
-      const key =
-        `${slot.getFullYear()}-${slot.getMonth()}`;
+      const { year, month } = getTorontoYearMonth(slot);
+      const key = `${year}-${month}`;
 
       if (!map[key]) {
         map[key] = {
-          label:
-            `${MONTH_NAMES[slot.getMonth()]} ${slot.getFullYear()}`,
+          label: `${MONTH_NAMES[month]} ${year}`,
           slots: [],
         };
       }
@@ -129,17 +167,19 @@ export default function SlotPicker({
 
   const formatSlot = (date) => {
     return (
-      date.toLocaleDateString("en-US", {
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Toronto",
         weekday: "short",
         month: "short",
         day: "numeric",
-      }) +
+      }).format(date) +
       " · " +
-      date.toLocaleTimeString("en-US", {
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Toronto",
         hour: "numeric",
         minute: "2-digit",
         hour12: true,
-      })
+      }).format(date)
     );
   };
 

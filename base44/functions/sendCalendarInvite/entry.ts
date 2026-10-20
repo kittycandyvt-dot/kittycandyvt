@@ -40,7 +40,7 @@ function isValidSlot(selectedSlot) {
   const minute = Number(get("minute"));
   if (year === 2026 && (month === 9 || month === 10)) return false;
   const dayOfWeek = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
-  if (![1, 3, 5, 6].includes(dayOfWeek)) return false;
+  if (dayOfWeek !== 3) return false;
   if (hour !== 22 || minute !== 0) return false;
   return true;
 }
