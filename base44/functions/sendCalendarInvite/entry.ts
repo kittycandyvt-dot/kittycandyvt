@@ -107,17 +107,6 @@ export default async function(req) {
       return Response.json({ error: "Daily booking limit reached. Please try again tomorrow." }, { status: 429 });
     }
 
-    // Per-IP daily rate limit — caps abuse from a single source
-    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
-    const MAX_PER_IP = 2;
-    const ipBookings = await base44.asServiceRole.entities.InterviewSignup.filter({
-      ipAddress: clientIp,
-      created_date: { $gte: todayStart.toISOString(), $lt: todayEnd.toISOString() },
-    });
-    if (ipBookings && ipBookings.length >= MAX_PER_IP) {
-      return Response.json({ error: "Too many bookings from your address. Please try again later." }, { status: 429 });
-    }
-
     /*
      * The frontend stores selectedSlot as an ISO timestamp.
      *
@@ -224,7 +213,7 @@ export default async function(req) {
       preferredDate: preferredDate || selectedSlot.slice(0, 10),
       selectedSlot,
       details: details || "",
-      ipAddress: clientIp,
+      ipAddress: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown",
       status: "pending",
     });
 
@@ -260,19 +249,13 @@ export default async function(req) {
         timeZone: "America/Toronto",
       },
 
-      attendees: [
-        {
-          email,
-        },
-      ],
-
       guestsCanModify: false,
       guestsCanInviteOthers: false,
       guestsCanSeeOtherGuests: false,
     };
 
     const response = await fetch(
-      "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=all",
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events?sendUpdates=none",
       {
         method: "POST",
 
@@ -408,19 +391,6 @@ export default async function(req) {
         </div>
       </div>
     `;
-
-    /*
-     * Send confirmation email.
-     */
-
-    await base44.asServiceRole.integrations.Core.SendEmail({
-      to: email,
-
-      subject:
-        `🎤 Interview Confirmed — ${displayDate} at ${displayTime} Eastern Time`,
-
-      html: confirmHtml,
-    });
 
     return Response.json({
       success: true,
