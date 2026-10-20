@@ -10,6 +10,15 @@ function escapeHtml(str: string): string {
     .replace(/"/g, "&quot;");
 }
 
+function safeFileLink(url: string): string {
+  const escaped = escapeHtml(url);
+  // Only render https URLs as clickable links; everything else as plain text
+  if (/^https:\/\//i.test(url)) {
+    return `<a href="${escaped}">${escaped}</a>`;
+  }
+  return escaped;
+}
+
 function row(label: string, value: string): string {
   if (!value) return "";
   return `<tr><td style="padding:8px 12px;font-weight:600;color:#b01a58;width:40%;vertical-align:top;">${escapeHtml(label)}</td><td style="padding:8px 12px;color:#25161c;vertical-align:top;">${escapeHtml(value)}</td></tr>`;
@@ -49,7 +58,7 @@ export default async function(req: Request): Promise<Response> {
           <p style="white-space:pre-wrap;color:#25161c;background:#fff9fb;border-radius:12px;padding:12px;">${escapeHtml(f.script)}</p>
           ${f.pronunciation ? `<p style="font-weight:600;color:#b01a58;margin:12px 0 4px;">Pronunciation Notes</p><p style="white-space:pre-wrap;color:#25161c;background:#fff9fb;border-radius:12px;padding:12px;">${escapeHtml(f.pronunciation)}</p>` : ""}
           ${f.additional ? `<p style="font-weight:600;color:#b01a58;margin:12px 0 4px;">Additional Information</p><p style="white-space:pre-wrap;color:#25161c;background:#fff9fb;border-radius:12px;padding:12px;">${escapeHtml(f.additional)}</p>` : ""}
-          ${f.fileUrls?.length ? `<p style="font-weight:600;color:#b01a58;margin:12px 0 4px;">Attached Files</p><ul style="color:#25161c;">${f.fileUrls.map((u: string) => `<li><a href="${escapeHtml(u)}">${escapeHtml(u)}</a></li>`).join("")}</ul>` : ""}
+          ${f.fileUrls?.length ? `<p style="font-weight:600;color:#b01a58;margin:12px 0 4px;">Attached Files</p><ul style="color:#25161c;">${f.fileUrls.map((u: string) => `<li>${safeFileLink(u)}</li>`).join("")}</ul>` : ""}
         </div>
       </div>
     `;

@@ -10,6 +10,15 @@ function escapeHtml(str: string): string {
     .replace(/"/g, "&quot;");
 }
 
+function safeFileLink(url: string): string {
+  const escaped = escapeHtml(url);
+  // Only render https URLs as clickable links; everything else as plain text
+  if (/^https:\/\//i.test(url)) {
+    return `<a href="${escaped}" style="color:#e64a85;word-break:break-all;">${escaped}</a>`;
+  }
+  return escaped;
+}
+
 function row(label: string, value: string): string {
   if (!value) return "";
   return `<tr><td style="padding:8px 12px;font-weight:600;color:#b01a58;width:40%;vertical-align:top;">${escapeHtml(label)}</td><td style="padding:8px 12px;color:#25161c;vertical-align:top;">${escapeHtml(value)}</td></tr>`;
@@ -40,7 +49,7 @@ export default async function(req: Request): Promise<Response> {
         <div style="background:#ffffff;padding:0 20px 20px;">
           <p style="font-weight:600;color:#b01a58;margin:12px 0 4px;">Review</p>
           <p style="white-space:pre-wrap;color:#25161c;background:#fff9fb;border-radius:12px;padding:12px;">${escapeHtml(f.reviewText)}</p>
-          ${fileUrls.length ? `<p style="font-weight:600;color:#b01a58;margin:16px 0 4px;">Attached Photos / Videos</p><ul style="color:#25161c;list-style:none;padding:0;">${fileUrls.map((u: string) => `<li style="margin:6px 0;"><a href="${escapeHtml(u)}" style="color:#e64a85;word-break:break-all;">${escapeHtml(u)}</a></li>`).join("")}</ul><p style="font-size:12px;color:#d12a6e;margin-top:8px;">Note: These links expire in 7 days. Download the files to keep them.</p>` : ""}
+          ${fileUrls.length ? `<p style="font-weight:600;color:#b01a58;margin:16px 0 4px;">Attached Photos / Videos</p><ul style="color:#25161c;list-style:none;padding:0;">${fileUrls.map((u: string) => `<li style="margin:6px 0;">${safeFileLink(u)}</li>`).join("")}</ul><p style="font-size:12px;color:#d12a6e;margin-top:8px;">Note: These links expire in 7 days. Download the files to keep them.</p>` : ""}
         </div>
       </div>
     `;

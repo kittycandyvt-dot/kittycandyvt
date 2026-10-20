@@ -95,6 +95,29 @@ export default async function(req) {
       return Response.json({ error: "You already have a pending interview booking." }, { status: 409 });
     }
 
+    // Global daily booking cap — prevents anonymous slot flooding / spam engine abuse
+    const MAX_DAILY_BOOKINGS = 8;
+    const now = new Date();
+    const todayStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const todayEnd = new Date(todayStart.getTime() + 24 * 60 * 60 * 1000);
+    const todaysBookings = await base44.asServiceRole.entities.InterviewSignup.filter({
+      created_date: { $gte: todayStart.toISOString(), $lt: todayEnd.toISOString() },
+    });
+    if (todaysBookings && todaysBookings.length >= MAX_DAILY_BOOKINGS) {
+      return Response.json({ error: "Daily booking limit reached. Please try again tomorrow." }, { status: 429 });
+    }
+
+    // Per-IP daily rate limit — caps abuse from a single source
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+    const MAX_PER_IP = 2;
+    const ipBookings = await base44.asServiceRole.entities.InterviewSignup.filter({
+      ipAddress: clientIp,
+      created_date: { $gte: todayStart.toISOString(), $lt: todayEnd.toISOString() },
+    });
+    if (ipBookings && ipBookings.length >= MAX_PER_IP) {
+      return Response.json({ error: "Too many bookings from your address. Please try again later." }, { status: 429 });
+    }
+
     /*
      * The frontend stores selectedSlot as an ISO timestamp.
      *
@@ -201,6 +224,7 @@ export default async function(req) {
       preferredDate: preferredDate || selectedSlot.slice(0, 10),
       selectedSlot,
       details: details || "",
+      ipAddress: clientIp,
       status: "pending",
     });
 

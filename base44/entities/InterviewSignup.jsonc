@@ -42,6 +42,11 @@
       "type": "string",
       "title": "Additional Details"
     },
+    "ipAddress": {
+      "type": "string",
+      "title": "IP Address",
+      "description": "Client IP for abuse-rate-limiting"
+    },
     "status": {
       "type": "string",
       "enum": [
