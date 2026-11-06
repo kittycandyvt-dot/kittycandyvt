@@ -4,6 +4,7 @@ import { pricing, pricingAddons, whatIOffer, turnaround, commissionProcess } fro
 import SectionHeading from "@/components/SectionHeading";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewList from "@/components/ReviewList";
+import WordPricing from "@/components/WordPricing";
 
 export default function Commissions() {
   return (
@@ -28,6 +29,9 @@ export default function Commissions() {
           </div>
         ))}
       </div>
+
+      {/* WORD PRICING */}
+      <WordPricing />
 
       {/* WHAT I OFFER */}
       <div className="mb-12">

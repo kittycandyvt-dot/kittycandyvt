@@ -131,6 +131,17 @@ export const pricing = [
   { duration: "5 Minutes", price: 90 },
 ];
 
+export const wordPricing = {
+  rate: 1,
+  unit: "line of words",
+  examples: [
+    { lines: "10 lines", price: 10 },
+    { lines: "25 lines", price: 25 },
+    { lines: "50 lines", price: 50 },
+    { lines: "100 lines", price: 100 },
+  ],
+};
+
 export const pricingAddons = [
   { label: "NSFW", note: "+50% of initial cost" },
   { label: "Commercial Usage", note: "+20% of initial cost" },
