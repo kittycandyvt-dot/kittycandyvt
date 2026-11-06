@@ -145,6 +145,7 @@ export const wordPricing = {
 export const pricingAddons = [
   { label: "NSFW", note: "+50% of initial cost" },
   { label: "Commercial Usage", note: "+20% of initial cost" },
+  { label: "Editing", note: "$25 per edit" },
 ];
 
 export const whatIOffer = [
