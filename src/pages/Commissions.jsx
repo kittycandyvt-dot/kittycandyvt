@@ -11,11 +11,11 @@ export default function Commissions() {
       <SectionHeading eyebrow="Commissions" title="Voice Acting Commissions" subtitle="Transparent pricing. Professional delivery. Magical results." />
 
       {/* PRICING */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {pricing.map((p, i) => (
-          <div key={p.duration} className={`rounded-3xl p-6 text-center border ${i === 2 ? "bg-gradient-to-br from-pink-500 to-fuchsia-500 text-white border-transparent shadow-xl scale-105" : "glass border-pink-100"}`}>
-            <p className={`text-sm font-semibold ${i === 2 ? "text-pink-50" : "text-pink-500"}`}>{p.duration}</p>
-            <p className={`font-display text-3xl font-extrabold mt-2 ${i === 2 ? "text-white" : "text-plum-900"}`}>${p.price}</p>
+          <div key={p.duration} className={`rounded-3xl p-6 text-center border ${i === 1 ? "bg-gradient-to-br from-pink-500 to-fuchsia-500 text-white border-transparent shadow-xl scale-105" : "glass border-pink-100"}`}>
+            <p className={`text-sm font-semibold ${i === 1 ? "text-pink-50" : "text-pink-500"}`}>{p.duration}</p>
+            <p className={`font-display text-3xl font-extrabold mt-2 ${i === 1 ? "text-white" : "text-plum-900"}`}>${p.price}</p>
           </div>
         ))}
       </div>

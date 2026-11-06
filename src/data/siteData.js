@@ -126,8 +126,6 @@ export const portfolioCategories = [
 ];
 
 export const pricing = [
-  { duration: "15 Seconds", price: 10 },
-  { duration: "30 Seconds", price: 15 },
   { duration: "1 Minute", price: 30 },
   { duration: "2 Minutes", price: 60 },
   { duration: "5 Minutes", price: 90 },
