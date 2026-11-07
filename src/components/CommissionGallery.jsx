@@ -35,7 +35,7 @@ export default function CommissionGallery() {
             className="group glass rounded-3xl overflow-hidden border border-pink-100 hover:shadow-xl transition-shadow"
           >
             {work.img ? (
-              <Image src={work.img} alt={work.title} className="w-full aspect-[4/3]" />
+              <Image src={work.img} alt={work.title || work.client} className="w-full aspect-[4/3]" />
             ) : (
               <div className="w-full aspect-[4/3] bg-gradient-to-br from-pink-100 via-pink-50 to-fuchsia-100 grid place-items-center">
                 <Mic className="text-pink-300" size={40} />

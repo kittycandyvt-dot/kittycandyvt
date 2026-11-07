@@ -130,13 +130,13 @@ export const commissionWorkTypes = [
 ];
 
 export const commissionWork = [
-  { title: "", client: "@SpicyKittyVA", type: "Animation", desc: "Finished NSFW animation commission — watch the full clip on X.", link: "https://x.com/spicykittyva/status/2089519102566060074", img: "" },
-  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2113009931729162574", img: "" },
-  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2117776340745355370", img: "" },
-  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2118501115398680622", img: "" },
-  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2114881956655644722", img: "" },
-  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2111213982195306795", img: "" },
-  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2108342260870140358", img: "" },
+  { title: "", client: "@SpicyKittyVA", type: "Animation", desc: "Finished NSFW animation commission — watch the full clip on X.", link: "https://x.com/spicykittyva/status/2089519102566060074", img: "https://pbs.twimg.com/amplify_video_thumb/2089518849855037440/img/pA_vcuPVI0V365Wf.jpg?name=small" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2113009931729162574", img: "https://pbs.twimg.com/amplify_video_thumb/2112993935731621888/img/KgAxS6aBYpZ68GR1.jpg?name=small" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2117776340745355370", img: "https://pbs.twimg.com/amplify_video_thumb/2117267023830941696/img/VinUTeeq-niJ-JfZ.jpg?name=small" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2118501115398680622", img: "https://pbs.twimg.com/amplify_video_thumb/2118439712973090817/img/RneTwwN9OJKSVFSH.jpg?name=small" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2114881956655644722", img: "https://pbs.twimg.com/amplify_video_thumb/2114881463917084672/img/C-ywmE0qbRmD_kcR.jpg?name=small" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2111213982195306795", img: "https://pbs.twimg.com/amplify_video_thumb/2111212747656400897/img/XcFYD-Mb9SIUnnTP.jpg?name=small" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2108342260870140358", img: "https://pbs.twimg.com/amplify_video_thumb/2108340722168434688/img/3HSEc30Q9hFZK2Dq.jpg?name=small" },
 ];
 
 export const pricing = [
