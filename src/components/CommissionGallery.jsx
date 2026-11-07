@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { commissionWork, commissionWorkTypes } from "@/data/siteData";
 import { Image } from "@/components/ui/image";
+import { ExternalLink, Mic } from "lucide-react";
 
 export default function CommissionGallery() {
   const [active, setActive] = useState("All");
@@ -37,16 +38,19 @@ export default function CommissionGallery() {
               <Image src={work.img} alt={work.title} className="w-full aspect-[4/3]" />
             ) : (
               <div className="w-full aspect-[4/3] bg-gradient-to-br from-pink-100 via-pink-50 to-fuchsia-100 grid place-items-center">
-                <span className="font-display text-lg font-bold text-pink-400/80 tracking-wide text-center px-4">
-                  {work.type}
-                </span>
+                <Mic className="text-pink-300" size={40} />
               </div>
             )}
             <div className="p-5">
               <span className="text-xs font-semibold text-pink-500 uppercase tracking-wide">{work.type}</span>
-              <h3 className="font-display text-lg font-bold text-plum-900 mt-1">{work.title}</h3>
-              <p className="text-sm text-plum-400">{work.client}</p>
+              <h3 className="font-display text-lg font-bold text-plum-900 mt-1">{work.title || work.client}</h3>
+              {work.title && <p className="text-sm text-plum-400">{work.client}</p>}
               <p className="text-sm text-plum-500 mt-2">{work.desc}</p>
+              {work.link && (
+                <a href={work.link} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-pink-500 hover:underline">
+                  View post <ExternalLink size={14} />
+                </a>
+              )}
             </div>
           </article>
         ))}

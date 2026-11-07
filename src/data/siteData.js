@@ -126,19 +126,17 @@ export const portfolioCategories = [
 ];
 
 export const commissionWorkTypes = [
-  "All", "Animation", "Video Games", "Visual Novels", "VTuber", "Commercial", "Narration",
+  "All", "Animation", "Video Games", "Visual Novels", "VTuber", "Commercial", "Narration", "Other",
 ];
 
 export const commissionWork = [
-  { title: "Project Title", client: "Client Name", type: "Animation", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "Video Games", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "Visual Novels", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "VTuber", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "Commercial", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "Narration", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "Animation", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "Video Games", desc: "Short description of the finished commission.", img: "" },
-  { title: "Project Title", client: "Client Name", type: "VTuber", desc: "Short description of the finished commission.", img: "" },
+  { title: "", client: "@SpicyKittyVA", type: "Animation", desc: "Finished NSFW animation commission — watch the full clip on X.", link: "https://x.com/spicykittyva/status/2089519102566060074", img: "" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2113009931729162574", img: "" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2117776340745355370", img: "" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2118501115398680622", img: "" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2114881956655644722", img: "" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2111213982195306795", img: "" },
+  { title: "", client: "@realhoddee", type: "Other", desc: "Finished commission — view the full post on X.", link: "https://x.com/realhoddee/status/2108342260870140358", img: "" },
 ];
 
 export const pricing = [
