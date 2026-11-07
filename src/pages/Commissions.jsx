@@ -5,6 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewList from "@/components/ReviewList";
 import WordPricing from "@/components/WordPricing";
+import CommissionGallery from "@/components/CommissionGallery";
 
 export default function Commissions() {
   return (
@@ -61,6 +62,12 @@ export default function Commissions() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* FINISHED WORK GALLERY */}
+      <div className="mb-12">
+        <SectionHeading eyebrow="Portfolio" title="Finished Commission Work" subtitle="A look at recent pieces — filter by project type." />
+        <CommissionGallery />
       </div>
 
       {/* REVIEWS */}

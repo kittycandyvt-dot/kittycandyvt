@@ -125,6 +125,22 @@ export const portfolioCategories = [
   "Commercial", "Narration", "VTuber", "Other",
 ];
 
+export const commissionWorkTypes = [
+  "All", "Animation", "Video Games", "Visual Novels", "VTuber", "Commercial", "Narration",
+];
+
+export const commissionWork = [
+  { title: "Project Title", client: "Client Name", type: "Animation", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "Video Games", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "Visual Novels", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "VTuber", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "Commercial", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "Narration", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "Animation", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "Video Games", desc: "Short description of the finished commission.", img: "" },
+  { title: "Project Title", client: "Client Name", type: "VTuber", desc: "Short description of the finished commission.", img: "" },
+];
+
 export const pricing = [
   { duration: "1 Minute", price: 30 },
   { duration: "2 Minutes", price: 60 },
