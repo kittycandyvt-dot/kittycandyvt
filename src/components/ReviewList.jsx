@@ -9,8 +9,11 @@ export default function ReviewList() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await base44.entities.CommissionReview.filter({ status: "approved" }, "-created_date", 50);
-        setReviews(data);
+        const page = await base44.entities.CommissionReview.filter(
+          { status: "approved" },
+          { sort: "-created_date", limit: 50 }
+        );
+        setReviews(page.items || []);
       } catch {
         // ignore
       } finally {

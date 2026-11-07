@@ -36,6 +36,11 @@
         "approved",
         "rejected"
       ],
+      "enumColors": [
+        "yellow",
+        "green",
+        "red"
+      ],
       "default": "pending",
       "title": "Status",
       "description": "Approval status \u2014 only approved reviews show on the site"
@@ -47,11 +52,18 @@
     "reviewText"
   ],
   "rls": {
-    "create": null,
+    "create": {},
     "read": {
-      "user_condition": {
-        "role": "admin"
-      }
+      "$or": [
+        {
+          "data.status": "approved"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
     },
     "update": {
       "user_condition": {
