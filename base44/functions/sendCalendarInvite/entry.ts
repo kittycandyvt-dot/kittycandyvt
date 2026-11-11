@@ -352,7 +352,7 @@ export default async function(req) {
             </p>
 
             <p style="margin: 0 0 6px;">
-              <strong>Time:</strong> ${displayTime} Eastern Time
+              <strong>Time:</strong> ${displayTime} EST (Eastern Time)
             </p>
 
             <p style="margin: 0 0 6px;">
@@ -400,7 +400,7 @@ export default async function(req) {
       to: email,
 
       subject:
-        `🎤 Interview Confirmed — ${displayDate} at ${displayTime} Eastern Time`,
+        `🎤 Interview Confirmed — ${displayDate} at ${displayTime} EST`,
 
       html: confirmHtml,
     });

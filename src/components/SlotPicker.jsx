@@ -179,7 +179,8 @@ export default function SlotPicker({
         hour: "numeric",
         minute: "2-digit",
         hour12: true,
-      }).format(date)
+      }).format(date) +
+      " EST"
     );
   };
 
@@ -246,6 +247,10 @@ export default function SlotPicker({
         </button>
 
       </div>
+
+      <p className="mb-4 text-xs text-plum-500 text-center">
+        Every interview starts at 10:00 PM EST (Eastern Time).
+      </p>
 
       {/* Available slots */}
       <div className="grid sm:grid-cols-2 gap-3">

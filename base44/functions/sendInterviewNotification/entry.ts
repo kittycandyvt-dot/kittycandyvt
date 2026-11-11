@@ -39,9 +39,9 @@ export default async function(req) {
     // Convert the exact ISO slot into a readable date/time.
     const slotDate = new Date(selectedSlot);
 
-    const formattedSlot = slotDate.toLocaleString(
-      "en-US",
-      {
+    const formattedSlot =
+      slotDate.toLocaleString("en-US", {
+        timeZone: "America/Toronto",
         weekday: "long",
         month: "long",
         day: "numeric",
@@ -49,8 +49,7 @@ export default async function(req) {
         hour: "numeric",
         minute: "2-digit",
         hour12: true,
-      }
-    );
+      }) + " EST";
 
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
